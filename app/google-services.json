@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "873357310009",
+    "project_id": "medzone-cf950",
+    "storage_bucket": "medzone-cf950.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873357310009:android:3b9ccb8476bb476928b5e8",
+        "android_client_info": {
+          "package_name": "com.kani.medzone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "873357310009-9uinioho1r1a81v70pnhhd3nkeh9ujk2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCygx_dv5DAYGqMvmTirN2Y4_quUlEQXT4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "873357310009-9uinioho1r1a81v70pnhhd3nkeh9ujk2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
