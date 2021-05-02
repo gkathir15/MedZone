@@ -39,6 +39,7 @@ android {
 
 dependencies {
 
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     def room_version = "2.3.0"
 
     // Import the Firebase BoM
@@ -70,4 +71,5 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+    implementation 'com.github.dhaval2404:imagepicker:1.8'
 }

@@ -22,4 +22,9 @@
         android:name="com.kani.medzone.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/tabletListFragment"
+        android:name="com.kani.medzone.TabletListFragment"
+        android:label="fragment_tablet_list"
+        tools:layout="@layout/fragment_tablet_list" />
 </navigation>
