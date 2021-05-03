@@ -7,4 +7,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_tablets">add Tablets</string>
+    <string name="drug_name">Drug name</string>
+    <string name="break_fast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
+    <string name="With_food">With food</string>
+    <string name="without_food">Without food</string>
+
 </resources>
