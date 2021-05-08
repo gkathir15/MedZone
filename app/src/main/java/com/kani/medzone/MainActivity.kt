@@ -1,26 +1,28 @@
 package com.kani.medzone
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import com.kani.medzone.ui.TabletListFragment
+import com.kani.medzone.ui.ViewPagerAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
+    private var pageAdapter: ViewPagerAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        pageAdapter = ViewPagerAdapter(supportFragmentManager)
 
-        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+
+        pageAdapter?.addFragment("TABLETS1", TabletListFragment())
+        pageAdapter?.addFragment("TABLETS2", TabletListFragment())
+        pageAdapter?.addFragment("TABLETS", TabletListFragment())
+
+
+        pager.adapter = pageAdapter
+
+
     }
+
+
 }

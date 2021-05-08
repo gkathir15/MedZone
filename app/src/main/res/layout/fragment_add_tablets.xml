@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ui.AddTabletsFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/tabletImg"
@@ -12,7 +16,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        android:src="@drawable/ic_baseline_add_a_photo_24"
+        android:contentDescription="@string/addimage" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ed_tabletName"
@@ -26,6 +31,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:id="@+id/tabletNameET"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -42,33 +49,51 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number"
+            android:id="@+id/mgEt"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:id="@+id/spinner_foodPreferences"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ed_mg"
-        android:padding="10dp"
-        android:hint="@string/food_preferences">
 
-        <AutoCompleteTextView
-            android:id="@+id/filled_exposed_dropdown"
+
+        <RadioGroup
+            android:id="@+id/foodPref"
+            android:layout_below="@id/ed_mg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/beforeFood"
+                android:layout_weight="1"
+                android:text="@string/before_food"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/withFood"
+                android:layout_weight="1"
+                android:text="@string/before_food"/>
+            <RadioButton
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/afterFood"
+                android:text="@string/before_food"/>
 
-    </com.google.android.material.textfield.TextInputLayout>
+        </RadioGroup>
+
 
     <LinearLayout
         android:id="@+id/checkbox_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinner_foodPreferences"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_below="@+id/foodPref"
+        android:layout_marginHorizontal="10dp"
         android:orientation="horizontal">
 
         <CheckBox
@@ -98,7 +123,7 @@
     <TextView
         android:id="@+id/add"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/checkbox_layout"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
@@ -108,6 +133,9 @@
         android:background="@color/design_default_color_primary"
         android:textSize="@dimen/tablet_list_tv"
         android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
         android:textStyle="bold"/>
 
 </RelativeLayout>
+
+</ScrollView>

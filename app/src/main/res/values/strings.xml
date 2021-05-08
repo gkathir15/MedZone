@@ -18,4 +18,8 @@
     <string name="mg">Mg</string>
     <string name="food_preferences">Food perefences</string>
     <string name="add">Add</string>
+    <string name="tabletimage">tabletImage</string>
+    <string name="before_food">Before food</string>
+    <string name="addimage">AddImage</string>
+    <string name="afterfood">afterFood</string>
 </resources>

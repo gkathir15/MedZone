@@ -7,10 +7,12 @@ import androidx.room.PrimaryKey
 /**Created by Guru kathir.J on 02,May,2021 **/
 @Entity
 data class Tablets(
-        @PrimaryKey val tabletid: Int,
-        @ColumnInfo(name = "tabletName") val name: String?,
-        @ColumnInfo(name = "mg") val mgDosage: Int?,
-        @ColumnInfo(name = "mealDosage") val mealDosage: Int?,
-        @ColumnInfo(name = "imageUrl") val imageUrl: String?,
-        @ColumnInfo(name = "dayDosage") val dayDosage: String? //Values will be in form of 1 or 1,2 or 1,3 or 1,2,3 etc
+        @PrimaryKey(autoGenerate = true) val tabletid: Int,
+        @ColumnInfo(name = "tabletName") var name: String?,
+        @ColumnInfo(name = "mg") var mgDosage: Int?,
+        @ColumnInfo(name = "mealDosage") var mealDosage: Int?,// 1 before food/ 2 after food / 3 with food
+        @ColumnInfo(name = "imageUrl") var imageUrl: String?,
+        @ColumnInfo(name = "breakfast") var breakfast: Int? ,//0/1
+        @ColumnInfo(name = "lunch") var lunch: Int?, //0/1,
+        @ColumnInfo(name = "dinner") var dinner: Int? //0/1
 )

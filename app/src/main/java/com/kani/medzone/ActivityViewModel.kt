@@ -11,23 +11,24 @@ import com.kani.medzone.db.Tablets
 /**Created by Guru kathir.J on 02,May,2021 **/
 class ActivityViewModel(val app: Application) : AndroidViewModel(app) {
 
-    private var db:AppDatabase?=null
-    var tabletsList:MutableLiveData<List<Tablets>>?=null
+    private  var db:AppDatabase?=null
+    var tabletsList:MutableLiveData<ArrayList<Tablets>> = MutableLiveData(ArrayList<Tablets>())
 
     fun databaseInstance(): AppDatabase {
-        if (db!=null)
-        return db as AppDatabase
+        return if (db!=null)
+            db as AppDatabase
         else{
             db = Room.databaseBuilder(
-                    app,
-                    AppDatabase::class.java, "medZone"
+                app,
+                AppDatabase::class.java, "medZone"
             ).build()
-            return db as AppDatabase
+            db as AppDatabase
         }
     }
 
-    fun fetchTabletsList()
+   suspend fun fetchTabletsList()
     {
-        tabletsList?.postValue(databaseInstance().tabletsDao().getAll())
+        tabletsList.value?.clear()
+        tabletsList.postValue(databaseInstance().tabletsDao().getAll() as ArrayList<Tablets>?)
     }
 }

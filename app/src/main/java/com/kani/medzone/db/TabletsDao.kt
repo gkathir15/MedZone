@@ -7,7 +7,7 @@ import com.google.common.collect.Table
 @Dao
 interface TabletsDao {
     @Query("SELECT * FROM Tablets")
-    fun getAll(): List<Tablets>
+    suspend fun getAll(): List<Tablets>
 
 //    @Query("SELECT * FROM Tablets WHERE tabletid IN (:tabletid)")
 //    fun loadAllByIds(tabletid: IntArray): List<Tablets>
@@ -17,11 +17,11 @@ interface TabletsDao {
 //    fun findByName(first: String, last: String): User
 
     @Insert
-    fun insert( tablet: Tablets)
+    suspend fun insert( tablet: Tablets)
 
     @Delete
-    fun delete(tablet: Tablets)
+    suspend fun delete(tablet: Tablets)
 
     @Update
-    fun update (tablet: Tablets)
+    suspend  fun update (tablet: Tablets)
 }

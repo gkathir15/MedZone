@@ -18,10 +18,11 @@
                         <ImageView
                             android:id="@+id/drugImg"
                             android:layout_width="wrap_content"
-                            android:layout_height="162dp"
+                            android:layout_height="120dp"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="20dp"
-                            tools:srcCompat="@tools:sample/avatars" />
+                            tools:srcCompat="@tools:sample/avatars"
+                            android:contentDescription="@string/tabletimage" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -37,6 +38,14 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="15dp"
                                     android:text="@string/drug_name"
+                                    android:textStyle="bold"
+                                    android:textSize="@dimen/tablet_list_tv" />
+                                <TextView
+                                    android:id="@+id/mg"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="15dp"
+                                    android:text="@string/mg"
                                     android:textStyle="bold"
                                     android:textSize="@dimen/tablet_list_tv" />
 
@@ -67,26 +76,37 @@
                                 </LinearLayout>
 
 <!--                                TODO change food preference to TextView-->
-                                <LinearLayout
+
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/drugImg"
+                            android:weightSum="3"
+                            android:orientation="horizontal">
+
+                                <RadioButton
+                                    android:id="@+id/beforefood"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
+                                    android:layout_height="match_parent"
+                                    android:checked="true"
+                                    android:layout_weight="1"
+                                    android:text="@string/With_food" />
 
-                                        <CheckBox
-                                            android:id="@+id/withfood"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:checked="true"
-                                            android:text="@string/With_food" />
+                                <RadioButton
+                                    android:id="@+id/withfood"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:text="@string/without_food" />
+                                <RadioButton
+                                    android:id="@+id/afterFood"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:text="@string/afterfood" />
 
-                                        <CheckBox
-                                            android:id="@+id/withoutfood"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:text="@string/without_food" />
-
-
-                                </LinearLayout>
 
                         </LinearLayout>
                 </RelativeLayout>
