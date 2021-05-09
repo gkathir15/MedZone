@@ -39,7 +39,7 @@ class TabletListFragment : Fragment() {
         GlobalScope.launch {
             homeViewModel.fetchTabletsList()
         }
-        homeViewModel.tabletsList?.observe(viewLifecycleOwner, {
+        homeViewModel.tabletsList.observe(viewLifecycleOwner, {
             tabletAdapter?.setData(it)
         })
 

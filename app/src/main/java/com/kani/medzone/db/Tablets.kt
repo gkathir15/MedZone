@@ -11,7 +11,7 @@ data class Tablets(
         @ColumnInfo(name = "tabletName") var name: String?,
         @ColumnInfo(name = "mg") var mgDosage: Int?,
         @ColumnInfo(name = "mealDosage") var mealDosage: Int?,// 1 before food/ 2 after food / 3 with food
-        @ColumnInfo(name = "imageUrl") var imageUrl: String?,
+        @ColumnInfo(typeAffinity = ColumnInfo.BLOB) var imageUrl: ByteArray?,
         @ColumnInfo(name = "breakfast") var breakfast: Int? ,//0/1
         @ColumnInfo(name = "lunch") var lunch: Int?, //0/1,
         @ColumnInfo(name = "dinner") var dinner: Int? //0/1

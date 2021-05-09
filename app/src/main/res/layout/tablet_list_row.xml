@@ -16,6 +16,15 @@
                     android:layout_height="match_parent">
 
                         <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/edit"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:src="@drawable/ic_baseline_edit_24"
+                            android:padding="10dp"/>
+
+                        <ImageView
                             android:id="@+id/drugImg"
                             android:layout_width="wrap_content"
                             android:layout_height="120dp"
@@ -59,18 +68,21 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             android:checked="true"
+                                            android:clickable="false"
                                             android:text="@string/break_fast" />
 
                                         <CheckBox
                                             android:id="@+id/lunch"
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
+                                            android:clickable="false"
                                             android:text="@string/lunch" />
 
                                         <CheckBox
                                             android:id="@+id/dinner"
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
+                                            android:clickable="false"
                                             android:text="@string/dinner" />
 
                                 </LinearLayout>
@@ -92,6 +104,7 @@
                                     android:layout_height="match_parent"
                                     android:checked="true"
                                     android:layout_weight="1"
+                                    android:clickable="false"
                                     android:text="@string/With_food" />
 
                                 <RadioButton
@@ -99,12 +112,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
+                                    android:clickable="false"
                                     android:text="@string/without_food" />
                                 <RadioButton
                                     android:id="@+id/afterFood"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
+                                    android:clickable="false"
                                     android:text="@string/afterfood" />
 
 

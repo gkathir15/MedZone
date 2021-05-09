@@ -28,7 +28,7 @@ import java.io.File
 class AddTabletsFragment : Fragment() {
     private val homeViewModel by activityViewModels<ActivityViewModel>()
         private var imgFile:File?=null
-    private val tablet = Tablets(0,"",50,1,"",1,0,0)
+    private val tablet = Tablets(0,"",50,1, ByteArray(0),1,0,0)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -96,6 +96,7 @@ class AddTabletsFragment : Fragment() {
 
                 if(imgFile!=null)
                 {
+                    tablet.imageUrl = imgFile?.readBytes()
                     if(tabletNameET.text.toString().isNotBlank())
                     {
                         tablet.name = tabletNameET.text.toString()
