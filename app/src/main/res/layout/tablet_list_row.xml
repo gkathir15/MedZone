@@ -6,7 +6,9 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            card_view:cardCornerRadius="4dp">
+            card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="3dp"
+    android:layout_marginBottom="2dp">
 
 <!--        TODO add edit button on right top-->
 <!--        TODO add mg Textview below card view-->
@@ -28,26 +30,23 @@
                             android:id="@+id/drugImg"
                             android:layout_width="wrap_content"
                             android:layout_height="120dp"
-                            android:layout_marginStart="20dp"
+                            android:layout_marginStart="10dp"
                             android:layout_marginTop="20dp"
                             tools:srcCompat="@tools:sample/avatars"
                             android:contentDescription="@string/tabletimage" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_toEndOf="@+id/drugImg"
-                            android:orientation="vertical">
+
 
                                 <TextView
                                     android:id="@+id/tv_drugName"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="15dp"
+                                    android:layout_marginTop="20dp"
                                     android:text="@string/drug_name"
                                     android:textStyle="bold"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toEndOf="@id/drugImg"
+                                    android:layout_marginStart="10dp"
                                     android:textSize="@dimen/tablet_list_tv" />
                                 <TextView
                                     android:id="@+id/mg"
@@ -55,12 +54,19 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="15dp"
                                     android:text="@string/mg"
+                                    android:layout_below="@id/tv_drugName"
+                                    android:layout_toEndOf="@id/drugImg"
+                                    android:layout_marginStart="10dp"
                                     android:textStyle="bold"
                                     android:textSize="@dimen/tablet_list_tv" />
 
                                 <LinearLayout
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_below="@id/mg"
+                                    android:layout_toEndOf="@id/drugImg"
+                                    android:weightSum="3"
+                                    android:layout_marginTop="10dp"
                                     android:orientation="horizontal">
 
                                         <CheckBox
@@ -69,6 +75,8 @@
                                             android:layout_height="match_parent"
                                             android:checked="true"
                                             android:clickable="false"
+                                            android:layout_weight="1"
+                                            android:textSize="12sp"
                                             android:text="@string/break_fast" />
 
                                         <CheckBox
@@ -76,6 +84,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             android:clickable="false"
+                                            android:layout_weight="1"
                                             android:text="@string/lunch" />
 
                                         <CheckBox
@@ -83,6 +92,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             android:clickable="false"
+                                            android:layout_weight="1"
                                             android:text="@string/dinner" />
 
                                 </LinearLayout>
@@ -90,12 +100,13 @@
 <!--                                TODO change food preference to TextView-->
 
 
-                        </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/drugImg"
                             android:weightSum="3"
+                            android:layout_marginTop="10dp"
                             android:orientation="horizontal">
 
                                 <RadioButton
@@ -124,6 +135,7 @@
 
 
                         </LinearLayout>
+
                 </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
