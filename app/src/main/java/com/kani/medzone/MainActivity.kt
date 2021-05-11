@@ -17,9 +17,9 @@ class MainActivity : AppCompatActivity() {
         pageAdapter = ViewPagerAdapter(supportFragmentManager)
 
 
-        pageAdapter?.addFragment("TABLETS1", TabletListFragment())
-        pageAdapter?.addFragment("TABLETS2", TabletListFragment())
-        pageAdapter?.addFragment("TABLETS", TabletListFragment())
+        pageAdapter?.addFragment(AppConstants.TABLETS1, TabletListFragment())
+        pageAdapter?.addFragment(AppConstants.TABLETS2, TabletListFragment())
+        pageAdapter?.addFragment(AppConstants.TABLETS, TabletListFragment())
 
 
         pager.adapter = pageAdapter

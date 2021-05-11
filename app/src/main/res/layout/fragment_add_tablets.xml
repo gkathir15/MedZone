@@ -85,7 +85,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/afterFood"
-                android:text="@string/afterfood"/>
+                android:text="@string/after_food"/>
+
 
         </RadioGroup>
 

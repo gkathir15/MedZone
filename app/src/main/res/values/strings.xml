@@ -21,5 +21,7 @@
     <string name="tabletimage">tabletImage</string>
     <string name="before_food">Before food</string>
     <string name="addimage">AddImage</string>
-    <string name="afterfood">After Food</string>
+    <string name="after_food">After food</string>
+    <string name="phno">Ph no</string>
+    <string name="name">Name</string>
 </resources>

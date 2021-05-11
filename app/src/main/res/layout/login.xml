@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ed_phNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/phno"
+        android:paddingHorizontal="30dp"
+        android:layout_marginTop="30dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:id="@+id/phNoET"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ed_date1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/phno"
+        android:layout_below="@+id/ed_phNo"
+        android:paddingHorizontal="100dp"
+        android:layout_marginTop="80dp"
+        app:startIconDrawable="@drawable/ic_baseline_edit_24"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:id="@+id/date1ET"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ed_date2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/phno"
+        android:layout_below="@+id/ed_date1"
+        android:paddingHorizontal="100dp"
+        android:layout_marginTop="30dp"
+        app:startIconDrawable="@drawable/ic_baseline_edit_24"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:id="@+id/date2ET"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ed_date3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/phno"
+        android:layout_below="@+id/ed_date2"
+        android:paddingHorizontal="100dp"
+        android:layout_marginTop="30dp"
+        app:startIconDrawable="@drawable/ic_baseline_edit_24"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:id="@+id/date3ET"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+</RelativeLayout>

@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.kani.medzone.ActivityViewModel
+import com.kani.medzone.AppConstants
 import com.kani.medzone.R
 import com.kani.medzone.db.Tablets
 import kotlinx.android.synthetic.main.fragment_add_tablets.*
@@ -102,13 +103,13 @@ class AddTabletsFragment : Fragment() {
                         }
                         (parentFragment as TabletListFragment).back(this)
                     } else {
-                        ed_mg.error = "Enter dosage size"
+                        ed_mg.error = AppConstants.ENTER_DOSAGE_SIZE;
                     }
                 } else {
-                    ed_tabletName.error = "Enter Tablet name"
+                    ed_tabletName.error = AppConstants.ENTER_TABLET_NAME
                 }
             } else {
-                Toast.makeText(requireContext(), "Capture image of Tablet", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), AppConstants.CAPTURE_IMAGE_OF_TABLET, Toast.LENGTH_SHORT)
                     .show()
             }
 
@@ -155,7 +156,7 @@ class AddTabletsFragment : Fragment() {
                 Toast.makeText(activity, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             }
             else -> {
-                Toast.makeText(activity, "Task Cancelled", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, AppConstants.TASK_CANCELLED, Toast.LENGTH_SHORT).show()
             }
         }
     }
