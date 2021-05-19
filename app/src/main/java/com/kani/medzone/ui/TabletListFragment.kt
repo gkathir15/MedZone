@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -34,6 +36,7 @@ class TabletListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         addTablet.setOnClickListener {
             childFragmentManager.beginTransaction().add(R.id.root, AddTabletsFragment()).commit()
+            addTablet.visibility = GONE
         }
         tabletAdapter = TabletsListAdapter(ArrayList<Tablets>(0))
         GlobalScope.launch {
@@ -54,8 +57,9 @@ class TabletListFragment : Fragment() {
     fun back(addTabletsFragment: AddTabletsFragment) {
         childFragmentManager.beginTransaction().remove(addTabletsFragment).commit()
         GlobalScope.launch {
-            homeViewModel.fetchTabletsList()
+
         }
+        addTablet.visibility = VISIBLE
     }
 
 }

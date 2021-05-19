@@ -1,14 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.LoginFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:focusable="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/care_takerNo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:hint="@string/care_taker_number"
+        android:paddingHorizontal="30dp"
+        android:layout_marginTop="30dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-</FrameLayout>
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:id="@+id/care_takerNoEt"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/caretakerSMS"
+        android:text="@string/send_sms_to_caretaker"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/care_takerNo"/>
+
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/breakfastTime"
+        android:layout_below="@id/caretakerSMS"
+        tools:text="09.00 AM"
+        android:layout_marginStart="30dp"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/breakfastTime"
+        android:src="@drawable/ic_baseline_edit_24"
+        android:layout_below="@id/caretakerSMS"
+        android:layout_marginStart="20dp"
+        android:id="@+id/breakfastEdit"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/lunchTime"
+        android:layout_below="@id/breakfastTime"
+        tools:text="09.00 AM"
+        android:layout_marginStart="30dp"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/lunchTime"
+        android:src="@drawable/ic_baseline_edit_24"
+        android:layout_below="@id/breakfastTime"
+        android:layout_marginStart="20dp"
+        android:id="@+id/linchEdit"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/dinerTime"
+        android:layout_below="@id/lunchTime"
+        tools:text="09.00 AM"
+        android:layout_marginStart="30dp"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/lunchTime"
+        android:src="@drawable/ic_baseline_edit_24"
+        android:layout_below="@id/lunchTime"
+        android:layout_marginStart="20dp"
+        android:id="@+id/dinnerEdit"
+        android:layout_marginTop="20dp"/>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/save"
+        android:id="@+id/SaveBtn"
+        />
+
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/snoozeLabel"
+        android:text="@string/snooze_timer"
+        android:layout_below="@id/dinerTime"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:layout_marginStart="30dp"/>
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_baseline_edit_24"
+    android:layout_below="@id/dinerTime"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="20dp"
+    android:id="@+id/snoozeEdit"
+        android:layout_toEndOf="@id/snoozeLabel" />
+
+
+</RelativeLayout>

@@ -23,4 +23,8 @@ class ViewPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm,
         fragmentMap[title] = frag
     }
 
+    override fun getPageTitle(position: Int): CharSequence {
+       // return super.getPageTitle(position)
+        return fragmentMap.keys.toList()[position]
+    }
 }

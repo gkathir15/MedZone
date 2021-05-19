@@ -14,7 +14,7 @@ import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.kani.medzone.ActivityViewModel
-import com.kani.medzone.AppConstants
+import com.kani.medzone.Constants
 import com.kani.medzone.R
 import com.kani.medzone.db.Tablets
 import kotlinx.android.synthetic.main.fragment_add_tablets.*
@@ -50,32 +50,6 @@ class AddTabletsFragment : Fragment() {
                 .start()
         }
 
-        tabletNameET.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-        })
-        mgEt.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-        })
         foodPref.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.beforeFood -> {
@@ -99,17 +73,21 @@ class AddTabletsFragment : Fragment() {
                     if (mgEt.text.toString().isNotBlank()) {
                         tablet.mgDosage = mgEt.text.toString().toInt()
                         GlobalScope.launch {
-                            homeViewModel.databaseInstance().tabletsDao().insert(tablet)
+                            homeViewModel.run {
+                                this.databaseInstance().tabletsDao().insert(tablet)
+                                this.fetchTabletsList()
+                            }
+
                         }
                         (parentFragment as TabletListFragment).back(this)
                     } else {
-                        ed_mg.error = AppConstants.ENTER_DOSAGE_SIZE;
+                        ed_mg.error = Constants.ENTER_DOSAGE_SIZE;
                     }
                 } else {
-                    ed_tabletName.error = AppConstants.ENTER_TABLET_NAME
+                    ed_tabletName.error = Constants.ENTER_TABLET_NAME
                 }
             } else {
-                Toast.makeText(requireContext(), AppConstants.CAPTURE_IMAGE_OF_TABLET, Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), Constants.CAPTURE_IMAGE_OF_TABLET, Toast.LENGTH_SHORT)
                     .show()
             }
 
@@ -156,7 +134,7 @@ class AddTabletsFragment : Fragment() {
                 Toast.makeText(activity, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             }
             else -> {
-                Toast.makeText(activity, AppConstants.TASK_CANCELLED, Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, Constants.TASK_CANCELLED, Toast.LENGTH_SHORT).show()
             }
         }
     }

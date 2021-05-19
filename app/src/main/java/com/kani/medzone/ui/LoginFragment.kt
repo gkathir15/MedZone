@@ -1,12 +1,24 @@
 package com.kani.medzone.ui
 
+import android.app.TimePickerDialog
+import android.content.DialogInterface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.NumberPicker
+import androidx.appcompat.app.AlertDialog
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.asLiveData
+import com.kani.medzone.Constants
+import com.kani.medzone.MainActivity
 import com.kani.medzone.R
-
+import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.util.*
 
 
 class LoginFragment : Fragment() {
@@ -25,4 +37,129 @@ class LoginFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        (requireActivity() as MainActivity).getDataStore().data.asLiveData().observe(viewLifecycleOwner,{
+         breakfastTime.text = ("BreakFast ${it[intPreferencesKey(Constants.BREAKFAST_Hour)]?:9.hoursToAM_PM(it[intPreferencesKey(Constants.BREAKFAST_min)]?:30)}")
+         lunchTime.text = ("Lunch ${it[intPreferencesKey(Constants.LUNCH_Hour)]?:13.hoursToAM_PM(it[intPreferencesKey(Constants.LUNCH_min)]?:30)}")
+         dinerTime.text = ("Dinner ${it[intPreferencesKey(Constants.DINNER_Hour)]?:8.hoursToAM_PM(it[intPreferencesKey(Constants.DINNER_min)]?:30)}")
+            snoozeLabel.text = ("Snooze By ${it[intPreferencesKey(Constants.SNOOZETIME)]?: 5} Minutes")
+     })
+
+
+        breakfastEdit.setOnClickListener {
+            val calendar = Calendar.getInstance()
+          val timePickerDialog = TimePickerDialog(requireContext(),
+              { view, hourOfDay, minute ->
+                  GlobalScope.launch {
+                      (requireActivity() as MainActivity).getDataStore().edit {
+                          it[intPreferencesKey(Constants.BREAKFAST_Hour)] = hourOfDay
+                          it[intPreferencesKey(Constants.BREAKFAST_min)] = minute
+                      }
+                  }
+              },calendar.get(Calendar.HOUR),calendar.get(Calendar.MINUTE),false)
+
+            timePickerDialog.show()
+        }
+        linchEdit.setOnClickListener {
+            val calendar = Calendar.getInstance()
+          val timePickerDialog = TimePickerDialog(requireContext(),
+              { view, hourOfDay, minute ->
+                  GlobalScope.launch {
+                      (requireActivity() as MainActivity).getDataStore().edit {
+                          it[intPreferencesKey(Constants.LUNCH_Hour)] = hourOfDay
+                          it[intPreferencesKey(Constants.LUNCH_min)] = minute
+                      }
+                  }
+              },calendar.get(Calendar.HOUR),calendar.get(Calendar.MINUTE),false)
+
+            timePickerDialog.show()
+        }
+        dinnerEdit.setOnClickListener {
+            val calendar = Calendar.getInstance()
+          val timePickerDialog = TimePickerDialog(requireContext(),
+              { view, hourOfDay, minute ->
+                  GlobalScope.launch {
+                      (requireActivity() as MainActivity).getDataStore().edit {
+                          it[intPreferencesKey(Constants.DINNER_Hour)] = hourOfDay
+                          it[intPreferencesKey(Constants.DINNER_min)] = minute
+                      }
+                  }
+              },calendar.get(Calendar.HOUR),calendar.get(Calendar.MINUTE),false)
+
+            timePickerDialog.show()
+        }
+        snoozeEdit.setOnClickListener {
+         showNumberPicker()
+        }
+
+//            if(care_takerNoEt.text?.isNotBlank() == true)
+//            {
+//
+//            }
+
+        SaveBtn.setOnClickListener {
+
+            (requireActivity() as MainActivity).also {
+                it.getPreferences()?.edit()?.putBoolean(Constants.ISLoggedIN,true)?.commit()
+                it.removeFrag(this)
+                it.showTabsView()
+            }
+        }
+
+    }
+
+private fun showNumberPicker()
+{
+    val d: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+    val inflater = this.layoutInflater
+    val dialogView: View = inflater.inflate(R.layout.number_picker_dialog, null)
+    d.setTitle("Title")
+    d.setMessage("Message")
+    d.setView(dialogView)
+    val numberPicker = dialogView.findViewById<View>(R.id.dialog_number_picker) as NumberPicker
+    numberPicker.maxValue = 20
+    numberPicker.minValue = 5
+    numberPicker.wrapSelectorWheel = false
+    val alertDialog: AlertDialog = d.create()
+    numberPicker.setOnValueChangedListener { _, i, i1 ->
+        GlobalScope.launch {
+            (requireActivity() as MainActivity).getDataStore().edit {
+                it[intPreferencesKey(Constants.SNOOZETIME)] = i1
+            }
+        }
+    }
+    d.setPositiveButton("Done",
+        { _, i ->
+            alertDialog.dismiss()
+        })
+    d.setNegativeButton("Cancel",
+        { dialogInterface, i ->
+            alertDialog.dismiss()
+        })
+
+    alertDialog.show()
+}
+
+
+
+}
+fun Int.hoursToAM_PM(mins: Int):String
+{
+   val value = StringBuilder()
+   if(this<12)
+   {
+       value.append(this)
+       value.append(" : ")
+       value.append(mins)
+       value.append( "AM")
+   }else{
+       value.append(this-12)
+       value.append(" : ")
+       value.append(mins)
+       value.append( "PM")
+   }
+
+    return value.toString()
 }

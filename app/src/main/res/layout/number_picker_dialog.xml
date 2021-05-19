@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="30dp"
+        android:id="@+id/label"
+        android:text="@string/snooze_time_in_minutes"/>
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_below="@id/label"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/dialog_number_picker"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

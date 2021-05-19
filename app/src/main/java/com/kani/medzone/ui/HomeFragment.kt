@@ -10,7 +10,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.kani.medzone.ActivityViewModel
+import com.kani.medzone.Constants
+import com.kani.medzone.MainActivity
 import com.kani.medzone.R
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
@@ -23,8 +26,49 @@ class HomeFragment : Fragment() {
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
+
 
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        nextBtn.setOnClickListener {
+
+            if(phNoET.text?.isNotBlank() == true)
+            {
+                if(nameEt.text?.isNotBlank() == true)
+                {
+                    if(patientNoEt.text?.isNotBlank() == true)
+                    {
+                        if(illnessEt.text?.isNotBlank() == true)
+                        {
+                            (requireActivity() as MainActivity).getPreferences()?.edit()?.putString(Constants.PHONE_NUMBER, phNoET.text.toString())?.apply()
+                            (requireActivity() as MainActivity).getPreferences()?.edit()?.putString(Constants.NAME, nameEt.text.toString())?.apply()
+                            (requireActivity() as MainActivity).getPreferences()?.edit()?.putString(Constants.PATIENT_NO, patientNoEt.text.toString())?.apply()
+                            (requireActivity() as MainActivity).getPreferences()?.edit()?.putString(Constants.ILLNESS, illnessEt.text.toString())?.apply()
+
+                            (requireActivity() as MainActivity).removeFrag(this)
+                            (requireActivity() as MainActivity).addFrag(LoginFragment())
+                        }else{
+                                            illness.error = "Enter illness"
+                        }
+                    }else{
+                        patientNo.error = "enter patient no"
+                    }
+                }else{
+                    ed_name.error = "Enter valid name"
+                }
+
+            }else{
+                ed_phNo.error = "enter valid phone number"
+            }
+
+
+
+
+        }
     }
 }

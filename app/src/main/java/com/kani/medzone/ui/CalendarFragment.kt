@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import com.kani.medzone.ActivityViewModel
 import com.kani.medzone.R
 
-class NotificationsFragment : Fragment() {
+class CalendarFragment : Fragment() {
 
     private val homeViewModel by activityViewModels<ActivityViewModel>()
 
@@ -19,6 +19,6 @@ class NotificationsFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_notifications, container, false)
+        return inflater.inflate(R.layout.fragment_calendar, container, false)
     }
 }

@@ -24,4 +24,12 @@
     <string name="after_food">After food</string>
     <string name="phno">Ph no</string>
     <string name="name">Name</string>
+    <string name="next">next</string>
+    <string name="illness">Illness</string>
+    <string name="patient_no">Patient No</string>
+    <string name="care_taker_number">Care Taker Number</string>
+    <string name="save">Save</string>
+    <string name="snooze_timer">Snooze Timer</string>
+    <string name="send_sms_to_caretaker">Send SMS to Caretaker</string>
+    <string name="snooze_time_in_minutes">Snooze Time in Minutes</string>
 </resources>
