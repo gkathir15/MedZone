@@ -4,18 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.kani.medzone.ActivityViewModel
 import com.kani.medzone.Constants
 import com.kani.medzone.MainActivity
 import com.kani.medzone.R
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_signup.*
 
-class HomeFragment : Fragment() {
+class SignUpFragment : Fragment() {
 
     private val homeViewModel by activityViewModels<ActivityViewModel>()
 
@@ -25,7 +22,7 @@ class HomeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val root = inflater.inflate(R.layout.fragment_signup, container, false)
 
 
         return root
@@ -51,7 +48,7 @@ class HomeFragment : Fragment() {
                             (requireActivity() as MainActivity).getPreferences()?.edit()?.putString(Constants.ILLNESS, illnessEt.text.toString())?.apply()
 
                             (requireActivity() as MainActivity).removeFrag(this)
-                            (requireActivity() as MainActivity).addFrag(LoginFragment())
+                            (requireActivity() as MainActivity).addFrag(PreferenceFragment())
                         }else{
                                             illness.error = "Enter illness"
                         }

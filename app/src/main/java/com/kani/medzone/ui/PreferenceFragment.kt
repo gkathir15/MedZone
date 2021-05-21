@@ -1,7 +1,6 @@
 package com.kani.medzone.ui
 
 import android.app.TimePickerDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +14,13 @@ import androidx.lifecycle.asLiveData
 import com.kani.medzone.Constants
 import com.kani.medzone.MainActivity
 import com.kani.medzone.R
-import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_preference.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
 
 
-class LoginFragment : Fragment() {
+class PreferenceFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +33,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return inflater.inflate(R.layout.fragment_preference, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +42,7 @@ class LoginFragment : Fragment() {
         (requireActivity() as MainActivity).getDataStore().data.asLiveData().observe(viewLifecycleOwner,{
          breakfastTime.text = ("BreakFast ${it[intPreferencesKey(Constants.BREAKFAST_Hour)]?:9.hoursToAM_PM(it[intPreferencesKey(Constants.BREAKFAST_min)]?:30)}")
          lunchTime.text = ("Lunch ${it[intPreferencesKey(Constants.LUNCH_Hour)]?:13.hoursToAM_PM(it[intPreferencesKey(Constants.LUNCH_min)]?:30)}")
-         dinerTime.text = ("Dinner ${it[intPreferencesKey(Constants.DINNER_Hour)]?:8.hoursToAM_PM(it[intPreferencesKey(Constants.DINNER_min)]?:30)}")
+         dinerTime.text = ("Dinner ${it[intPreferencesKey(Constants.DINNER_Hour)]?:20.hoursToAM_PM(it[intPreferencesKey(Constants.DINNER_min)]?:30)}")
             snoozeLabel.text = ("Snooze By ${it[intPreferencesKey(Constants.SNOOZETIME)]?: 5} Minutes")
      })
 
@@ -130,14 +129,14 @@ private fun showNumberPicker()
             }
         }
     }
-    d.setPositiveButton("Done",
-        { _, i ->
-            alertDialog.dismiss()
-        })
-    d.setNegativeButton("Cancel",
-        { dialogInterface, i ->
-            alertDialog.dismiss()
-        })
+    d.setPositiveButton("Done"
+    ) { _, i ->
+        alertDialog.dismiss()
+    }
+    d.setNegativeButton("Cancel"
+    ) { _, i ->
+        alertDialog.dismiss()
+    }
 
     alertDialog.show()
 }

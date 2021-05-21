@@ -3,6 +3,17 @@ package com.kani.medzone
 /**Created by Guru kathir.J on 17,May,2021 **/
 class Constants {
     companion object{
+        val SYNC= "SYNC"
+        val DURATION = "DURATION"
+        val TABLET_ALARM= "TABLET_ALARM"
+        val BREAKFAST="BREAKFAST"
+        val LUNCH="LUNCH"
+        val DINNER="DINNER"
+
+        val callFOR= "callFor"
+        val setNewAlarm = "setNewAlarm"
+        val resetAlarmPostBoot = "resetAlarmPostBoot"
+        val isAlarmSET= "ISALARMSET"
         val ISLoggedIN: String="ISLoggedIN"
         const val TASK_CANCELLED = "Task Cancelled"
         const val ENTER_DOSAGE_SIZE = "Enter dosage size"

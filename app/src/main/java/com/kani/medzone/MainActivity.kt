@@ -15,11 +15,10 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
-import com.kani.medzone.ui.HomeFragment
+import com.kani.medzone.ui.SignUpFragment
 import com.kani.medzone.ui.TabletListFragment
 import com.kani.medzone.ui.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 
 class MainActivity : AppCompatActivity() {
     private var pageAdapter: ViewPagerAdapter? = null
@@ -43,7 +42,14 @@ class MainActivity : AppCompatActivity() {
 
         showTabsView()
 
-        AlarmManagerHelper.setAlarm(this)
+        if(sharedPreferences?.getBoolean(Constants.ISLoggedIN,false) == true&&sharedPreferences?.getBoolean(Constants.isAlarmSET,false)==true)
+        {
+            startService(Intent(this,MedService::class.java).also {
+                it.putExtra(Constants.callFOR,Constants.setNewAlarm)
+            })
+        }
+
+
 
     }
 
@@ -81,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         pager.visibility = GONE
         tab_layout.visibility = GONE
         root.visibility = VISIBLE
-     addFrag(HomeFragment())
+     addFrag(SignUpFragment())
 
     }else{
         pager.visibility = VISIBLE

@@ -32,4 +32,9 @@
     <string name="snooze_timer">Snooze Timer</string>
     <string name="send_sms_to_caretaker">Send SMS to Caretaker</string>
     <string name="snooze_time_in_minutes">Snooze Time in Minutes</string>
+    <string name="your_reminder_to_take_tablets">Your reminder to take tablets</string>
+    <string name="quantity">Quantity</string>
+    <string name="available_no">Available</string>
+    <string name="up_coming">Up Coming</string>
+    <string name="snoozed_amp_skipped"><![CDATA[Snoozed & Skipped]]></string>
 </resources>

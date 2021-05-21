@@ -10,6 +10,7 @@ data class Tablets(
         @PrimaryKey(autoGenerate = true) val tabletid: Int,
         @ColumnInfo(name = "tabletName") var name: String?,
         @ColumnInfo(name = "mg") var mgDosage: Int?,
+        @ColumnInfo(name = "availableQty") var available: Int?,
         @ColumnInfo(name = "mealDosage") var mealDosage: Int?,// 1 before food/ 2 after food / 3 with food
         @ColumnInfo(typeAffinity = ColumnInfo.BLOB) var imageUrl: ByteArray?,
         @ColumnInfo(name = "breakfast") var breakfast: Int? ,//0/1

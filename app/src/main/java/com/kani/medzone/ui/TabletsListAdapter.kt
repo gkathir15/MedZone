@@ -22,6 +22,7 @@ class TabletsListAdapter(private var tabletsList:ArrayList<Tablets>):RecyclerVie
         val tabImageView = v.findViewById<ImageView>(R.id.drugImg)
         val tv_drugName = v.findViewById<TextView>(R.id.tv_drugName)
         val mg = v.findViewById<TextView>(R.id.mg)
+        val availabletabs = v.findViewById<TextView>(R.id.availAbleNo)
 
         val breakfast = v.findViewById<CheckBox>(R.id.breakfast)
         val lunch = v.findViewById<CheckBox>(R.id.lunch)
@@ -42,6 +43,7 @@ class TabletsListAdapter(private var tabletsList:ArrayList<Tablets>):RecyclerVie
             Glide.with(holder.itemView.context).load(tabletsList[position].imageUrl).into(holder.tabImageView)
             holder.tv_drugName.text = tabletsList[position].name
             holder.mg.text = ("${tabletsList[position].mgDosage} Mg")
+        holder.mg.text = ("${tabletsList[position].available} Available" )
         when(tabletsList[position].mealDosage)
         {
             1-> holder.beforefood.isChecked = true

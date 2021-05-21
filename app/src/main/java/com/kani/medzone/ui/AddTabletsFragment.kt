@@ -18,6 +18,10 @@ import com.kani.medzone.Constants
 import com.kani.medzone.R
 import com.kani.medzone.db.Tablets
 import kotlinx.android.synthetic.main.fragment_add_tablets.*
+import kotlinx.android.synthetic.main.fragment_add_tablets.breakfast
+import kotlinx.android.synthetic.main.fragment_add_tablets.dinner
+import kotlinx.android.synthetic.main.fragment_add_tablets.lunch
+import kotlinx.android.synthetic.main.tablet_list_row.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
@@ -26,7 +30,7 @@ import java.io.File
 class AddTabletsFragment : Fragment() {
     private val homeViewModel by activityViewModels<ActivityViewModel>()
     private var imgFile: File? = null
-    private val tablet = Tablets(0, "", 50, 1, ByteArray(0), 1, 0, 0)
+    private val tablet = Tablets(0, "", 50, 1,0 ,ByteArray(0), 1, 0, 0)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,15 +75,20 @@ class AddTabletsFragment : Fragment() {
                 if (tabletNameET.text.toString().isNotBlank()) {
                     tablet.name = tabletNameET.text.toString()
                     if (mgEt.text.toString().isNotBlank()) {
-                        tablet.mgDosage = mgEt.text.toString().toInt()
-                        GlobalScope.launch {
-                            homeViewModel.run {
-                                this.databaseInstance().tabletsDao().insert(tablet)
-                                this.fetchTabletsList()
+                        if(qtyEt.text.toString().isNotBlank()) {
+                            tablet.mgDosage = mgEt.text.toString().toInt()
+                            GlobalScope.launch {
+                                homeViewModel.run {
+                                    this.databaseInstance().tabletsDao().insert(tablet)
+                                    this.fetchTabletsList()
+                                }
+
                             }
 
+                            (parentFragment as TabletListFragment).back(this)
+                        }else{
+                            ed_qty.error = "Enter Available No"
                         }
-                        (parentFragment as TabletListFragment).back(this)
                     } else {
                         ed_mg.error = Constants.ENTER_DOSAGE_SIZE;
                     }
