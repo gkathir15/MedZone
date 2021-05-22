@@ -37,4 +37,11 @@
     <string name="available_no">Available</string>
     <string name="up_coming">Up Coming</string>
     <string name="snoozed_amp_skipped"><![CDATA[Snoozed & Skipped]]></string>
+    <string name="take">Take</string>
+    <string name="snooze">Snooze</string>
+    <string name="skip">Skip</string>
+    <string name="close">Close</string>
+    <string name="prescription">Prescription</string>
+    <string name="tablet">Tablets</string>
+    <string name="investigation">Investigation</string>
 </resources>

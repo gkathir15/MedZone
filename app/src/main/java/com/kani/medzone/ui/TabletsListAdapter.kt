@@ -10,6 +10,7 @@ import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.kani.medzone.ItemClickListener
 import com.kani.medzone.R
 import com.kani.medzone.db.Tablets
 

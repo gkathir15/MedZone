@@ -11,13 +11,12 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
-import com.kani.medzone.ui.SignUpFragment
-import com.kani.medzone.ui.TabletListFragment
-import com.kani.medzone.ui.ViewPagerAdapter
+import com.kani.medzone.ui.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -29,9 +28,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         pageAdapter = ViewPagerAdapter(supportFragmentManager)
-        pageAdapter?.addFragment(Constants.TABLETS1, TabletListFragment())
-        pageAdapter?.addFragment(Constants.TABLETS2, TabletListFragment())
-        pageAdapter?.addFragment(Constants.TABLETS, TabletListFragment())
+        pageAdapter?.addFragment(getString(R.string.title_home),DashboardFragment())
+        pageAdapter?.addFragment(getString(R.string.tablet), TabletListFragment())
+        pageAdapter?.addFragment(getString(R.string.investigation),InvestigationFragment())
+        pageAdapter?.addFragment(getString(R.string.calendar),CalendarFragment())
         pager.adapter = pageAdapter
         tab_layout.setupWithViewPager(pager)
 
@@ -152,6 +152,15 @@ class MainActivity : AppCompatActivity() {
         info.setSubtitle("Your information is safe with us")
         biometricPrompt.authenticate(info.build())
 
+    }
+
+    fun showNoticeDialog(url:String) {
+        // Create an instance of the dialog fragment and show it
+        val dialog = ImageDialog()
+        dialog.also {
+            it.arguments = bundleOf(Pair("URL",url))
+        }
+        dialog.show(supportFragmentManager, "ImageFragment")
     }
 
 

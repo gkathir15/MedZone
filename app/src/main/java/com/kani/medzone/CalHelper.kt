@@ -50,3 +50,22 @@ class CalHelper {
         }
     }
 }
+
+    fun Int.hoursToAM_PM(mins: Int):String
+    {
+        val value = StringBuilder()
+        if(this<12)
+        {
+            value.append(this)
+            value.append(" : ")
+            value.append(mins)
+            value.append( "AM")
+        }else{
+            value.append(this-12)
+            value.append(" : ")
+            value.append(mins)
+            value.append( "PM")
+        }
+
+        return value.toString()
+    }

@@ -14,6 +14,7 @@ import androidx.lifecycle.asLiveData
 import com.kani.medzone.Constants
 import com.kani.medzone.MainActivity
 import com.kani.medzone.R
+import com.kani.medzone.hoursToAM_PM
 import kotlinx.android.synthetic.main.fragment_preference.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -143,22 +144,4 @@ private fun showNumberPicker()
 
 
 
-}
-fun Int.hoursToAM_PM(mins: Int):String
-{
-   val value = StringBuilder()
-   if(this<12)
-   {
-       value.append(this)
-       value.append(" : ")
-       value.append(mins)
-       value.append( "AM")
-   }else{
-       value.append(this-12)
-       value.append(" : ")
-       value.append(mins)
-       value.append( "PM")
-   }
-
-    return value.toString()
 }

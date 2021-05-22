@@ -3,6 +3,9 @@ package com.kani.medzone
 /**Created by Guru kathir.J on 17,May,2021 **/
 class Constants {
     companion object{
+        val SKIP: String="SKIP"
+        val SNOOZE: String="SNOOZE"
+        val TAKE: String= "TAKE"
         val SYNC= "SYNC"
         val DURATION = "DURATION"
         val TABLET_ALARM= "TABLET_ALARM"

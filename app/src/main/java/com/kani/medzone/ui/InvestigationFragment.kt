@@ -7,14 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.kani.medzone.R
 
+class InvestigationFragment : Fragment() {
 
-
-
-
-class SettingsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +20,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        return inflater.inflate(R.layout.fragment_investigation, container, false)
     }
 
 

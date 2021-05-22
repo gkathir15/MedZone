@@ -30,7 +30,8 @@ import java.io.File
 class AddTabletsFragment : Fragment() {
     private val homeViewModel by activityViewModels<ActivityViewModel>()
     private var imgFile: File? = null
-    private val tablet = Tablets(0, "", 50, 1,0 ,ByteArray(0), 1, 0, 0)
+    private val tablet = Tablets(0, "", 50, 1,0
+        ,ByteArray(0), 1, 0, 0,0,"")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

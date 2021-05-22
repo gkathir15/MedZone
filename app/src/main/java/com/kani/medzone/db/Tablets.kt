@@ -15,5 +15,7 @@ data class Tablets(
         @ColumnInfo(typeAffinity = ColumnInfo.BLOB) var imageUrl: ByteArray?,
         @ColumnInfo(name = "breakfast") var breakfast: Int? ,//0/1
         @ColumnInfo(name = "lunch") var lunch: Int?, //0/1,
-        @ColumnInfo(name = "dinner") var dinner: Int? //0/1
+        @ColumnInfo(name = "dinner") var dinner: Int?, //0/1
+        @ColumnInfo(name = "qty") var qty: Int?,
+        @ColumnInfo(name = "instruction") var Instruction: String? //0/1
 )

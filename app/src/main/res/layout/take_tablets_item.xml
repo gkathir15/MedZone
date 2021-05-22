@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tabletImage"
+        android:layout_alignParentStart="true"
+        tools:src="@tools:sample/avatars"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tabletName"
+        android:layout_toEndOf="@id/tabletImage"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        tools:text="tableyt name"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tabletmg"
+        android:layout_toEndOf="@id/tabletImage"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/tabletName"
+        tools:text="tableyt name"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/instruction"
+        tools:text="instruction"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/tabletmg"
+        android:layout_toEndOf="@id/tabletImage"
+        android:layout_marginStart="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/instruction"
+        android:id="@+id/foodPref"
+        tools:text="Before foofd"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/tabletImage"
+        android:layout_marginStart="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonLay"
+        android:layout_below="@id/tabletImage"
+        android:weightSum="3" android:orientation="horizontal"
+        >
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/take"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="6dp"
+            android:text="@string/take"/>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/snooze"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="6dp"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:text="@string/snooze"/>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/skip"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="6dp"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:text="@string/skip"/>
+    </LinearLayout>
+
+
+</RelativeLayout>
