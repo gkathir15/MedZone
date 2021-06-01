@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/md_purple_A400"
             android:text="@string/app_name"
             android:id="@+id/toolbar_title"/>
 
@@ -33,9 +33,9 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:visibility="gone"
-            app:tabTextColor="@color/white"
-            app:tabSelectedTextColor="@color/md_blue_100"
-            app:tabIndicatorColor="@color/md_blue_100"
+            app:tabTextColor="@color/md_purple_100"
+            app:tabSelectedTextColor="@color/md_purple_A400"
+            app:tabIndicatorColor="@color/md_purple_A400"
             android:layout_height="wrap_content" />
 
 
