@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.kani.medzone.ActivityViewModel
+import com.kani.medzone.vm.ActivityViewModel
 import com.kani.medzone.Constants
 import com.kani.medzone.MainActivity
 import com.kani.medzone.R

@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.kani.medzone.ActivityViewModel
+import com.kani.medzone.vm.ActivityViewModel
+import com.kani.medzone.ItemClickListener
+import com.kani.medzone.MainActivity
 import com.kani.medzone.R
 
-class DashboardFragment : Fragment() {
+class DashboardFragment : Fragment(),ItemClickListener {
 
     private val homeViewModel by activityViewModels<ActivityViewModel>()
 
@@ -23,5 +24,12 @@ class DashboardFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
 
         return root
+    }
+
+    override fun expandImageClicked(url: ByteArray?) {
+        (requireActivity() as MainActivity).showNoticeDialog(url)
+    }
+
+    override fun takeTabletsClicked(btnType: String) {
     }
 }

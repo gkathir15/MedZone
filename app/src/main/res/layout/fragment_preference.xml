@@ -36,7 +36,7 @@
         android:layout_below="@id/care_takerNo"/>
 
     <TextView
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/breakfastTime"
         android:layout_below="@id/caretakerSMS"
@@ -55,7 +55,7 @@
         android:id="@+id/breakfastEdit"
         android:layout_marginTop="20dp"/>
     <TextView
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lunchTime"
         android:layout_below="@id/breakfastTime"
@@ -73,7 +73,7 @@
         android:id="@+id/linchEdit"
         android:layout_marginTop="20dp"/>
     <TextView
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dinerTime"
         android:layout_below="@id/lunchTime"
@@ -102,7 +102,7 @@
         />
 
     <TextView
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/snoozeLabel"
         android:text="@string/snooze_timer"

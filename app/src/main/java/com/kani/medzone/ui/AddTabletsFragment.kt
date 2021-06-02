@@ -3,8 +3,6 @@ package com.kani.medzone.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,15 +11,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.kani.medzone.ActivityViewModel
+import com.kani.medzone.vm.ActivityViewModel
 import com.kani.medzone.Constants
 import com.kani.medzone.R
+import com.kani.medzone.db.TabletEntry
 import com.kani.medzone.db.Tablets
 import kotlinx.android.synthetic.main.fragment_add_tablets.*
-import kotlinx.android.synthetic.main.fragment_add_tablets.breakfast
-import kotlinx.android.synthetic.main.fragment_add_tablets.dinner
-import kotlinx.android.synthetic.main.fragment_add_tablets.lunch
-import kotlinx.android.synthetic.main.tablet_list_row.*
+import kotlinx.android.synthetic.main.fragment_add_tablets.morning
+import kotlinx.android.synthetic.main.fragment_add_tablets.night
+import kotlinx.android.synthetic.main.fragment_add_tablets.noon
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
@@ -30,8 +28,8 @@ import java.io.File
 class AddTabletsFragment : Fragment() {
     private val homeViewModel by activityViewModels<ActivityViewModel>()
     private var imgFile: File? = null
-    private val tablet = Tablets(0, "", 50, 1,0
-        ,ByteArray(0), 1, 0, 0,0,"")
+    private val tablet = Tablets(0, "", "0", 1,0
+        ,null, 1, 0, 0,0,0,"")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,8 +43,7 @@ class AddTabletsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         tabletImg.setOnClickListener {
             ImagePicker.with(this)
-                .cropSquare()
-                .cameraOnly() //Crop image(Optional), Check Customization for more option
+                .cropSquare() //Crop image(Optional), Check Customization for more option
                 .compress(512)            //Final image size will be less than 1 MB(Optional)
                 .maxResultSize(
                     1080,
@@ -63,7 +60,7 @@ class AddTabletsFragment : Fragment() {
                 R.id.withFood -> {
                     tablet.mealDosage = 3
                 }
-                R.id.afterFood -> {
+                R.id.evening -> {
                     tablet.mealDosage = 2
                 }
             }
@@ -73,20 +70,26 @@ class AddTabletsFragment : Fragment() {
 
             if (imgFile != null) {
                 tablet.imageUrl = imgFile?.readBytes()
+            }
                 if (tabletNameET.text.toString().isNotBlank()) {
                     tablet.name = tabletNameET.text.toString()
                     if (mgEt.text.toString().isNotBlank()) {
                         if(qtyEt.text.toString().isNotBlank()) {
-                            tablet.mgDosage = mgEt.text.toString().toInt()
+                            tablet.mgDosage = mgEt.text.toString()
+                            if(instructionEt.text.toString().isNotBlank())
+                                tablet.instruction = instructionEt.text.toString()
+
                             GlobalScope.launch {
                                 homeViewModel.run {
                                     this.databaseInstance().tabletsDao().insert(tablet)
                                     this.fetchTabletsList()
+                                    this.databaseInstance().tabEntryDao().insert(TabletEntry(0,
+                                        System.currentTimeMillis(),0,tablet))
                                 }
 
                             }
-
                             (parentFragment as TabletListFragment).back(this)
+
                         }else{
                             ed_qty.error = "Enter Available No"
                         }
@@ -96,31 +99,28 @@ class AddTabletsFragment : Fragment() {
                 } else {
                     ed_tabletName.error = Constants.ENTER_TABLET_NAME
                 }
-            } else {
-                Toast.makeText(requireContext(), Constants.CAPTURE_IMAGE_OF_TABLET, Toast.LENGTH_SHORT)
-                    .show()
-            }
+
 
 
         }
 
-        breakfast.setOnCheckedChangeListener { _, isChecked ->
+        morning.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked)
-                tablet.breakfast = 1
+                tablet.morning = 1
             else
-                tablet.breakfast = 0
+                tablet.morning = 0
         }
-        lunch.setOnCheckedChangeListener { _, isChecked ->
+        noon.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked)
-                tablet.lunch = 1
+                tablet.noon = 1
             else
-                tablet.lunch = 0
+                tablet.noon = 0
         }
-        dinner.setOnCheckedChangeListener { _, isChecked ->
+        night.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked)
-                tablet.dinner = 1
+                tablet.night = 1
             else
-                tablet.dinner = 0
+                tablet.night = 0
         }
 
     }
@@ -136,8 +136,6 @@ class AddTabletsFragment : Fragment() {
                 //You can get File object from intent
                 imgFile = ImagePicker.getFile(data)!!
 
-//                //You can also get File Path from intent
-//                ImagePicker.getFilePath(data)!!
                 Glide.with(requireContext()).load(imgFile).into(tabletImg)
             }
             ImagePicker.RESULT_ERROR -> {

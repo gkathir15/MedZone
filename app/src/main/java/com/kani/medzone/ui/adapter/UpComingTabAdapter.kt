@@ -1,4 +1,4 @@
-package com.kani.medzone.ui
+package com.kani.medzone.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -39,7 +39,7 @@ class UpComingTabAdapter(val dataList:ArrayList<TabletEntry>,val listener: ItemC
             listener.expandImageClicked(dataList[position].tablet.imageUrl)
         }
         holder.tabname.text = dataList[position].tablet.name
-        holder.instruction.text = dataList[position].tablet.Instruction
+        holder.instruction.text = dataList[position].tablet.instruction
         holder.foodPref.text = dataList[position].tablet.mealDosage.toString()
         holder.tabletmg.text = ("${dataList[position].tablet.mgDosage} mg")
 

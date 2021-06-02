@@ -1,152 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-            android:id="@+id/card_view"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="2dp"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="3dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_baseline_delete_24" />
+
+        <ImageView
+            android:id="@+id/drugImg"
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/tabletimage"
+            tools:srcCompat="@tools:sample/avatars" />
+
+
+        <TextView
+            android:id="@+id/tv_drugName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@id/drugImg"
+            android:text="@string/drug_name"
+            android:textSize="@dimen/tablet_list_tv"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_instruction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_drugName"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/drugImg"
+
+            android:text="@string/instruction"
+            android:textSize="@dimen/tablet_list_tv"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/mg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_instruction"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/drugImg"
+            android:text="@string/mg"
+            android:textSize="@dimen/tablet_list_tv"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/availAbleNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_instruction"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/mg"
+            android:text="@string/available_no" />
+
+
+        <LinearLayout
+            android:id="@+id/dosage"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            card_view:cardCornerRadius="4dp"
-    card_view:cardElevation="3dp"
-    android:layout_marginBottom="2dp">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/foodPref"
+            android:orientation="horizontal"
+            android:weightSum="4">
 
-<!--        TODO add edit button on right top-->
-<!--        TODO add mg Textview below card view-->
+            <CheckBox
+                android:id="@+id/morning"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="true"
+                android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+                android:text="@string/morning"
+                android:textAlignment="center" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            <CheckBox
+                android:id="@+id/noon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+                android:text="@string/noon"
+                android:textAlignment="center" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/edit"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:src="@drawable/ic_baseline_edit_24"
-                            android:padding="10dp"/>
+            <CheckBox
+                android:id="@+id/evening"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+                android:text="@string/evening"
+                android:textAlignment="center" />
 
-                        <ImageView
-                            android:id="@+id/drugImg"
-                            android:layout_width="wrap_content"
-                            android:layout_height="120dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="20dp"
-                            tools:srcCompat="@tools:sample/avatars"
-                            android:contentDescription="@string/tabletimage" />
+            <CheckBox
+                android:id="@+id/night"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+                android:text="@string/night"
+                android:textAlignment="center" />
 
-
-
-                                <TextView
-                                    android:id="@+id/tv_drugName"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="20dp"
-                                    android:text="@string/drug_name"
-                                    android:textStyle="bold"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_toEndOf="@id/drugImg"
-                                    android:layout_marginStart="10dp"
-                                    android:textSize="@dimen/tablet_list_tv" />
-                                <TextView
-                                    android:id="@+id/mg"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="15dp"
-                                    android:text="@string/mg"
-                                    android:layout_below="@id/tv_drugName"
-                                    android:layout_toEndOf="@id/drugImg"
-                                    android:layout_marginStart="10dp"
-                                    android:textStyle="bold"
-                                    android:textSize="@dimen/tablet_list_tv" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/availAbleNo"
-                            android:text="@string/available_no"
-                            android:layout_below="@id/tv_drugName"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginStart="20dp"
-                            android:layout_toEndOf="@id/mg"/>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@id/mg"
-                                    android:layout_toEndOf="@id/drugImg"
-                                    android:weightSum="3"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="horizontal">
-
-                                        <CheckBox
-                                            android:id="@+id/breakfast"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:checked="true"
-                                            android:clickable="false"
-                                            android:layout_weight="1"
-                                            android:textSize="12sp"
-                                            android:text="@string/break_fast" />
-
-                                        <CheckBox
-                                            android:id="@+id/lunch"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:clickable="false"
-                                            android:layout_weight="1"
-                                            android:text="@string/lunch" />
-
-                                        <CheckBox
-                                            android:id="@+id/dinner"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:clickable="false"
-                                            android:layout_weight="1"
-                                            android:text="@string/dinner" />
-
-                                </LinearLayout>
-
-<!--                                TODO change food preference to TextView-->
+        </LinearLayout>
 
 
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/drugImg"
-                            android:weightSum="3"
-                            android:layout_marginTop="10dp"
-                            android:orientation="horizontal">
-
-                                <RadioButton
-                                    android:id="@+id/beforefood"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:checked="true"
-                                    android:layout_weight="1"
-                                    android:clickable="false"
-                                    android:text="@string/With_food" />
-
-                                <RadioButton
-                                    android:id="@+id/withfood"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:clickable="false"
-                                    android:text="@string/without_food" />
-                                <RadioButton
-                                    android:id="@+id/afterFood"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:clickable="false"
-                                    android:text="@string/after_food" />
+        <!--                                TODO change food preference to TextView-->
 
 
-                        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/foodPref"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/availAbleNo"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/drugImg"
+            android:orientation="horizontal"
+            android:weightSum="3">
 
-                </RelativeLayout>
+            <RadioButton
+                android:id="@+id/beforefood"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="true"
+                android:clickable="false"
+                android:drawableTop="?android:attr/listChoiceIndicatorSingle"
+                android:text="@string/before_food"
+                android:textAlignment="center" />
 
-        </androidx.cardview.widget.CardView>
+            <RadioButton
+                android:id="@+id/withfood"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:clickable="false"
+                android:drawableTop="?android:attr/listChoiceIndicatorSingle"
+                android:text="@string/with_food"
+                android:textAlignment="center" />
+
+            <RadioButton
+                android:id="@+id/afterFood"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:clickable="false"
+                android:drawableTop="?android:attr/listChoiceIndicatorSingle"
+                android:text="@string/after_food"
+                android:textAlignment="center" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
 

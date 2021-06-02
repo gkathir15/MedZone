@@ -1,37 +1,48 @@
 package com.kani.medzone
 
+import android.app.Dialog
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.ImageView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.kani.medzone.ui.*
+import com.kani.medzone.ui.adapter.ViewPagerAdapter
+import com.kani.medzone.vm.ActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity() {
     private var pageAdapter: ViewPagerAdapter? = null
-    private var  sharedPreferences:SharedPreferences?=null
+    private var sharedPreferences: SharedPreferences? = null
     private val datastore: DataStore<Preferences> by preferencesDataStore(name = "MedZone_datastore")
+    private val model by viewModels<ActivityViewModel>()
     val TAG = MainActivity::class.java.canonicalName
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         pageAdapter = ViewPagerAdapter(supportFragmentManager)
-        pageAdapter?.addFragment(getString(R.string.title_home),DashboardFragment())
+        pageAdapter?.addFragment(getString(R.string.title_home), DashboardFragment())
         pageAdapter?.addFragment(getString(R.string.tablet), TabletListFragment())
-        pageAdapter?.addFragment(getString(R.string.investigation),InvestigationFragment())
-        pageAdapter?.addFragment(getString(R.string.calendar),CalendarFragment())
+        pageAdapter?.addFragment(getString(R.string.investigation), InvestigationFragment())
+        pageAdapter?.addFragment(getString(R.string.calendar), CalendarFragment())
         pager.adapter = pageAdapter
         tab_layout.setupWithViewPager(pager)
 
@@ -42,13 +53,25 @@ class MainActivity : AppCompatActivity() {
 
         showTabsView()
 
-        if(sharedPreferences?.getBoolean(Constants.ISLoggedIN,false) == true&&sharedPreferences?.getBoolean(Constants.isAlarmSET,false)==true)
-        {
-            startService(Intent(this,MedService::class.java).also {
-                it.putExtra(Constants.callFOR,Constants.setNewAlarm)
+        if (sharedPreferences?.getBoolean(
+                Constants.ISLoggedIN,
+                false
+            ) == true && sharedPreferences?.getBoolean(Constants.isAlarmSET, false) == true
+        ) {
+            startService(Intent(this, MedService::class.java).also {
+                it.putExtra(Constants.callFOR, Constants.setNewAlarm)
             })
         }
 
+        if (sharedPreferences?.getBoolean(
+                Constants.ISLoggedIN,
+                false
+            ) == true
+        ) {
+            GlobalScope.launch {
+                model.fetchTabletsList()
+            }
+        }
 
 
     }
@@ -56,60 +79,57 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if(sharedPreferences?.getBoolean(Constants.ISLoggedIN,false) == true&& BiometricManager.from(this)
-                .canAuthenticate(BiometricManager.Authenticators.DEVICE_CREDENTIAL) == BiometricManager.BIOMETRIC_SUCCESS)
-            {
-              //  createBiometricPrompt()
-            }
+        if (sharedPreferences?.getBoolean(
+                Constants.ISLoggedIN,
+                false
+            ) == true && BiometricManager.from(this)
+                .canAuthenticate(BiometricManager.Authenticators.DEVICE_CREDENTIAL) == BiometricManager.BIOMETRIC_SUCCESS
+        ) {
+            //  createBiometricPrompt()
+        }
     }
 
 
-
-    private fun getAllPermissions()
-    {
-        ActivityCompat.requestPermissions(this, arrayOf(
-            android.Manifest.permission.READ_PHONE_STATE,
-            android.Manifest.permission.SEND_SMS,
-            android.Manifest.permission.CAMERA,
-            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-        ),557)
+    private fun getAllPermissions() {
+        ActivityCompat.requestPermissions(
+            this, arrayOf(
+                android.Manifest.permission.READ_PHONE_STATE,
+                android.Manifest.permission.SEND_SMS,
+                android.Manifest.permission.CAMERA,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            ), 557
+        )
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    fun showTabsView() {
+        if (sharedPreferences?.getBoolean(Constants.ISLoggedIN, false) == false) {
 
-       // if()
-    }
+            pager.visibility = GONE
+            tab_layout.visibility = GONE
+            root.visibility = VISIBLE
+            addFrag(SignUpFragment())
 
-     fun showTabsView()
-    { if(sharedPreferences?.getBoolean(Constants.ISLoggedIN,false) == false){
-
-        pager.visibility = GONE
-        tab_layout.visibility = GONE
-        root.visibility = VISIBLE
-     addFrag(SignUpFragment())
-
-    }else{
-        pager.visibility = VISIBLE
-        tab_layout.visibility = VISIBLE
-        root.visibility = GONE
-    }
+        } else {
+            pager.visibility = VISIBLE
+            tab_layout.visibility = VISIBLE
+            root.visibility = GONE
+        }
 
 
     }
 
-    fun addFrag(fragment: Fragment)
-    {
-        supportFragmentManager.beginTransaction().add(R.id.root,fragment).commit()
+    fun addFrag(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().add(R.id.root, fragment).commit()
     }
-    fun removeFrag(fragment: Fragment)
-    {
+
+    fun removeFrag(fragment: Fragment) {
         supportFragmentManager.beginTransaction().remove(fragment).commit()
     }
 
     fun getPreferences(): SharedPreferences? {
         return sharedPreferences
     }
+
     fun getDataStore(): DataStore<Preferences> {
         return datastore
     }
@@ -123,7 +143,7 @@ class MainActivity : AppCompatActivity() {
                 super.onAuthenticationError(errorCode, errString)
                 Log.d(TAG, "$errorCode :: $errString")
 
-                    finish() // Because in this app, the negative button allows the user to enter an account password. This is completely optional and your app doesn’t have to do it.
+                finish() // Because in this app, the negative button allows the user to enter an account password. This is completely optional and your app doesn’t have to do it.
 
             }
 
@@ -154,13 +174,24 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun showNoticeDialog(url:String) {
-        // Create an instance of the dialog fragment and show it
-        val dialog = ImageDialog()
-        dialog.also {
-            it.arguments = bundleOf(Pair("URL",url))
+    fun showNoticeDialog(url: ByteArray?) {
+
+        if (url == null || url.isEmpty()) {
+            return
         }
-        dialog.show(supportFragmentManager, "ImageFragment")
+
+        val builder = Dialog(this)
+        builder.setCanceledOnTouchOutside(true)
+        builder.setCanceledOnTouchOutside(true)
+        val inflater = layoutInflater
+        val dialogLayout: View = inflater.inflate(R.layout.full_image_dialog, null)
+        val image: ImageView = dialogLayout.findViewById<ImageView>(R.id.imageV)!!
+        val bitmap = url.size.let { it1 -> BitmapFactory.decodeByteArray(url, 0, it1) }
+        Glide.with(this@MainActivity).load(bitmap).into(image)
+        builder.setContentView(dialogLayout)
+        builder.show()
+
+
     }
 
 

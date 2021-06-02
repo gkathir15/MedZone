@@ -44,5 +44,16 @@ class Constants {
         const val BREAKFAST_min = "BREAKFAST_min"
         const val DINNER_min = "DINNER_min"
         const val LUNCH_min = "LUNCH_min"
+
+
+         val type = arrayOf(
+            "Complete hemogram",
+            "Blood sugar profile",
+            "Blood Pressure",
+            "Renal Function Tests",
+            "Liver Function Tests",
+            "Lipid profile",
+            "Thyroid profile",
+            "Urine investigations")
     }
 }

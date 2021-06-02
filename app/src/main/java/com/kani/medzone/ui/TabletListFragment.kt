@@ -1,6 +1,5 @@
 package com.kani.medzone.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,15 +10,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kani.medzone.ActivityViewModel
+import com.kani.medzone.vm.ActivityViewModel
+import com.kani.medzone.ItemClickListener
+import com.kani.medzone.MainActivity
 import com.kani.medzone.R
 import com.kani.medzone.db.Tablets
+import com.kani.medzone.ui.adapter.TabletsListAdapter
 import kotlinx.android.synthetic.main.fragment_tablet_list.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class TabletListFragment : Fragment() {
+class TabletListFragment : Fragment(),ItemClickListener {
 
     private var tabletAdapter: TabletsListAdapter? = null
     private val homeViewModel by activityViewModels<ActivityViewModel>()
@@ -38,10 +40,8 @@ class TabletListFragment : Fragment() {
             childFragmentManager.beginTransaction().add(R.id.root, AddTabletsFragment()).commit()
             addTablet.visibility = GONE
         }
-        tabletAdapter = TabletsListAdapter(ArrayList<Tablets>(0))
-        GlobalScope.launch {
-            homeViewModel.fetchTabletsList()
-        }
+        tabletAdapter = TabletsListAdapter(ArrayList<Tablets>(0),this)
+
         homeViewModel.tabletsList.observe(viewLifecycleOwner, {
             tabletAdapter?.setData(it)
         })
@@ -60,6 +60,15 @@ class TabletListFragment : Fragment() {
 
         }
         addTablet.visibility = VISIBLE
+    }
+
+    override fun expandImageClicked(url: ByteArray?) {
+        (requireActivity() as MainActivity).showNoticeDialog(url)
+
+    }
+
+    override fun takeTabletsClicked(btnType: String) {
+        
     }
 
 }

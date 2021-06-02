@@ -1,9 +1,8 @@
-package com.kani.medzone
+package com.kani.medzone.vm
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.room.Room
 import com.kani.medzone.db.AppDatabase
 import com.kani.medzone.db.Tablets

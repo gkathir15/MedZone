@@ -1,4 +1,4 @@
-package com.kani.medzone.ui
+package com.kani.medzone.ui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

@@ -9,13 +9,14 @@ import androidx.room.PrimaryKey
 data class Tablets(
         @PrimaryKey(autoGenerate = true) val tabletid: Int,
         @ColumnInfo(name = "tabletName") var name: String?,
-        @ColumnInfo(name = "mg") var mgDosage: Int?,
+        @ColumnInfo(name = "mg") var mgDosage: String?,
         @ColumnInfo(name = "availableQty") var available: Int?,
         @ColumnInfo(name = "mealDosage") var mealDosage: Int?,// 1 before food/ 2 after food / 3 with food
         @ColumnInfo(typeAffinity = ColumnInfo.BLOB) var imageUrl: ByteArray?,
-        @ColumnInfo(name = "breakfast") var breakfast: Int? ,//0/1
-        @ColumnInfo(name = "lunch") var lunch: Int?, //0/1,
-        @ColumnInfo(name = "dinner") var dinner: Int?, //0/1
+        @ColumnInfo(name = "morning") var morning: Int?,//0/1
+        @ColumnInfo(name = "noon") var noon: Int?, //0/1,
+        @ColumnInfo(name = "night") var night: Int?, //0/1
+        @ColumnInfo(name = "evening") var evening: Int?, //0/1
         @ColumnInfo(name = "qty") var qty: Int?,
-        @ColumnInfo(name = "instruction") var Instruction: String? //0/1
+        @ColumnInfo(name = "instruction") var instruction: String? //0/1
 )

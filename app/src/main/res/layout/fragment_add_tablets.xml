@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true"
+    android:background="@color/white"
     tools:context="ui.AddTabletsFragment">
 
     <RelativeLayout
@@ -51,16 +52,35 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="text"
             android:id="@+id/mgEt"
             />
 
+
+
     </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/instruction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ed_mg"
+            android:hint="@string/instruction"
+            android:padding="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:id="@+id/instructionEt"
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ed_qty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ed_mg"
+        android:layout_below="@+id/instruction"
         android:hint="@string/quantity"
         android:padding="10dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -71,7 +91,6 @@
             android:inputType="number"
             android:id="@+id/qtyEt"
             />
-
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -90,18 +109,29 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/beforeFood"
                 android:layout_weight="1"
+                android:button="@null"
+                android:textAlignment="center"
+                android:drawableTop="?android:attr/listChoiceIndicatorSingle"
                 android:text="@string/before_food"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/withFood"
                 android:layout_weight="1"
+                android:button="@null"
+                android:textAlignment="center"
+                android:drawableTop="?android:attr/listChoiceIndicatorSingle"
                 android:text="@string/With_food"/>
+
+
             <RadioButton
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/afterFood"
+                android:button="@null"
+                android:textAlignment="center"
+                android:drawableTop="?android:attr/listChoiceIndicatorSingle"
                 android:text="@string/after_food"/>
 
 
@@ -114,29 +144,48 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/foodPref"
         android:layout_marginHorizontal="10dp"
+        android:weightSum="4"
         android:orientation="horizontal">
 
         <CheckBox
-            android:id="@+id/breakfast"
+            android:id="@+id/morning"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:checked="true"
-            android:text="@string/break_fast" />
+            android:button="@null"
+            android:textAlignment="center"
+            android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+            android:text="@string/morning" />
 
         <CheckBox
-            android:id="@+id/lunch"
+            android:id="@+id/noon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:text="@string/lunch" />
+            android:layout_weight="1"
+            android:button="@null"
+            android:textAlignment="center"
+            android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+            android:text="@string/noon" />
+        <CheckBox
+            android:id="@+id/evening"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:textAlignment="center"
+            android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+            android:text="@string/evening" />
 
         <CheckBox
-            android:id="@+id/dinner"
+            android:id="@+id/night"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:text="@string/dinner" />
+            android:layout_weight="1"
+            android:button="@null"
+            android:textAlignment="center"
+            android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+            android:text="@string/night" />
 
     </LinearLayout>
 
