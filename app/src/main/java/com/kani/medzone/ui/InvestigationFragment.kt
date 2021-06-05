@@ -10,15 +10,17 @@ import android.widget.AutoCompleteTextView
 import android.widget.Button
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.button.MaterialButton
 import com.kani.medzone.Constants
 import com.kani.medzone.R
+import com.kani.medzone.vm.ActivityViewModel
 import kotlinx.android.synthetic.main.fragment_investigation.*
 
 
 class InvestigationFragment : Fragment() {
 
-
+    private val homeViewModel by activityViewModels<ActivityViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,11 +63,17 @@ class InvestigationFragment : Fragment() {
                 it.arguments = bundleOf(Pair(Constants.NAME, selected))
             }
             childFragmentManager.beginTransaction().add(R.id.investroot, frag).commit()
+            addInvestigation.visibility = View.GONE
         }
         builder.setContentView(dialogLayout)
         builder.show()
 
 
+    }
+
+    fun removeAddInvestFrag(addInvestigationFrag: AddInvestigation) {
+        childFragmentManager.beginTransaction().remove(addInvestigationFrag).commit()
+        addInvestigation.visibility = View.VISIBLE
     }
 
 

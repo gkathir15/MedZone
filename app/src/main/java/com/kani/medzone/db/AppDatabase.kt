@@ -10,4 +10,5 @@ import androidx.room.TypeConverters
 abstract class AppDatabase : RoomDatabase() {
     abstract fun tabletsDao(): TabletsDao
     abstract fun tabEntryDao(): TabletEntryDao
+    abstract fun reportDao(): ReportDao
 }

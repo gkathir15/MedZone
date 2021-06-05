@@ -20,6 +20,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import com.bumptech.glide.Glide
 import com.kani.medzone.ui.*
 import com.kani.medzone.ui.adapter.ViewPagerAdapter
@@ -69,7 +70,11 @@ class MainActivity : AppCompatActivity() {
             ) == true
         ) {
             GlobalScope.launch {
-                model.fetchTabletsList()
+                model.let {
+                    it.fetchTabletsList()
+                    it.fetchInvestigation()
+                    it.fetchTabletEntry()
+                }
             }
         }
 
@@ -164,9 +169,19 @@ class MainActivity : AppCompatActivity() {
         val biometricPrompt = BiometricPrompt(this, executor, callback)
 
         val info = BiometricPrompt.PromptInfo.Builder()
-        info.setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
-        info.setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_WEAK)
-        info.setAllowedAuthenticators(BiometricManager.Authenticators.DEVICE_CREDENTIAL)
+
+        if(BiometricManager.from(this)
+                .canAuthenticate(BiometricManager.Authenticators.DEVICE_CREDENTIAL)== BiometricManager.BIOMETRIC_SUCCESS) {
+            info.setAllowedAuthenticators(BiometricManager.Authenticators.DEVICE_CREDENTIAL)
+        }
+        if(BiometricManager.from(this)
+                .canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_WEAK)== BiometricManager.BIOMETRIC_SUCCESS) {
+            info.setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_WEAK)
+        }
+        if(BiometricManager.from(this)
+                .canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)== BiometricManager.BIOMETRIC_SUCCESS) {
+            info.setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
+        }
         info.setConfirmationRequired(false)
         info.setTitle("Authenticate")
         info.setSubtitle("Your information is safe with us")
@@ -195,4 +210,9 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+}
+
+fun <T> MutableLiveData<T>.mutation(actions: (MutableLiveData<T>) -> Unit) {
+    actions(this)
+    this.value = this.value
 }

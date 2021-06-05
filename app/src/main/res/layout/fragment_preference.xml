@@ -75,8 +75,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/dinerTime"
+        android:id="@+id/eveningTime"
         android:layout_below="@id/lunchTime"
+        tools:text="09.00 AM"
+        android:layout_marginStart="30dp"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dinerTime"
+        android:layout_below="@id/eveningTime"
         tools:text="09.00 AM"
         android:layout_marginStart="30dp"
         android:textSize="20sp"
@@ -85,11 +94,21 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/lunchTime"
+        android:layout_toEndOf="@id/dinerTime"
         android:src="@drawable/ic_baseline_edit_24"
         android:layout_below="@id/lunchTime"
         android:layout_marginStart="20dp"
         android:id="@+id/dinnerEdit"
+        android:layout_marginTop="20dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/eveningTime"
+        android:src="@drawable/ic_baseline_edit_24"
+        android:layout_below="@id/eveningTime"
+        android:layout_marginStart="20dp"
+        android:id="@+id/eveningEdit"
         android:layout_marginTop="20dp"/>
 
 

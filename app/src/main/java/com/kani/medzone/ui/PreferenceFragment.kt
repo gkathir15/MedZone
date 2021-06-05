@@ -44,6 +44,7 @@ class PreferenceFragment : Fragment() {
          breakfastTime.text = ("BreakFast ${it[intPreferencesKey(Constants.BREAKFAST_Hour)]?:9.hoursToAM_PM(it[intPreferencesKey(Constants.BREAKFAST_min)]?:30)}")
          lunchTime.text = ("Lunch ${it[intPreferencesKey(Constants.LUNCH_Hour)]?:13.hoursToAM_PM(it[intPreferencesKey(Constants.LUNCH_min)]?:30)}")
          dinerTime.text = ("Dinner ${it[intPreferencesKey(Constants.DINNER_Hour)]?:20.hoursToAM_PM(it[intPreferencesKey(Constants.DINNER_min)]?:30)}")
+         eveningTime.text = ("Evening ${it[intPreferencesKey(Constants.EVENING_Hour)]?:17.hoursToAM_PM(it[intPreferencesKey(Constants.EVENING_Min)]?:30)}")
             snoozeLabel.text = ("Snooze By ${it[intPreferencesKey(Constants.SNOOZETIME)]?: 5} Minutes")
      })
 
@@ -87,6 +88,20 @@ class PreferenceFragment : Fragment() {
                       }
                   }
               },calendar.get(Calendar.HOUR),calendar.get(Calendar.MINUTE),false)
+
+            timePickerDialog.show()
+        }
+        eveningEdit.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val timePickerDialog = TimePickerDialog(requireContext(),
+                { view, hourOfDay, minute ->
+                    GlobalScope.launch {
+                        (requireActivity() as MainActivity).getDataStore().edit {
+                            it[intPreferencesKey(Constants.EVENING_Hour)] = hourOfDay
+                            it[intPreferencesKey(Constants.EVENING_Min)] = minute
+                        }
+                    }
+                },calendar.get(Calendar.HOUR),calendar.get(Calendar.MINUTE),false)
 
             timePickerDialog.show()
         }

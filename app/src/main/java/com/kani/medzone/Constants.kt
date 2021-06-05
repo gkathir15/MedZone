@@ -40,10 +40,12 @@ class Constants {
         const val BREAKFAST_Hour = "BREAKFAST_Hour"
         const val DINNER_Hour = "DINNER_Hour"
         const val LUNCH_Hour = "LUNCH_Hour"
+        const val EVENING_Hour = "EVENING_Hour"
 
         const val BREAKFAST_min = "BREAKFAST_min"
         const val DINNER_min = "DINNER_min"
         const val LUNCH_min = "LUNCH_min"
+        const val EVENING_Min = "EVENING_Min"
 
 
          val type = arrayOf(

@@ -1,5 +1,7 @@
 package com.kani.medzone.ui.adapter
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +30,42 @@ class ReadingAdapter(private var readingList: ArrayList<Reading>): RecyclerView.
     }
 
     override fun onBindViewHolder(holder: ReadingsHolder, position: Int) {
+            holder.label.addTextChangedListener(object:TextWatcher{
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
 
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    readingList[position].name = s.toString()
+                }
+            })
+        holder.value.addTextChangedListener(object:TextWatcher{
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    readingList[position].read = s.toString()
+                }
+            })
     }
 
     override fun getItemCount(): Int {
@@ -42,6 +79,10 @@ class ReadingAdapter(private var readingList: ArrayList<Reading>): RecyclerView.
         }
 
         notifyDataSetChanged()
+    }
+
+    fun getData(): ArrayList<Reading> {
+        return readingList
     }
 
 
