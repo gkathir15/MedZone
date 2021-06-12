@@ -12,6 +12,7 @@ import com.kani.medzone.db.Report
 import com.kani.medzone.ui.adapter.ReportsAdapter.ReportsHolder
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**Created by Guru kathir.J on 05,June,2021 **/
 class ReportsAdapter(private var readingList: ArrayList<Report>, private val ctx: Context) :
@@ -42,5 +43,12 @@ class ReportsAdapter(private var readingList: ArrayList<Report>, private val ctx
 
     override fun getItemCount(): Int {
         return readingList.size
+    }
+
+    fun updateList(it: java.util.ArrayList<Report>?) {
+        if (it != null) {
+            readingList = it
+            notifyDataSetChanged()
+        }
     }
 }

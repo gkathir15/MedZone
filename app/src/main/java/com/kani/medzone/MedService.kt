@@ -125,6 +125,7 @@ class MedService : Service() {
             .setCustomContentView(remoteView)
             .setStyle(NotificationCompat.DecoratedCustomViewStyle())
             .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setOngoing(true)
             .setColor(resources.getColor(R.color.white))
             .setOnlyAlertOnce(true)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -153,6 +154,13 @@ class MedService : Service() {
                 applicationContext,
                 CalHelper.dinnerTime(dStore),
                 Constants.DINNER
+            )
+        }
+        if (CalHelper.compareEvening(dStore)) {
+            AlarmManagerHelper.setAlarmforTablets(
+                applicationContext,
+                CalHelper.dinnerTime(dStore),
+                Constants.EVENING
             )
         }
     }

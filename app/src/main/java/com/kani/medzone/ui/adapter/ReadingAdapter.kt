@@ -75,8 +75,7 @@ class ReadingAdapter(private var readingList: ArrayList<Reading>): RecyclerView.
     fun setData(it: ArrayList<Reading>?) {
 
         if (it != null) {
-            readingList =it
-        }
+            readingList=it        }
 
         notifyDataSetChanged()
     }

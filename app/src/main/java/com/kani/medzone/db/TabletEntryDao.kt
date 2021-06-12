@@ -6,8 +6,8 @@ import androidx.room.*
 @Dao
 interface TabletEntryDao {
 
-    @Query("SELECT * FROM TabletEntry")
-    suspend fun getAll(): List<TabletEntry>
+//    @Query("SELECT * FROM TabletEntry WHERE date" )
+//    suspend fun getAll(startTym:Long,endTym:Long): List<TabletEntry>
 
 //    @Query("SELECT * FROM Tablets WHERE tabletid IN (:tabletid)")
 //    fun loadAllByIds(tabletid: IntArray): List<Tablets>

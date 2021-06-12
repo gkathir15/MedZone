@@ -24,6 +24,11 @@ class CalHelper {
            return Calendar.getInstance().get(Calendar.HOUR_OF_DAY)< dStore?.get(intPreferencesKey(Constants.DINNER_Hour))?:20 &&
                     Calendar.getInstance().get(Calendar.MINUTE)< dStore?.get(intPreferencesKey(Constants.DINNER_min))?:30
         }
+        fun compareEvening(dStore: Preferences?):Boolean
+        {
+           return Calendar.getInstance().get(Calendar.HOUR_OF_DAY)< dStore?.get(intPreferencesKey(Constants.EVENING_Hour))?:20 &&
+                    Calendar.getInstance().get(Calendar.MINUTE)< dStore?.get(intPreferencesKey(Constants.EVENING_Min))?:30
+        }
 
 
         fun breakfastTime(dStore: Preferences?):Calendar

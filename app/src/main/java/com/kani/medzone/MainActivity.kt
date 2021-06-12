@@ -40,10 +40,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         pageAdapter = ViewPagerAdapter(supportFragmentManager)
-        pageAdapter?.addFragment(getString(R.string.title_home), DashboardFragment())
-        pageAdapter?.addFragment(getString(R.string.tablet), TabletListFragment())
-        pageAdapter?.addFragment(getString(R.string.investigation), InvestigationFragment())
-        pageAdapter?.addFragment(getString(R.string.calendar), CalendarFragment())
+        pageAdapter?.also{
+            it.addFragment(getString(R.string.title_home), DashboardFragment())
+            it.addFragment(getString(R.string.tablet), TabletListFragment())
+            it.addFragment(getString(R.string.investigation), InvestigationFragment())
+            it.addFragment(getString(R.string.calendar), CalendarFragment())
+        }
         pager.adapter = pageAdapter
         tab_layout.setupWithViewPager(pager)
 
@@ -90,7 +92,7 @@ class MainActivity : AppCompatActivity() {
             ) == true && BiometricManager.from(this)
                 .canAuthenticate(BiometricManager.Authenticators.DEVICE_CREDENTIAL) == BiometricManager.BIOMETRIC_SUCCESS
         ) {
-            //  createBiometricPrompt()
+             createBiometricPrompt()
         }
     }
 
@@ -148,14 +150,14 @@ class MainActivity : AppCompatActivity() {
                 super.onAuthenticationError(errorCode, errString)
                 Log.d(TAG, "$errorCode :: $errString")
 
-                finish() // Because in this app, the negative button allows the user to enter an account password. This is completely optional and your app doesn’t have to do it.
+              //  finish() // Because in this app, the negative button allows the user to enter an account password. This is completely optional and your app doesn’t have to do it.
 
             }
 
             override fun onAuthenticationFailed() {
                 super.onAuthenticationFailed()
                 Log.d(TAG, "Authentication failed for an unknown reason")
-                finish()
+              //  finish()
             }
 
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
@@ -169,6 +171,7 @@ class MainActivity : AppCompatActivity() {
         val biometricPrompt = BiometricPrompt(this, executor, callback)
 
         val info = BiometricPrompt.PromptInfo.Builder()
+
 
         if(BiometricManager.from(this)
                 .canAuthenticate(BiometricManager.Authenticators.DEVICE_CREDENTIAL)== BiometricManager.BIOMETRIC_SUCCESS) {
@@ -185,6 +188,7 @@ class MainActivity : AppCompatActivity() {
         info.setConfirmationRequired(false)
         info.setTitle("Authenticate")
         info.setSubtitle("Your information is safe with us")
+        info.setNegativeButtonText("Cancel")
         biometricPrompt.authenticate(info.build())
 
     }

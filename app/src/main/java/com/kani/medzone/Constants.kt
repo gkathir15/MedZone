@@ -12,6 +12,7 @@ class Constants {
         val BREAKFAST="BREAKFAST"
         val LUNCH="LUNCH"
         val DINNER="DINNER"
+        val EVENING="EVENING"
 
         val callFOR= "callFor"
         val setNewAlarm = "setNewAlarm"

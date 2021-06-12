@@ -24,9 +24,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:enabled="true"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:id="@+id/proceed"
-        android:text="@string/Continue" />
+        android:id="@+id/proceedBtn"
+        android:text="@string/Continue"
+        android:focusable="true" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
