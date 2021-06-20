@@ -57,6 +57,8 @@ class PreferenceFragment : Fragment() {
                       (requireActivity() as MainActivity).getDataStore().edit {
                           it[intPreferencesKey(Constants.BREAKFAST_Hour)] = hourOfDay
                           it[intPreferencesKey(Constants.BREAKFAST_min)] = minute
+                          breakfastTime.text = ("BreakFast ${it[intPreferencesKey(Constants.BREAKFAST_Hour)]?:9.hoursToAM_PM(it[intPreferencesKey(Constants.BREAKFAST_min)]?:30)}")
+
                       }
                   }
               },calendar.get(Calendar.HOUR),calendar.get(Calendar.MINUTE),false)
@@ -71,6 +73,8 @@ class PreferenceFragment : Fragment() {
                       (requireActivity() as MainActivity).getDataStore().edit {
                           it[intPreferencesKey(Constants.LUNCH_Hour)] = hourOfDay
                           it[intPreferencesKey(Constants.LUNCH_min)] = minute
+                          lunchTime.text = ("Lunch ${it[intPreferencesKey(Constants.LUNCH_Hour)]?:13.hoursToAM_PM(it[intPreferencesKey(Constants.LUNCH_min)]?:30)}")
+
                       }
                   }
               },calendar.get(Calendar.HOUR),calendar.get(Calendar.MINUTE),false)
@@ -85,6 +89,8 @@ class PreferenceFragment : Fragment() {
                       (requireActivity() as MainActivity).getDataStore().edit {
                           it[intPreferencesKey(Constants.DINNER_Hour)] = hourOfDay
                           it[intPreferencesKey(Constants.DINNER_min)] = minute
+                          dinerTime.text = ("Dinner ${it[intPreferencesKey(Constants.DINNER_Hour)]?:20.hoursToAM_PM(it[intPreferencesKey(Constants.DINNER_min)]?:30)}")
+
                       }
                   }
               },calendar.get(Calendar.HOUR),calendar.get(Calendar.MINUTE),false)
@@ -99,6 +105,8 @@ class PreferenceFragment : Fragment() {
                         (requireActivity() as MainActivity).getDataStore().edit {
                             it[intPreferencesKey(Constants.EVENING_Hour)] = hourOfDay
                             it[intPreferencesKey(Constants.EVENING_Min)] = minute
+                            eveningTime.text = ("Evening ${it[intPreferencesKey(Constants.EVENING_Hour)]?:17.hoursToAM_PM(it[intPreferencesKey(Constants.EVENING_Min)]?:30)}")
+
                         }
                     }
                 },calendar.get(Calendar.HOUR),calendar.get(Calendar.MINUTE),false)
@@ -117,7 +125,7 @@ class PreferenceFragment : Fragment() {
         SaveBtn.setOnClickListener {
 
             (requireActivity() as MainActivity).also {
-                it.getPreferences()?.edit()?.putBoolean(Constants.ISLoggedIN,true)?.commit()
+                it.getPreferences()?.edit()?.putBoolean(Constants.ISLoggedIN,true)?.apply()
                 it.removeFrag(this)
                 it.showTabsView()
             }

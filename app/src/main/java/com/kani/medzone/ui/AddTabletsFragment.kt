@@ -1,11 +1,14 @@
 package com.kani.medzone.ui
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -16,6 +19,7 @@ import com.kani.medzone.Constants
 import com.kani.medzone.R
 import com.kani.medzone.db.TabletEntry
 import com.kani.medzone.db.Tablets
+import kotlinx.android.synthetic.main.calendar_select_layout.view.*
 import kotlinx.android.synthetic.main.fragment_add_tablets.*
 import kotlinx.android.synthetic.main.fragment_add_tablets.morning
 import kotlinx.android.synthetic.main.fragment_add_tablets.night
@@ -23,6 +27,8 @@ import kotlinx.android.synthetic.main.fragment_add_tablets.noon
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
+import java.time.LocalDate
+import java.util.*
 
 
 class AddTabletsFragment : Fragment() {
@@ -123,6 +129,10 @@ class AddTabletsFragment : Fragment() {
                 tablet.night = 0
         }
 
+        schedule.setOnClickListener {
+showCalendarSelectionDialog()
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -145,6 +155,24 @@ class AddTabletsFragment : Fragment() {
                 Toast.makeText(activity, Constants.TASK_CANCELLED, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    fun showCalendarSelectionDialog()
+    {
+        val builder = Dialog(requireContext())
+        builder.setCanceledOnTouchOutside(true)
+        builder.setCanceledOnTouchOutside(true)
+        val inflater = layoutInflater
+        val dialogLayout: View = inflater.inflate(R.layout.calendar_select_layout, null)
+        dialogLayout.calendarView.also {
+            it.setAllowClickDaysOutsideCurrentMonth(false)
+        }
+        dialogLayout.done.setOnClickListener {
+            builder.cancel()
+        }
+        builder.setContentView(dialogLayout)
+
+        builder.show()
     }
 
 

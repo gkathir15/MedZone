@@ -29,6 +29,14 @@ class ReadingAdapter(private var readingList: ArrayList<Reading>): RecyclerView.
                 .inflate(R.layout.reading_item, parent, false))
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
     override fun onBindViewHolder(holder: ReadingsHolder, position: Int) {
             holder.label.addTextChangedListener(object:TextWatcher{
                 override fun beforeTextChanged(
@@ -74,10 +82,11 @@ class ReadingAdapter(private var readingList: ArrayList<Reading>): RecyclerView.
 
     fun setData(it: ArrayList<Reading>?) {
 
-        if (it != null) {
-            readingList=it        }
 
-        notifyDataSetChanged()
+        it?.let {i1->
+            readingList.clear()
+            readingList.addAll(i1)
+        notifyDataSetChanged()}
     }
 
     fun getData(): ArrayList<Reading> {

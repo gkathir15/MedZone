@@ -130,6 +130,9 @@ class MedService : Service() {
             .setOnlyAlertOnce(true)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setChannelId(channelId)
+            .addAction(NotificationCompat.Action(R.drawable.ic_baseline_done_all_24,"Take all",pendingIntent))
+            .addAction(NotificationCompat.Action(R.drawable.ic_baseline_snooze_24,"Snooze",pendingIntent))
+            .addAction(NotificationCompat.Action(R.drawable.ic_baseline_skip_next_24,"Skip",pendingIntent))
             .setOngoing(true)
 
     }

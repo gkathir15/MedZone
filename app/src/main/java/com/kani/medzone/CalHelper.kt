@@ -62,14 +62,14 @@ class CalHelper {
         if(this<12)
         {
             value.append(this)
-            value.append(" : ")
+            value.append(":")
             value.append(mins)
-            value.append( "AM")
+            value.append( " AM")
         }else{
             value.append(this-12)
-            value.append(" : ")
+            value.append(":")
             value.append(mins)
-            value.append( "PM")
+            value.append( " PM")
         }
 
         return value.toString()

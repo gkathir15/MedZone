@@ -90,7 +90,7 @@ class InvestigationFragment : Fragment() {
         investigationList.visibility= View.VISIBLE
         addInvestigation.visibility = View.VISIBLE
         GlobalScope.launch {
-            homeViewModel.databaseInstance().reportDao().getAll()
+            homeViewModel.fetchInvestigation()
         }
     }
 

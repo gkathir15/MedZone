@@ -11,16 +11,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kani.medzone.Constants
 import com.kani.medzone.R
 import com.kani.medzone.db.Reading
+import com.kani.medzone.db.Report
 import com.kani.medzone.ui.adapter.ReadingAdapter
 import com.kani.medzone.vm.ActivityViewModel
 import com.kani.medzone.vm.AddInvestigationViewModel
 import kotlinx.android.synthetic.main.fragment_add_investigation.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class AddInvestigation : Fragment() {
-    private val vm by viewModels<AddInvestigationViewModel>()
-   /// private val homeViewModel by activityViewModels<ActivityViewModel>()
+   // private val vm by viewModels<AddInvestigationViewModel>()
+    private val homeViewModel by activityViewModels<ActivityViewModel>()
     private var readingAdapter: ReadingAdapter? = null
+    private val list:ArrayList<Reading> = ArrayList(0)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,40 +36,34 @@ class AddInvestigation : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val list = ArrayList<Reading>()
-        list.add(Reading(null, null))
         header.text = arguments?.getString(Constants.NAME)
-        vm.investigationList.value = list
+        list.add(Reading("", ""))
+
         readingAdapter = ReadingAdapter(list)
         recycler.also {
             it.adapter = readingAdapter
             it.layoutManager = LinearLayoutManager(requireContext())
         }
 
-
-        vm.investigationList.observe(viewLifecycleOwner, {
-            readingAdapter?.setData(it)
-        })
-
         Addlabel.setOnClickListener {
-            if (readingAdapter?.getData()?.last()?.name?.isNotEmpty() == true) {
-                val adapterItm = readingAdapter?.getData()
-                adapterItm?.add(Reading(null, null))
-                vm.investigationList.value = adapterItm
-
+            if(list.isNotEmpty()) {
+                if (list.asReversed().last().name?.isNotEmpty() == true) {
+                    list.add(Reading("", ""))
+                    readingAdapter?.notifyDataSetChanged()
+                }
             }
         }
 
         proceedBtn.setOnClickListener {
-//            GlobalScope.launch {
-//                homeViewModel.databaseInstance().reportDao()
-//                    .insert(readingAdapter?.getData()?.let { it1 ->
-//                        Report(
-//                            0, header.text.toString(), System.currentTimeMillis(),
-//                            it1
-//                        )
-//                    }!!)
-//            }
+            GlobalScope.launch {
+                homeViewModel.databaseInstance().reportDao()
+                    .insert(readingAdapter?.getData()?.let { it1 ->
+                        Report(
+                            0, header.text.toString(), System.currentTimeMillis(),
+                            it1
+                        )
+                    }!!)
+            }
             (parentFragment as InvestigationFragment).removeAddInvestFrag(this)
         }
 

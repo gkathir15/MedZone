@@ -42,8 +42,9 @@ class ActivityViewModel(val app: Application) : AndroidViewModel(app) {
     }
     suspend fun fetchTabletEntry()
     {
-        investigationList.value?.clear()
-        investigationList.postValue(databaseInstance().reportDao().getAll() as ArrayList<Report>?)
+        tabEntryList.value?.clear()
+        tabEntryList.postValue(databaseInstance().tabEntryDao().getAll() as ArrayList<TabletEntry>)
+
     }
 
 }

@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kani.medzone.R
+import com.kani.medzone.db.Reading
 import com.kani.medzone.db.Report
 import com.kani.medzone.ui.adapter.ReportsAdapter.ReportsHolder
 import java.text.SimpleDateFormat
@@ -34,10 +35,10 @@ class ReportsAdapter(private var readingList: ArrayList<Report>, private val ctx
     override fun onBindViewHolder(holder: ReportsHolder, position: Int) {
         holder.readingsRecyclerView.also {
             it.layoutManager = LinearLayoutManager(ctx, RecyclerView.VERTICAL, false)
-            it.adapter = ReadingListAdapter(readingList[position].readingList)
+            it.adapter = ReadingListAdapter(readingList[position].readingList as ArrayList<Reading>)
         }
         holder.nameV.text = readingList[position].name
-        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        val sdf = SimpleDateFormat("dd/MMM/yyyy")
         holder.takenIn.text = sdf.format(Date(readingList[position].takenOn))
     }
 
