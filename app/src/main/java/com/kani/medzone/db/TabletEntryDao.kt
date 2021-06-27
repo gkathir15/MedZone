@@ -27,4 +27,7 @@ interface TabletEntryDao {
 
     @Update
     suspend  fun update (tablet: TabletEntry)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend  fun insertAll(tabletEntryList: List<TabletEntry>)
 }

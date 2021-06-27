@@ -49,6 +49,8 @@ class MainActivity : AppCompatActivity() {
         pager.adapter = pageAdapter
         tab_layout.setupWithViewPager(pager)
 
+        model.datastore = datastore
+
         getAllPermissions()
 
 

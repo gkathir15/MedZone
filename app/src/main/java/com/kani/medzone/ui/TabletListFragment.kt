@@ -6,8 +6,11 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.datastore.preferences.core.Preferences
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kani.medzone.vm.ActivityViewModel
@@ -17,7 +20,10 @@ import com.kani.medzone.R
 import com.kani.medzone.db.Tablets
 import com.kani.medzone.ui.adapter.TabletsListAdapter
 import kotlinx.android.synthetic.main.fragment_tablet_list.*
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 
@@ -25,6 +31,7 @@ class TabletListFragment : Fragment(),ItemClickListener {
 
     private var tabletAdapter: TabletsListAdapter? = null
     private val homeViewModel by activityViewModels<ActivityViewModel>()
+    var pref:Preferences?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +43,12 @@ class TabletListFragment : Fragment(),ItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalScope.launch(IO) {
+            pref = (requireActivity() as MainActivity).getDataStore().data.first().toPreferences()
+        }
         addTablet.setOnClickListener {
-            childFragmentManager.beginTransaction().add(R.id.root, AddTabletsFragment()).commit()
+            childFragmentManager.beginTransaction().add(R.id.root, AddTabletsFragment()).commitNow()
             addTablet.visibility = GONE
         }
         tabletAdapter = TabletsListAdapter(ArrayList<Tablets>(0),this)

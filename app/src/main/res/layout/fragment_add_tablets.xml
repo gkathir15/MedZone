@@ -189,14 +189,7 @@
 
     </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/schedule"
-            android:text="@string/schedule"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
-            android:layout_below="@id/checkbox_layout"/>
+
 
     <TextView
         android:id="@+id/add"
@@ -206,7 +199,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="70dp"
-        android:text="@string/add"
+        android:text="@string/add_amp_schedule"
         android:gravity="center"
         android:background="@color/design_default_color_primary"
         android:textSize="@dimen/tablet_list_tv"

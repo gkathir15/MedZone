@@ -2,40 +2,57 @@ package com.kani.medzone.ui
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.MutablePreferences
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.kani.medzone.vm.ActivityViewModel
 import com.kani.medzone.Constants
+import com.kani.medzone.MainActivity
 import com.kani.medzone.R
 import com.kani.medzone.db.TabletEntry
 import com.kani.medzone.db.Tablets
+import com.kani.medzone.vm.ActivityViewModel
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.calendar_select_layout.view.*
 import kotlinx.android.synthetic.main.fragment_add_tablets.*
-import kotlinx.android.synthetic.main.fragment_add_tablets.morning
-import kotlinx.android.synthetic.main.fragment_add_tablets.night
-import kotlinx.android.synthetic.main.fragment_add_tablets.noon
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.io.File
-import java.time.LocalDate
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class AddTabletsFragment : Fragment() {
     private val homeViewModel by activityViewModels<ActivityViewModel>()
     private var imgFile: File? = null
-    private val tablet = Tablets(0, "", "0", 1,0
-        ,null, 1, 0, 0,0,0,"")
+    private val tablet = Tablets(
+        0, "", "0", 1, 0, null, 1, 0, 0, 0, 0, ""
+    )
+
+    private var selectedDay: CalendarDay? = null
+    //private var datastore: Preferences? = null
+    // At the top level of your kotlin file:
+   // val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+    var hr =0
+    var min =0
+    var datastore:Preferences?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +64,9 @@ class AddTabletsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        datastore = (parentFragment as TabletListFragment).pref
+
         tabletImg.setOnClickListener {
             ImagePicker.with(this)
                 .cropSquare() //Crop image(Optional), Check Customization for more option
@@ -77,35 +97,29 @@ class AddTabletsFragment : Fragment() {
             if (imgFile != null) {
                 tablet.imageUrl = imgFile?.readBytes()
             }
-                if (tabletNameET.text.toString().isNotBlank()) {
-                    tablet.name = tabletNameET.text.toString()
-                    if (mgEt.text.toString().isNotBlank()) {
-                        if(qtyEt.text.toString().isNotBlank()) {
-                            tablet.mgDosage = mgEt.text.toString()
-                            if(instructionEt.text.toString().isNotBlank())
-                                tablet.instruction = instructionEt.text.toString()
+            if (tabletNameET.text.toString().isNotBlank()) {
+                tablet.name = tabletNameET.text.toString()
+                if (mgEt.text.toString().isNotBlank()) {
+                    if (qtyEt.text.toString().isNotBlank()) {
+                        tablet.mgDosage = mgEt.text.toString()
+                        tablet.qty = qtyEt.text.toString().toInt()
+                        if (instructionEt.text.toString().isNotBlank())
+                            tablet.instruction = instructionEt.text.toString()
 
-                            GlobalScope.launch {
-                                homeViewModel.run {
-                                    this.databaseInstance().tabletsDao().insert(tablet)
-                                    this.fetchTabletsList()
-                                    this.databaseInstance().tabEntryDao().insert(TabletEntry(0,
-                                        System.currentTimeMillis(),0,tablet))
-                                }
 
-                            }
-                            (parentFragment as TabletListFragment).back(this)
 
-                        }else{
-                            ed_qty.error = "Enter Available No"
-                        }
+                        showCalendarSelectionDialog()
+
+
                     } else {
-                        ed_mg.error = Constants.ENTER_DOSAGE_SIZE;
+                        ed_qty.error = "Enter Available No"
                     }
                 } else {
-                    ed_tabletName.error = Constants.ENTER_TABLET_NAME
+                    ed_mg.error = Constants.ENTER_DOSAGE_SIZE
                 }
-
+            } else {
+                ed_tabletName.error = Constants.ENTER_TABLET_NAME
+            }
 
 
         }
@@ -129,9 +143,11 @@ class AddTabletsFragment : Fragment() {
                 tablet.night = 0
         }
 
-        schedule.setOnClickListener {
-showCalendarSelectionDialog()
-        }
+
+
+
+
+
 
     }
 
@@ -157,22 +173,145 @@ showCalendarSelectionDialog()
         }
     }
 
-    fun showCalendarSelectionDialog()
-    {
+    private fun showCalendarSelectionDialog() {
         val builder = Dialog(requireContext())
         builder.setCanceledOnTouchOutside(true)
         builder.setCanceledOnTouchOutside(true)
         val inflater = layoutInflater
+
         val dialogLayout: View = inflater.inflate(R.layout.calendar_select_layout, null)
+        dialogLayout.done.isEnabled = false
         dialogLayout.calendarView.also {
             it.setAllowClickDaysOutsideCurrentMonth(false)
+            it.setOnDateChangedListener { _, date, _ ->
+                selectedDay = date
+                dialogLayout.done.isEnabled = true
+            }
         }
         dialogLayout.done.setOnClickListener {
+            if (selectedDay != null) {
+                GlobalScope.launch {
+                    homeViewModel.run {
+                        this.databaseInstance().tabletsDao().insert(tablet)
+                        this.fetchTabletsList()
+                        this.databaseInstance().tabEntryDao()
+                            .insertAll(getTabletEntryList(tablet))
+                    }
+
+                }
+                (parentFragment as TabletListFragment).back(this)
+            }
             builder.cancel()
         }
         builder.setContentView(dialogLayout)
 
         builder.show()
+    }
+
+    private fun getTabletEntryList(tablet: Tablets): ArrayList<TabletEntry> {
+
+        val list = ArrayList<TabletEntry>()
+
+
+        datastore?.also {
+            var qty = tablet.qty
+            var iteration = 0
+
+            while (qty != 0) {
+                if (tablet.morning == 1 && qty != 0) {
+                    val date = Calendar.getInstance().also { itx ->
+                        itx.set(
+                            selectedDay!!.year, selectedDay!!.month, selectedDay!!.day,
+                            it[intPreferencesKey(Constants.BREAKFAST_Hour)]!!,
+                            it[intPreferencesKey(Constants.BREAKFAST_min)]!!, 0
+                        )
+                    }
+                    date.add(Calendar.DAY_OF_MONTH, iteration)
+                    list.add(
+                        TabletEntry(
+                            "${tablet.tabletid}_${date.timeInMillis}",
+                            date.timeInMillis,
+                            0,
+                            tablet
+                        )
+                    )
+
+                    qty = qty?.minus(1)
+
+                }
+                if (tablet.noon == 1 && qty != 0) {
+                    val date = Calendar.getInstance().also { itx ->
+                        itx.set(
+                            selectedDay!!.year, selectedDay!!.month, selectedDay!!.day,
+                            it[intPreferencesKey(Constants.LUNCH_Hour)]!!,
+                            it[intPreferencesKey(Constants.LUNCH_min)]!!, 0
+                        )
+                    }
+                    date.add(Calendar.DAY_OF_MONTH, iteration)
+                    list.add(
+                        TabletEntry(
+                            "${tablet.tabletid}_${date.timeInMillis}",
+                            date.timeInMillis,
+                            0,
+                            tablet
+                        )
+                    )
+
+                    qty = qty?.minus(1)
+
+                }
+                if (tablet.evening == 1 && qty != 0) {
+                    val date = Calendar.getInstance().also { itx ->
+                        itx.set(
+                            selectedDay!!.year, selectedDay!!.month, selectedDay!!.day,
+                            it[intPreferencesKey(Constants.EVENING_Hour)]!!,
+                            it[intPreferencesKey(Constants.EVENING_Min)]!!, 0
+                        )
+                    }
+                    date.add(Calendar.DAY_OF_MONTH, iteration)
+                    list.add(
+                        TabletEntry(
+                            "${tablet.tabletid}_${date.timeInMillis}",
+                            date.timeInMillis,
+                            0,
+                            tablet
+                        )
+                    )
+
+                    qty = qty?.minus(1)
+
+                }
+                if (tablet.night == 1 && qty != 0) {
+                    val date = Calendar.getInstance().also { itx ->
+                        itx.set(
+                            selectedDay!!.year, selectedDay!!.month, selectedDay!!.day,
+                            it[intPreferencesKey(Constants.DINNER_Hour)]!!,
+                            it[intPreferencesKey(Constants.DINNER_min)]!!, 0
+                        )
+                    }
+                    date.add(Calendar.DAY_OF_MONTH, iteration)
+                    list.add(
+                        TabletEntry(
+                            "${tablet.tabletid}_${date.timeInMillis}",
+                            date.timeInMillis,
+                            0,
+                            tablet
+                        )
+                    )
+
+                    qty = qty?.minus(1)
+
+                }
+
+
+                iteration -= 1
+
+            }
+
+        }
+
+        return list
+
     }
 
 

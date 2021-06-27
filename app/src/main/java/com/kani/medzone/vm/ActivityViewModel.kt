@@ -1,6 +1,7 @@
 package com.kani.medzone.vm
 
 import android.app.Application
+import androidx.datastore.core.DataStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
@@ -8,6 +9,7 @@ import com.kani.medzone.db.AppDatabase
 import com.kani.medzone.db.Report
 import com.kani.medzone.db.TabletEntry
 import com.kani.medzone.db.Tablets
+import java.util.prefs.Preferences
 
 /**Created by Guru kathir.J on 02,May,2021 **/
 class ActivityViewModel(val app: Application) : AndroidViewModel(app) {
@@ -16,6 +18,7 @@ class ActivityViewModel(val app: Application) : AndroidViewModel(app) {
     var tabletsList:MutableLiveData<ArrayList<Tablets>> = MutableLiveData(ArrayList<Tablets>())
     var investigationList:MutableLiveData<ArrayList<Report>> = MutableLiveData(ArrayList())
     var tabEntryList:MutableLiveData<ArrayList<TabletEntry>> = MutableLiveData(ArrayList())
+    var datastore:DataStore<androidx.datastore.preferences.core.Preferences>?=null
 
     fun databaseInstance(): AppDatabase {
         return if (db!=null)

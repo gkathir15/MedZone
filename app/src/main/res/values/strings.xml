@@ -62,4 +62,7 @@
   <string name="month_name_format">MMMM yyyy</string>
     <string name="schedule">schedule</string>
     <string name="done">Done</string>
+    <string name="add_event">Add event</string>
+    <string name="select_dosage_start_date">Select Dosage start date.</string>
+    <string name="add_amp_schedule"><![CDATA[Add & Schedule]]></string>
 </resources>

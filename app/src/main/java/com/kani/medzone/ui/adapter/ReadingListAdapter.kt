@@ -20,6 +20,7 @@ class ReadingListAdapter(private var readingList: ArrayList<Reading>): RecyclerV
 
         val label = v.findViewById<TextView>(R.id.readlingLabel)
         val value = v.findViewById<TextView>(R.id.readingValue)
+        val unit = v.findViewById<TextView>(R.id.unitValue)
 
     }
 
@@ -32,6 +33,7 @@ class ReadingListAdapter(private var readingList: ArrayList<Reading>): RecyclerV
     override fun onBindViewHolder(holder: ReadingsHolder, position: Int) {
         holder.label.text = readingList[position].name
         holder.value.text = readingList[position].read
+        holder.unit.text = readingList[position].unit
     }
 
     override fun getItemCount(): Int {

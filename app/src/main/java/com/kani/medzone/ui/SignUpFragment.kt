@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.kani.medzone.vm.ActivityViewModel
@@ -47,7 +48,7 @@ class SignUpFragment : Fragment() {
                             (requireActivity() as MainActivity).getPreferences()?.edit()?.putString(Constants.ILLNESS, illnessEt.text.toString())?.apply()
 
                             (requireActivity() as MainActivity).removeFrag(this)
-                            (requireActivity() as MainActivity).addFrag(PreferenceFragment())
+                            (requireActivity() as MainActivity).addFrag(PreferenceFragment().also { it.arguments = bundleOf(Pair("isFirst",true)) })
                         }else{
                                             illness.error = "Enter illness"
                         }
