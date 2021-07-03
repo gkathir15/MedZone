@@ -1,5 +1,6 @@
 package com.kani.medzone.ui.adapter
 
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -8,19 +9,20 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.kani.medzone.Constants
 import com.kani.medzone.R
 import com.kani.medzone.db.Reading
 import com.kani.medzone.db.Tablets
 
 /**Created by Guru kathir.J on 02,June,2021 **/
-class ReadingAdapter(private var readingList: ArrayList<Reading>): RecyclerView.Adapter<ReadingAdapter.ReadingsHolder>() {
+class ReadingAdapter(private var readingList: ArrayList<Reading>,val context: Context, label:String?): RecyclerView.Adapter<ReadingAdapter.ReadingsHolder>() {
 
-
+        public var label:String = label.toString()
     class ReadingsHolder(v: View): RecyclerView.ViewHolder(v) {
 
-        val label = v.findViewById<EditText>(R.id.readlingLabelET)
+        val label = v.findViewById<AutoCompleteTextView>(R.id.readlingLabelET)
         val value = v.findViewById<EditText>(R.id.readlingValueET)
-        val unit = v.findViewById<EditText>(R.id.readUnitET)
+        val unit = v.findViewById<AutoCompleteTextView>(R.id.readUnitET)
 
     }
 
@@ -39,6 +41,14 @@ class ReadingAdapter(private var readingList: ArrayList<Reading>): RecyclerView.
     }
 
     override fun onBindViewHolder(holder: ReadingsHolder, position: Int) {
+
+        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
+
+            context,
+            R.layout.dropdown_item,
+            Constants.getLabelArray(label)
+        )
+        holder.label.setAdapter(adapter)
             holder.label.addTextChangedListener(object:TextWatcher{
                 override fun beforeTextChanged(
                     s: CharSequence?,
@@ -75,6 +85,13 @@ class ReadingAdapter(private var readingList: ArrayList<Reading>): RecyclerView.
                     readingList[position].read = s.toString()
                 }
             })
+        val unitAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+
+            context,
+            R.layout.dropdown_item,
+            Constants.getUnitArray(label)
+        )
+        holder.unit.setAdapter(unitAdapter)
         holder.unit.addTextChangedListener(object:TextWatcher{
                 override fun beforeTextChanged(
                     s: CharSequence?,

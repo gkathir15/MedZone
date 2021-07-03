@@ -1,6 +1,7 @@
 package com.kani.medzone.ui
 
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +12,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
-import com.kani.medzone.Constants
-import com.kani.medzone.MainActivity
-import com.kani.medzone.R
-import com.kani.medzone.hoursToAM_PM
+import com.kani.medzone.*
 import kotlinx.android.synthetic.main.fragment_preference.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -184,6 +182,16 @@ class PreferenceFragment : Fragment() {
                 it.removeFrag(this)
                 it.showTabsView()
             }
+//            requireActivity().also {
+//                if(arguments?.getBoolean("isFirst") == true) {
+//                    it.startService(
+//                        Intent(it, MedService::class.java).putExtra(
+//                            Constants.callFOR,
+//                            Constants.SYNC
+//                        )
+//                    )
+//                }
+//            }
         }
 
     }

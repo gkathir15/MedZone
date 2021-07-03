@@ -40,7 +40,7 @@ class MedService : Service() {
 
         }else if (callFor == Constants.TABLET_ALARM)
         {
-            // TODO Do for showing tablet
+            // Do for showing tablet
 
         }
 

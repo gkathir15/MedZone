@@ -68,7 +68,7 @@ class TabletListFragment : Fragment(),ItemClickListener {
     fun back(addTabletsFragment: AddTabletsFragment) {
         childFragmentManager.beginTransaction().remove(addTabletsFragment).commit()
         GlobalScope.launch {
-
+            homeViewModel.fetchTabletEntry()
         }
         addTablet.visibility = VISIBLE
     }

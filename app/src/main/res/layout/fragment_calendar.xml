@@ -11,6 +11,12 @@
         android:layout_margin="30dp"
         android:id="@+id/calendar"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/calendarDataRecycler"
+        android:layout_below="@id/calendar"/>
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

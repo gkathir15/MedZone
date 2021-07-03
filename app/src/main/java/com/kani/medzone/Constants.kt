@@ -2,23 +2,23 @@ package com.kani.medzone
 
 /**Created by Guru kathir.J on 17,May,2021 **/
 class Constants {
-    companion object{
-        val SKIP: String="SKIP"
-        val SNOOZE: String="SNOOZE"
-        val TAKE: String= "TAKE"
-        val SYNC= "SYNC"
+    companion object {
+        val SKIP: String = "SKIP"
+        val SNOOZE: String = "SNOOZE"
+        val TAKE: String = "TAKE"
+        val SYNC = "SYNC"
         val DURATION = "DURATION"
-        val TABLET_ALARM= "TABLET_ALARM"
-        val BREAKFAST="BREAKFAST"
-        val LUNCH="LUNCH"
-        val DINNER="DINNER"
-        val EVENING="EVENING"
+        val TABLET_ALARM = "TABLET_ALARM"
+        val BREAKFAST = "BREAKFAST"
+        val LUNCH = "LUNCH"
+        val DINNER = "DINNER"
+        val EVENING = "EVENING"
 
-        val callFOR= "callFor"
+        val callFOR = "callFor"
         val setNewAlarm = "setNewAlarm"
         val resetAlarmPostBoot = "resetAlarmPostBoot"
-        val isAlarmSET= "ISALARMSET"
-        val ISLoggedIN: String="ISLoggedIN"
+        val isAlarmSET = "ISALARMSET"
+        val ISLoggedIN: String = "ISLoggedIN"
         const val TASK_CANCELLED = "Task Cancelled"
         const val ENTER_DOSAGE_SIZE = "Enter dosage size"
         const val ENTER_TABLET_NAME = "Enter Tablet name"
@@ -49,7 +49,7 @@ class Constants {
         const val EVENING_Min = "EVENING_Min"
 
 
-         val type = arrayOf(
+        val type = arrayOf(
             "Complete hemogram",
             "Blood sugar profile",
             "Blood Pressure",
@@ -57,6 +57,161 @@ class Constants {
             "Liver Function Tests",
             "Lipid profile",
             "Thyroid profile",
-            "Urine investigations")
+            "Urine investigations"
+        )
+
+        fun getLabelArray(label:String):Array<String>
+        {
+            return when (label) {
+                "Complete hemogram" -> hemogramLabel
+                "Blood sugar profile" -> bloodSugarProfileLabel
+                "Blood Pressure" -> bloodPressureLabel
+                "Renal Function Tests" -> renalFnTestsLabel
+                "Liver Function Tests" -> liverFnTestsLabel
+                "Thyroid profile" -> thyroidProfileLabel
+                "Urine investigations" -> urineInvestigationsLabel
+                else -> renalFnTestsLabel
+            }
+        }
+        fun getUnitArray(label:String):Array<String>
+        {
+            return when (label) {
+                "Complete hemogram" -> hemogramUnits
+                "Blood sugar profile" -> bloodSugarProfileUnits
+                "Blood Pressure" -> bloodPressureUnits
+                "Renal Function Tests" -> renalFnTestsUnits
+                "Liver Function Tests" -> liverFnTestsUnits
+                "Thyroid profile" -> thyroidProfileUnits
+                "Urine investigations" -> urineUits
+                else -> renalFnTestsUnits
+            }
+        }
+
+
+        val hemogramlabel = arrayOf(
+            "FBS", "PPBS", "Random", "HbA1c"
+        )
+
+        val hemogramLabel = arrayOf(
+            "Hb",
+            "RBC count",
+            "Platelet",
+            "Total WBC count",
+            "Neutrophils",
+            "Lymphocytes",
+            "Monocytes",
+            "Eosinophils",
+            "Basophil",
+            "PCV",
+            "ESR",
+            "CRP"
+        )
+
+        val bloodSugarProfileLabel = arrayOf(
+            "FBS",
+            "PPBS",
+            "Random",
+            "HbA1c"
+        )
+
+        val bloodPressureLabel = arrayOf(
+            "Systolic",
+            "Diastolic"
+        )
+
+        val renalFnTestsLabel = arrayOf(
+            "Blood urea",
+            "Serum creatinine",
+            "Serum uric acid"
+        )
+
+        val liverFnTestsLabel = arrayOf(
+            "Total bilirubin",
+            "Direct",
+            "Indirect",
+            "Total protein",
+            "Serum albumin",
+            "Serum globulin",
+            "AST",
+            "ALT",
+            "GGT",
+            "ALP"
+        )
+
+        val lipidProfileLabel = arrayOf(
+            "Total cholesterol",
+            "LDL",
+            "HDL",
+            "Triglycerides",
+            "VLDL"
+        )
+
+        val thyroidProfileLabel = arrayOf(
+            "TSH",
+            "Free T3",
+            "Free T4",
+            "Total T3",
+            "Total T4"
+        )
+
+        val urineInvestigationsLabel = arrayOf(
+            "Urine color",
+            "pH",
+            "Specific gravity",
+            "Sugar",
+            "Protein",
+            "Ketone",
+            "Bilirubin",
+            "RBC",
+            "WBC",
+            "Pus cells",
+            "Epithelial cells",
+            "Casts",
+            "Crystals"
+        )
+
+        val hemogramUnits = arrayOf(
+            "g/dL or g/L",
+            "106 /µL or ×1012 /L",
+            "103/µL or ×109 /L",
+            "%",
+            "mm/hr",
+            "mg/L or µg/mL"
+        )
+
+        val bloodSugarProfileUnits = arrayOf(
+            "mg/dL or mmol/L",
+            "%",
+            "mmHg"
+        )
+        val bloodPressureUnits = arrayOf(
+            "mmHg"
+        )
+
+        val renalFnTestsUnits = arrayOf(
+            "mg/dL or mmol/L",
+            "mg/dL or µmol/L"
+        )
+
+        val liverFnTestsUnits = arrayOf(
+            "mg/dL or µmol/L",
+            "g/dL or g/L",
+            "U/L"
+        )
+
+        val lipidProfileUnits = arrayOf(
+            "mg/dL or mmol/L"
+        )
+        val urineUits = arrayOf(
+            "RBCs","WBCs","cells/hpf","hyaline casts/ lpf"
+        )
+
+        val thyroidProfileUnits = arrayOf(
+            "µIU/mL or mIU/mL",
+            "pg/dL or pmol/L",
+            "ng/dL or pmol/L",
+            "ng/dL or nmol/L",
+            "µg/dL or nmol/L"
+        )
     }
 }

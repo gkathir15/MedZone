@@ -41,7 +41,7 @@ class AddInvestigation : Fragment() {
         header.text = arguments?.getString(Constants.NAME)
         list.add(Reading("", "",""))
 
-        readingAdapter = ReadingAdapter(list)
+        readingAdapter = ReadingAdapter(list,requireContext(),arguments?.getString(Constants.NAME))
         recycler.also {
             it.adapter = readingAdapter
             it.layoutManager = LinearLayoutManager(requireContext())

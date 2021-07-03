@@ -12,14 +12,14 @@
         android:hint="@string/value_name"
         android:padding="10dp"
         android:layout_weight="1"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
+            android:id="@+id/readlingLabelET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textCapWords"
-            android:id="@+id/readlingLabelET"
-            />
+            android:layout_marginTop="18dp"
+            android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -43,15 +43,17 @@
         android:id="@+id/ed_unit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Unit"
+        android:hint="@string/unit"
         android:padding="10dp"
         android:layout_weight="1"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
 
-        <com.google.android.material.textfield.TextInputEditText
+
+    <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:layout_marginTop="18dp"
             android:id="@+id/readUnitET"
             />
 
