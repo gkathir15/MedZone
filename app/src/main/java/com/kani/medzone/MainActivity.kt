@@ -22,6 +22,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.bumptech.glide.Glide
+import com.google.firebase.firestore.FirebaseFirestore
 import com.kani.medzone.ui.*
 import com.kani.medzone.ui.adapter.ViewPagerAdapter
 import com.kani.medzone.vm.ActivityViewModel
@@ -33,12 +34,14 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private var pageAdapter: ViewPagerAdapter? = null
     private var sharedPreferences: SharedPreferences? = null
-    private val datastore: DataStore<Preferences> by preferencesDataStore(name = "MedZone_datastore")
+    private var datastore: DataStore<Preferences>?=null
     private val model by viewModels<ActivityViewModel>()
     val TAG = MainActivity::class.java.canonicalName
+    val db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+      datastore=  (application as AppState).datastore
         pageAdapter = ViewPagerAdapter(supportFragmentManager)
         pageAdapter?.also{
             it.addFragment(getString(R.string.title_home), DashboardFragment())
@@ -58,15 +61,6 @@ class MainActivity : AppCompatActivity() {
 
         showTabsView()
 
-        if (sharedPreferences?.getBoolean(
-                Constants.ISLoggedIN,
-                false
-            ) == true && sharedPreferences?.getBoolean(Constants.isAlarmSET, false) == true
-        ) {
-            startService(Intent(this, MedService::class.java).also {
-                it.putExtra(Constants.callFOR, Constants.setNewAlarm)
-            })
-        }
 
         if (sharedPreferences?.getBoolean(
                 Constants.ISLoggedIN,
@@ -122,6 +116,17 @@ class MainActivity : AppCompatActivity() {
             pager.visibility = VISIBLE
             tab_layout.visibility = VISIBLE
             root.visibility = GONE
+
+
+            if (sharedPreferences?.getBoolean(
+                    Constants.ISLoggedIN,
+                    false
+                ) == true && sharedPreferences?.getBoolean(Constants.isAlarmSET, false) == false
+            ) {
+                startService(Intent(this, MedService::class.java).also {
+                    it.putExtra(Constants.callFOR, Constants.setNewAlarm)
+                })
+            }
         }
 
 
@@ -139,7 +144,7 @@ class MainActivity : AppCompatActivity() {
         return sharedPreferences
     }
 
-    fun getDataStore(): DataStore<Preferences> {
+    fun getDataStore(): DataStore<Preferences>? {
         return datastore
     }
 

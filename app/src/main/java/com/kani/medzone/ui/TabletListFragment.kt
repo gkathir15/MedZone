@@ -45,7 +45,7 @@ class TabletListFragment : Fragment(),ItemClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         GlobalScope.launch(IO) {
-            pref = (requireActivity() as MainActivity).getDataStore().data.first().toPreferences()
+            pref = (requireActivity() as MainActivity).getDataStore()?.data?.first()?.toPreferences()
         }
         addTablet.setOnClickListener {
             childFragmentManager.beginTransaction().add(R.id.root, AddTabletsFragment()).commitNow()

@@ -42,7 +42,7 @@ class PreferenceFragment : Fragment() {
 
         if(arguments?.getBoolean("isFirst") == true) {
             GlobalScope.launch {
-                (requireActivity() as MainActivity).getDataStore().edit {
+                (requireActivity() as MainActivity).getDataStore()?.edit {
                     it[intPreferencesKey(Constants.BREAKFAST_Hour)] = 9
                     it[intPreferencesKey(Constants.BREAKFAST_min)] = 30
 
@@ -102,7 +102,7 @@ class PreferenceFragment : Fragment() {
               { view, hourOfDay, minute ->
                   breakfastTime.text = ("BreakFast alarm time ${hourOfDay.hoursToAM_PM(minute)}")
                   GlobalScope.launch {
-                      (requireActivity() as MainActivity).getDataStore().edit {
+                      (requireActivity() as MainActivity).getDataStore()?.edit {
                           it[intPreferencesKey(Constants.BREAKFAST_Hour)] = hourOfDay
                           it[intPreferencesKey(Constants.BREAKFAST_min)] = minute
 
@@ -121,7 +121,7 @@ class PreferenceFragment : Fragment() {
                   lunchTime.text = ("Lunch ${hourOfDay.hoursToAM_PM(minute)}")
                   GlobalScope.launch {
 
-                      (requireActivity() as MainActivity).getDataStore().edit {
+                      (requireActivity() as MainActivity).getDataStore()?.edit {
                           it[intPreferencesKey(Constants.LUNCH_Hour)] = hourOfDay
                           it[intPreferencesKey(Constants.LUNCH_min)] = minute
 
@@ -138,7 +138,7 @@ class PreferenceFragment : Fragment() {
               { view, hourOfDay, minute ->
                   dinerTime.text = ("Dinner ${hourOfDay.hoursToAM_PM(minute)}")
                   GlobalScope.launch {
-                      (requireActivity() as MainActivity).getDataStore().edit {
+                      (requireActivity() as MainActivity).getDataStore()?.edit {
                           it[intPreferencesKey(Constants.DINNER_Hour)] = hourOfDay
                           it[intPreferencesKey(Constants.DINNER_min)] = minute
 
@@ -156,7 +156,7 @@ class PreferenceFragment : Fragment() {
                 { view, hourOfDay, minute ->
                     eveningTime.text = ("Evening ${hourOfDay.hoursToAM_PM(minute)}")
                     GlobalScope.launch {
-                        (requireActivity() as MainActivity).getDataStore().edit {
+                        (requireActivity() as MainActivity).getDataStore()?.edit {
                             it[intPreferencesKey(Constants.EVENING_Hour)] = hourOfDay
                             it[intPreferencesKey(Constants.EVENING_Min)] = minute
                         }
@@ -211,7 +211,7 @@ private fun showNumberPicker()
     val alertDialog: AlertDialog = d.create()
     numberPicker.setOnValueChangedListener { _, i, i1 ->
         GlobalScope.launch {
-            (requireActivity() as MainActivity).getDataStore().edit {
+            (requireActivity() as MainActivity).getDataStore()?.edit {
                 it[intPreferencesKey(Constants.SNOOZETIME)] = i1
             }
         }
