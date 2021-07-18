@@ -126,6 +126,7 @@ class MainActivity : AppCompatActivity() {
                 startService(Intent(this, MedService::class.java).also {
                     it.putExtra(Constants.callFOR, Constants.setNewAlarm)
                 })
+                sharedPreferences?.edit()?.putBoolean(Constants.isAlarmSET,true)?.apply()
             }
         }
 

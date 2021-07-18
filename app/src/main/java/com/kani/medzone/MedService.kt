@@ -38,11 +38,12 @@ class MedService : Service() {
         }
 
 
-        if (callFor == Constants.setNewAlarm || callFor == Constants.SYNC||callFor==Constants.resetAlarmPostBoot) {
+        if (callFor == Constants.setNewAlarm ||
+            callFor==Constants.resetAlarmPostBoot) {
             setDailyAlarms(dStore)
 
             AlarmManagerHelper.setAlarmForSync(applicationContext)
-            //stopThisService()
+            stopThisService()
 
         }else if (callFor == Constants.TABLET_ALARM)
         {
@@ -114,7 +115,7 @@ class MedService : Service() {
             .addAction(NotificationCompat.Action(R.drawable.ic_baseline_done_all_24,"Take all",takeAll))
             .addAction(NotificationCompat.Action(R.drawable.ic_baseline_snooze_24,"Snooze",snooze))
             .addAction(NotificationCompat.Action(R.drawable.ic_baseline_skip_next_24,"Skip",skip))
-            .setOngoing(true)
+            .setAutoCancel(true)
 
     }
 

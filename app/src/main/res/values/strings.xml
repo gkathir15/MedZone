@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright 2012 Square, Inc. -->
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright 2012 Square, Inc. -->
 
 <resources>
     <string name="app_name">MedZone</string>
@@ -57,9 +56,9 @@
     <string name="value_name">value name</string>
 
 
-  <string name="day_name_format">EEE</string>
-  <string name="invalid_date">Date must be between %1$s and %2$s.</string>
-  <string name="month_name_format">MMMM yyyy</string>
+    <string name="day_name_format">EEE</string>
+    <string name="invalid_date">Date must be between %1$s and %2$s.</string>
+    <string name="month_name_format">MMMM yyyy</string>
     <string name="schedule">schedule</string>
     <string name="done">Done</string>
     <string name="add_event">Add event</string>

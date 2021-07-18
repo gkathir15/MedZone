@@ -41,8 +41,12 @@ class AlarmManagerHelper {
                 AlarmManager.INTERVAL_DAY,
                 alarmIntent
             )
-            calendar.set(Calendar.HOUR_OF_DAY, 7)
-            calendar.set(Calendar.MINUTE, 30)
+
+
+            val calendar1 = Calendar.getInstance()
+            calendar1.set(Calendar.HOUR_OF_DAY,17)
+            calendar1.set(Calendar.MINUTE, 20
+            )
 
             val secondIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
                 intent.putExtra(Constants.callFOR, Constants.SYNC)
@@ -50,7 +54,7 @@ class AlarmManagerHelper {
             }
             alarmMgr.setInexactRepeating(
                 AlarmManager.RTC_WAKEUP,
-                calendar.timeInMillis,
+                calendar1.timeInMillis,
                 AlarmManager.INTERVAL_DAY,
                 secondIntent
             )
