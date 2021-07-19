@@ -65,6 +65,8 @@
     <string name="select_dosage_start_date">Select Dosage start date.</string>
     <string name="add_amp_schedule"><![CDATA[Add & Schedule]]></string>
     <string name="unit">Unit</string>
+    <string name="tapto">tap to take u your tablets</string>
+    <string name="takeTalets">Take your tablets for the Day</string>
 
 
 </resources>

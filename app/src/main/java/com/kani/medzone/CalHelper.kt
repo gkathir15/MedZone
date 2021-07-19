@@ -38,7 +38,7 @@ class CalHelper {
                 it.set(Calendar.MINUTE,dStore?.get(intPreferencesKey(Constants.BREAKFAST_min))?:30)
             }
 
-        } fun lunchtTime(dStore: Preferences?):Calendar
+        } fun lunchTime(dStore: Preferences?):Calendar
         {
             return  Calendar.getInstance().also {
                 it.set(Calendar.HOUR_OF_DAY,dStore?.get(intPreferencesKey(Constants.LUNCH_Hour))?:13)
@@ -50,6 +50,14 @@ class CalHelper {
             return  Calendar.getInstance().also {
                 it.set(Calendar.HOUR_OF_DAY,dStore?.get(intPreferencesKey(Constants.DINNER_Hour))?:20)
                 it.set(Calendar.MINUTE,dStore?.get(intPreferencesKey(Constants.DINNER_min))?:30)
+            }
+
+        }
+        fun eveningTime(dStore: Preferences?):Calendar
+        {
+            return  Calendar.getInstance().also {
+                it.set(Calendar.HOUR_OF_DAY,dStore?.get(intPreferencesKey(Constants.EVENING_Hour))?:18)
+                it.set(Calendar.MINUTE,dStore?.get(intPreferencesKey(Constants.EVENING_Min))?:30)
             }
 
         }

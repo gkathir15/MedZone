@@ -11,7 +11,10 @@ import android.widget.Toast
 class AlarmReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val serviceIntent = Intent(context, MedService::class.java)
-        context.startService(intent.extras?.let { serviceIntent.putExtras(it) })
+        intent.extras?.let {serviceIntent.putExtras(it)}
+        context.startService( serviceIntent)
+        Toast.makeText(context.applicationContext, "Tablet notification", Toast.LENGTH_LONG)
+            .show()
         if (intent.action == "android.intent.action.BOOT_COMPLETED") {
 
             Toast.makeText(context.applicationContext, "boot completye", Toast.LENGTH_LONG)

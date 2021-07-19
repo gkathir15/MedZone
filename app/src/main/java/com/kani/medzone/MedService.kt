@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
+import android.util.Log
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.datastore.core.DataStore
@@ -20,7 +21,6 @@ import kotlinx.coroutines.launch
 
 class MedService : Service() {
 
-    private var notification: NotificationCompat.Builder? = null
     private var notificationManager: NotificationManager? = null
     val channelId = "TABLETS NOTIFICATION"
     private var remoteView: RemoteViews? = null
@@ -29,25 +29,32 @@ class MedService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         datastore = (application as AppState).datastore
-        val callFor = intent?.getStringExtra(Constants.callFOR)
-        notification = startCountDownNotification(this,callFor)
-        startForeground(1, notification?.build())
-
         GlobalScope.launch(Dispatchers.IO) {
-             dStore = datastore?.data?.first()?.toPreferences()
+            dStore = datastore?.data?.first()?.toPreferences()
         }
+        val callFor = intent?.getStringExtra(Constants.callFOR)
+        startForeground(1, startCountDownNotification(this,callFor).build())
 
+
+        Log.e("Medservice",callFor)
 
         if (callFor == Constants.setNewAlarm ||
-            callFor==Constants.resetAlarmPostBoot) {
+            callFor==Constants.resetAlarmPostBoot||callFor==Constants.SYNC) {
             setDailyAlarms(dStore)
 
-            AlarmManagerHelper.setAlarmForSync(applicationContext)
+                 AlarmManagerHelper.setAlarmForSync(applicationContext)
             stopThisService()
 
-        }else if (callFor == Constants.TABLET_ALARM)
+        }
+        if (callFor == Constants.TABLET_ALARM)
         {
+
             // Do for showing tablet
+            this.getSystemService(NotificationManager::class.java).also {
+                it.notify(2,startCountDownNotification(this,callFor).build())
+            }
+
+            stopThisService()
 
         }
 
@@ -73,8 +80,8 @@ class MedService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val serviceChannel = NotificationChannel(
                 channelId,
-                "Account Opening Journey",
-                NotificationManager.IMPORTANCE_DEFAULT
+                "Tablet",
+                NotificationManager.IMPORTANCE_HIGH
             )
             notificationManager = context.getSystemService(NotificationManager::class.java)
             notificationManager?.createNotificationChannel(serviceChannel)
@@ -82,71 +89,67 @@ class MedService : Service() {
         }
 
         val notificationIntent = Intent(context, MainActivity::class.java).also {
-            it.putExtra("FromPushNotification", true)
-            it.putExtra("PushAction", "AccountOnBoarding")
+            it.putExtra(Constants.callFOR,callFor)
         }
         val pendingIntent = PendingIntent.getActivity(
             context,
-            0, notificationIntent, 0
+            1, notificationIntent, 0
         )
         val takeAll = PendingIntent.getActivity(
             context,
-            0, notificationIntent, 0
+            2, notificationIntent.putExtra(Constants.NotificationAction,Constants.takeAll), 0
         )
         val snooze = PendingIntent.getActivity(
             context,
-            0, notificationIntent, 0
+            3, notificationIntent.putExtra(Constants.NotificationAction,Constants.SNOOZE), 0
         )
         val skip = PendingIntent.getActivity(
             context,
-            0, notificationIntent, 0
+            4, notificationIntent.putExtra(Constants.NotificationAction,Constants.SKIP), 0
         )
         remoteView = RemoteViews(context.packageName, R.layout.notification)
         return NotificationCompat.Builder(context, channelId)
             .setContentIntent(pendingIntent)
-            .setCustomContentView(remoteView)
+            .setContentTitle(getString(R.string.takeTalets))
+            .setContentText(getString(R.string.tapto))
             .setStyle(NotificationCompat.DecoratedCustomViewStyle())
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setOngoing(true)
-            .setColor(resources.getColor(R.color.white))
-            .setOnlyAlertOnce(true)
+            .setSmallIcon(R.drawable.ic_baseline_medical_services_24)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setChannelId(channelId)
             .addAction(NotificationCompat.Action(R.drawable.ic_baseline_done_all_24,"Take all",takeAll))
             .addAction(NotificationCompat.Action(R.drawable.ic_baseline_snooze_24,"Snooze",snooze))
             .addAction(NotificationCompat.Action(R.drawable.ic_baseline_skip_next_24,"Skip",skip))
             .setAutoCancel(true)
-
     }
 
     private fun setDailyAlarms(dStore: Preferences?) {
-        if (CalHelper.compareBreakfastTime(dStore)) {
+
             AlarmManagerHelper.setAlarmTablets(
                 applicationContext,
                 CalHelper.breakfastTime(dStore),
-                Constants.BREAKFAST
+                Constants.BREAKFAST,7
             )
-        }
-        if (CalHelper.compareLunch(dStore)) {
+
+
             AlarmManagerHelper.setAlarmTablets(
                 applicationContext,
-                CalHelper.lunchtTime(dStore),
-                Constants.LUNCH
+                CalHelper.lunchTime(dStore),
+                Constants.LUNCH,6
             )
-        }
-        if (CalHelper.compareDinner(dStore)) {
+
+
+            AlarmManagerHelper.setAlarmTablets(
+                applicationContext,
+                CalHelper.eveningTime(dStore),
+                Constants.DINNER,5
+            )
+
+
             AlarmManagerHelper.setAlarmTablets(
                 applicationContext,
                 CalHelper.dinnerTime(dStore),
-                Constants.DINNER
+                Constants.EVENING,4
             )
-        }
-        if (CalHelper.compareEvening(dStore)) {
-            AlarmManagerHelper.setAlarmTablets(
-                applicationContext,
-                CalHelper.dinnerTime(dStore),
-                Constants.EVENING
-            )
-        }
+
     }
 }

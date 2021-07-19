@@ -3,7 +3,9 @@ package com.kani.medzone
 /**Created by Guru kathir.J on 17,May,2021 **/
 class Constants {
     companion object {
-      const val SKIP: String = "SKIP"
+        val takeAll="TAKEAll"
+        val NotificationAction="NotificationAction"
+        const val SKIP: String = "SKIP"
       const val SNOOZE: String = "SNOOZE"
       const val TAKE: String = "TAKE"
       const val SYNC = "SYNC"

@@ -114,10 +114,10 @@ class PreferenceFragment : Fragment() {
 
             timePickerDialog.show()
         }
-        linchEdit.setOnClickListener {
+        lunchEdit.setOnClickListener {
             val calendar = Calendar.getInstance()
           val timePickerDialog = TimePickerDialog(requireContext(),
-              { view, hourOfDay, minute ->
+              { _, hourOfDay, minute ->
                   lunchTime.text = ("Lunch ${hourOfDay.hoursToAM_PM(minute)}")
                   GlobalScope.launch {
 

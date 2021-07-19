@@ -10,17 +10,17 @@ import java.util.*
 class AlarmManagerHelper {
 
     companion object {
-        fun setAlarmTablets(context: Context, time: Calendar, duration: String) {
+        fun setAlarmTablets(context: Context, time: Calendar, duration: String, reqId: Int) {
             val alarmMgr = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
                 intent.putExtra(Constants.DURATION, duration)
                 intent.putExtra(Constants.callFOR, Constants.TABLET_ALARM)
-                PendingIntent.getBroadcast(context, 0, intent, 0)
+                PendingIntent.getBroadcast(context, reqId, intent, 0)
             }
-            alarmMgr.setInexactRepeating(
+
+            alarmMgr.setExactAndAllowWhileIdle (
                 AlarmManager.RTC_WAKEUP,
                 time.timeInMillis,
-                AlarmManager.INTERVAL_DAY,
                 alarmIntent
             )
         }
@@ -33,9 +33,10 @@ class AlarmManagerHelper {
             val alarmMgr = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
                 intent.putExtra(Constants.callFOR, Constants.SYNC)
-                PendingIntent.getBroadcast(context, 0, intent, 0)
+                PendingIntent.getBroadcast(context,
+                    3, intent, 0)
             }
-            alarmMgr.setInexactRepeating(
+            alarmMgr.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 calendar.timeInMillis,
                 AlarmManager.INTERVAL_DAY,
@@ -43,21 +44,20 @@ class AlarmManagerHelper {
             )
 
 
-            val calendar1 = Calendar.getInstance()
-            calendar1.set(Calendar.HOUR_OF_DAY,17)
-            calendar1.set(Calendar.MINUTE, 20
-            )
-
-            val secondIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
-                intent.putExtra(Constants.callFOR, Constants.SYNC)
-                PendingIntent.getBroadcast(context, 0, intent, 0)
-            }
-            alarmMgr.setInexactRepeating(
-                AlarmManager.RTC_WAKEUP,
-                calendar1.timeInMillis,
-                AlarmManager.INTERVAL_DAY,
-                secondIntent
-            )
+//            val calendar1 = Calendar.getInstance()
+//            calendar1.add(Calendar.MINUTE, 1
+//            )
+//
+//            val secondIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
+//                intent.putExtra(Constants.callFOR, Constants.SYNC)
+//                PendingIntent.getBroadcast(context, 0, intent, 0)
+//            }
+//            alarmMgr.setInexactRepeating(
+//                AlarmManager.RTC_WAKEUP,
+//                calendar1.timeInMillis,
+//                AlarmManager.INTERVAL_DAY,
+//                secondIntent
+//            )
         }
     }
 

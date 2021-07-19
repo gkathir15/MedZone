@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:clickable="true"
-    android:focusable="true"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:focusable="true">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/care_takerNo"
@@ -63,7 +62,7 @@
         tools:text="09.00 AM"
         android:layout_marginStart="30dp"
         android:textSize="20sp"
-        android:layout_toEndOf="@+id/linchEdit"
+        android:layout_toEndOf="@+id/lunchEdit"
         android:layout_marginTop="20dp"/>
     <ImageView
         android:layout_width="wrap_content"
@@ -72,13 +71,13 @@
         android:src="@drawable/ic_baseline_edit_24"
         android:layout_below="@id/breakfastTime"
         android:layout_marginStart="20dp"
-        android:id="@+id/linchEdit"
+        android:id="@+id/lunchEdit"
         android:layout_marginTop="20dp"/>
     <TextView
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/eveningTime"
-        android:layout_toEndOf="@id/linchEdit"
+        android:layout_toEndOf="@id/lunchEdit"
         android:layout_below="@id/lunchTime"
         tools:text="09.00 AM"
         android:layout_marginStart="30dp"
@@ -102,7 +101,7 @@
         android:src="@drawable/ic_baseline_edit_24"
         android:layout_below="@id/lunchTime"
         android:layout_marginStart="20dp"
-        android:id="@+id/dinnerEdit"
+        android:id="@+id/eveningEdit"
         android:layout_marginTop="20dp"/>
 
     <ImageView
@@ -112,7 +111,7 @@
         android:src="@drawable/ic_baseline_edit_24"
         android:layout_below="@id/eveningTime"
         android:layout_marginStart="20dp"
-        android:id="@+id/eveningEdit"
+        android:id="@+id/dinnerEdit"
         android:layout_marginTop="20dp"/>
 
 
