@@ -76,6 +76,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+       if( intent.getStringExtra(Constants.callFOR)==Constants.TABLET_ALARM)
+        {
+            startActivity(Intent(this,TabletSlideActivity::class.java).also {
+                intent.extras?.let { it1 -> it.putExtras(it1) }
+            })
+        }
+
 
     }
 

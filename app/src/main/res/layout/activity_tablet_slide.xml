@@ -6,9 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".TabletSlideActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        android:layout_alignParentTop="true"
+        android:background="@color/md_blue_A400"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:text="@string/tablets_for_the_day"
+            android:id="@+id/toolbar_title"/>
+
+
+    </androidx.appcompat.widget.Toolbar>
+
     <androidx.viewpager2.widget.ViewPager2
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
         android:id="@+id/tabletPager2"/>
 
 </RelativeLayout>

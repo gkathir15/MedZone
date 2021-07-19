@@ -9,7 +9,7 @@ import com.kani.medzone.ui.AdminActivity
 
 
 class SplashActivity : AppCompatActivity() {
-    private val SPLASH_SCREEN_TIME_OUT = 2000
+    private val SPLASH_SCREEN_TIME_OUT = 1200
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

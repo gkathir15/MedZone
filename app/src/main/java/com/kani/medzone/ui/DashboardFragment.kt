@@ -10,6 +10,7 @@ import com.kani.medzone.vm.ActivityViewModel
 import com.kani.medzone.ItemClickListener
 import com.kani.medzone.MainActivity
 import com.kani.medzone.R
+import com.kani.medzone.db.TabletEntry
 
 class DashboardFragment : Fragment(),ItemClickListener {
 
@@ -31,5 +32,13 @@ class DashboardFragment : Fragment(),ItemClickListener {
     }
 
     override fun takeTabletsClicked(btnType: String) {
+    }
+
+    override fun takeTablet(tab: TabletEntry) {
+
+    }
+
+    override fun skipTablet(tab: TabletEntry) {
+
     }
 }
