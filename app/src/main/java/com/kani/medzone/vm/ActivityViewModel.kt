@@ -18,6 +18,7 @@ class ActivityViewModel(val app: Application) : AndroidViewModel(app) {
     var tabletsList:MutableLiveData<ArrayList<Tablets>> = MutableLiveData(ArrayList<Tablets>())
     var investigationList:MutableLiveData<ArrayList<Report>> = MutableLiveData(ArrayList())
     var tabEntryList:MutableLiveData<ArrayList<TabletEntry>> = MutableLiveData(ArrayList())
+    var eventEntryList:MutableLiveData<ArrayList<EventEntry>> = MutableLiveData(ArrayList())
     var datastore:DataStore<androidx.datastore.preferences.core.Preferences>?=null
 
     fun databaseInstance(): AppDatabase {
@@ -48,6 +49,22 @@ class ActivityViewModel(val app: Application) : AndroidViewModel(app) {
         tabEntryList.value?.clear()
         tabEntryList.postValue(databaseInstance().tabEntryDao().getAll() as ArrayList<TabletEntry>)
 
+    }
+
+
+    suspend fun fetchEventEntries()
+    {
+        eventEntryList.value?.clear()
+        eventEntryList.postValue(databaseInstance().eventEntryDao().getAll() as ArrayList<EventEntry>?)
+    }
+    suspend fun editTabletEntry(tabletEntry: TabletEntry)
+    {
+        databaseInstance().tabEntryDao().update(tabletEntry)
+    }
+
+    suspend fun editTablet(tablet:Tablets)
+    {
+        databaseInstance().tabletsDao().update(tablet)
     }
 
 }

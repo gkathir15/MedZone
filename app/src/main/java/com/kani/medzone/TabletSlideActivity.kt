@@ -29,34 +29,35 @@ class TabletSlideActivity : AppCompatActivity(),ItemClickListener {
                     ))
         }
 
-//        (
-//                return  if(duration==Constants.BREAKFAST)
-//                    it.tablet.morning==1
-//                else if(duration==Constants.LUNCH)
-//                    it.tablet.noon==1
-//                else if(duration==Constants.EVENING)
-//                    it.tablet.evening==1
-//                else
-//                    it.tablet.night==1
-//                )
+
         tabletPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         tabletPager2.adapter = TabletsNotificationAdapter(tabs as ArrayList<TabletEntry>,this)
 
     }
 
     override fun expandImageClicked(url: ByteArray?) {
-        TODO("Not yet implemented")
     }
 
     override fun takeTabletsClicked(btnType: String) {
-        TODO("Not yet implemented")
     }
 
     override fun takeTablet(tab: TabletEntry) {
-
+        tab.also {
+            it.status=1
+            it.tablet.available = it.tablet.available?.minus(1)
+        }
+        GlobalScope.launch {
+            model.editTablet(tab.tablet)
+            model.editTabletEntry(tab)
+        }
     }
 
     override fun skipTablet(tab: TabletEntry) {
-
+        tab.also {
+            it.status=2
+        }
+        GlobalScope.launch {
+            model.editTabletEntry(tab)
+        }
     }
 }

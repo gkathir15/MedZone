@@ -142,5 +142,33 @@
     android:id="@+id/snoozeEdit"
         android:layout_toEndOf="@id/snoozeLabel" />
 
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/snoozeEdit"
+        android:layout_margin="20dp"
+        android:weightSum="3"
+        android:orientation="horizontal"
+        android:id="@+id/langGroup">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/english"
+            android:layout_weight="1"
+            android:id="@+id/eng"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tamil"
+            android:layout_weight="1"
+            android:id="@+id/tamil"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hindi"
+            android:layout_weight="1"
+            android:id="@+id/hindi"/>
+    </RadioGroup>
+
 
 </RelativeLayout>

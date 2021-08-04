@@ -17,6 +17,7 @@ import com.kani.medzone.vm.ActivityViewModel
 import com.kani.medzone.ItemClickListener
 import com.kani.medzone.MainActivity
 import com.kani.medzone.R
+import com.kani.medzone.db.TabletEntry
 import com.kani.medzone.db.Tablets
 import com.kani.medzone.ui.adapter.TabletsListAdapter
 import kotlinx.android.synthetic.main.fragment_tablet_list.*
@@ -80,6 +81,12 @@ class TabletListFragment : Fragment(),ItemClickListener {
 
     override fun takeTabletsClicked(btnType: String) {
         
+    }
+
+    override fun takeTablet(tab: TabletEntry) {
+    }
+
+    override fun skipTablet(tab: TabletEntry) {
     }
 
 }

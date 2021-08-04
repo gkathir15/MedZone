@@ -18,7 +18,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.bumptech.glide.Glide
@@ -72,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                     it.fetchTabletsList()
                     it.fetchInvestigation()
                     it.fetchTabletEntry()
+                    it.fetchEventEntries()
                 }
             }
         }
@@ -130,9 +130,8 @@ class MainActivity : AppCompatActivity() {
                     false
                 ) == true && sharedPreferences?.getBoolean(Constants.isAlarmSET, false) == false
             ) {
-                startService(Intent(this, MedService::class.java).also {
-                    it.putExtra(Constants.callFOR, Constants.setNewAlarm)
-                })
+//
+    SetAllAlarmWork.scheduleDailyNotification((1000),this)
                 sharedPreferences?.edit()?.putBoolean(Constants.isAlarmSET,true)?.apply()
             }
         }

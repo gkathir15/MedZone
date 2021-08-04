@@ -51,7 +51,7 @@ class MedService : Service() {
 
             // Do for showing tablet
             this.getSystemService(NotificationManager::class.java).also {
-                it.notify(2,startCountDownNotification(this,callFor).build())
+                it.notify(System.currentTimeMillis().toInt(),startCountDownNotification(this,callFor).build())
             }
 
             stopThisService()

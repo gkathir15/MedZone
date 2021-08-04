@@ -68,6 +68,8 @@
     <string name="tapto">tap to take u your tablets</string>
     <string name="takeTalets">Take your tablets for the Day</string>
     <string name="tablets_for_the_day">Tablets for the day</string>
+    <string name="english">English</string>
+    <string name="event_detail">Event Detail</string>
 
 
 </resources>

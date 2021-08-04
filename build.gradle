@@ -28,3 +28,4 @@ task clean(type: Delete) {
 }
 
 //adb -s emulator-5556 shell dumpsys alarm > dump.txt
+//adb -s emulator-5556 shell dumpsys jobscheduler schedule.txt
