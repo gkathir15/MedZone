@@ -8,6 +8,7 @@ import com.kani.medzone.db.TabletEntry
 import com.kani.medzone.ui.adapter.TabletsNotificationAdapter
 import com.kani.medzone.vm.ActivityViewModel
 import kotlinx.android.synthetic.main.activity_tablet_slide.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -19,20 +20,20 @@ class TabletSlideActivity : AppCompatActivity(),ItemClickListener {
         val duration = intent.getStringExtra(Constants.DURATION)
         GlobalScope.launch {
             model.fetchTabletEntry()
-        }
-        val tabs = model.tabEntryList.value?.filter {
-            (it.status==0&&(
-                    ( (duration==Constants.BREAKFAST)&& it.tablet.morning==1)||
-                            ((duration==Constants.LUNCH)&& it.tablet.noon==1)||
-                            ((duration==Constants.EVENING)&& it.tablet.evening==1)||
-                            ((duration==Constants.DINNER)&& it.tablet.night==1)
-                    ))
-        }
+            launch(Dispatchers.Main){
+            val tabs = model.tabEntryList.value?.filter {
+                (it.status == 0 && (
+                        ((duration == Constants.BREAKFAST) && it.tablet.morning == 1) ||
+                                ((duration == Constants.LUNCH) && it.tablet.noon == 1) ||
+                                ((duration == Constants.EVENING) && it.tablet.evening == 1) ||
+                                ((duration == Constants.DINNER) && it.tablet.night == 1)
+                        ))
+            }
 
 
-        tabletPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        tabletPager2.adapter = TabletsNotificationAdapter(tabs as ArrayList<TabletEntry>,this)
-
+            tabletPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            tabletPager2.adapter = TabletsNotificationAdapter(tabs as ArrayList<TabletEntry>, this@TabletSlideActivity)
+        }}
     }
 
     override fun expandImageClicked(url: ByteArray?) {

@@ -40,7 +40,7 @@ class MedService : Service() {
 
         if (callFor == Constants.setNewAlarm ||
             callFor==Constants.resetAlarmPostBoot||callFor==Constants.SYNC) {
-            setDailyAlarms(dStore)
+      //      setDailyAlarms(dStore)
 
                  AlarmManagerHelper.setAlarmForSync(applicationContext)
             stopThisService()
@@ -122,34 +122,34 @@ class MedService : Service() {
             .setAutoCancel(true)
     }
 
-    private fun setDailyAlarms(dStore: Preferences?) {
-
-            AlarmManagerHelper.setAlarmTablets(
-                applicationContext,
-                CalHelper.breakfastTime(dStore),
-                Constants.BREAKFAST,7
-            )
-
-
-            AlarmManagerHelper.setAlarmTablets(
-                applicationContext,
-                CalHelper.lunchTime(dStore),
-                Constants.LUNCH,6
-            )
-
-
-            AlarmManagerHelper.setAlarmTablets(
-                applicationContext,
-                CalHelper.eveningTime(dStore),
-                Constants.DINNER,5
-            )
-
-
-            AlarmManagerHelper.setAlarmTablets(
-                applicationContext,
-                CalHelper.dinnerTime(dStore),
-                Constants.EVENING,4
-            )
-
-    }
+//     fun setDailyAlarms(dStore: Preferences?) {
+//
+//            AlarmManagerHelper.setAlarmTablets(
+//                applicationContext,
+//                CalHelper.breakfastTime(dStore).timeInMillis-System.currentTimeMillis(),
+//                Constants.BREAKFAST,7
+//            )
+//
+//
+//            AlarmManagerHelper.setAlarmTablets(
+//                applicationContext,
+//                CalHelper.lunchTime(dStore).timeInMillis-System.currentTimeMillis(),
+//                Constants.LUNCH,6
+//            )
+//
+//
+//            AlarmManagerHelper.setAlarmTablets(
+//                applicationContext,
+//                CalHelper.eveningTime(dStore).timeInMillis-System.currentTimeMillis(),
+//                Constants.DINNER,5
+//            )
+//
+//
+//            AlarmManagerHelper.setAlarmTablets(
+//                applicationContext,
+//                CalHelper.dinnerTime(dStore).timeInMillis-System.currentTimeMillis(),
+//                Constants.EVENING,4
+//            )
+//
+//    }
 }

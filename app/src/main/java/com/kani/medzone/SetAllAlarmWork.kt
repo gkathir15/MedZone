@@ -1,7 +1,6 @@
 package com.kani.medzone
 
 import android.content.Context
-import androidx.datastore.preferences.core.Preferences
 import androidx.work.*
 import androidx.work.ListenableWorker.Result.success
 import kotlinx.coroutines.Dispatchers
@@ -16,9 +15,9 @@ class SetAllAlarmWork(val context: Context, params: WorkerParameters) : Worker(c
     override fun doWork(): Result {
 
         GlobalScope.launch(Dispatchers.IO) {
-          val   dStore =  (context.applicationContext as AppState).datastore?.data?.first()?.toPreferences()
+          val   dStore =  (context.applicationContext as AppState).datastore.data.first().toPreferences()
             launch (Dispatchers.Main){
-                setDailyAlarms(dStore)
+                AlarmManagerHelper.setDailyAlarms(dStore,context)
             }
         }
         return success()
@@ -27,9 +26,6 @@ class SetAllAlarmWork(val context: Context, params: WorkerParameters) : Worker(c
 
 
     companion object {
-        const val NOTIFICATION_ID = "appName_notification_id"
-        const val NOTIFICATION_NAME = "appName"
-        const val NOTIFICATION_CHANNEL = "appName_channel_01"
         private const val scheduleAllAlarms = "ScheduleAllAlarms"
 
         fun scheduleDailyNotification(delayInDiff: Long, context: Context) {
@@ -37,46 +33,14 @@ class SetAllAlarmWork(val context: Context, params: WorkerParameters) : Worker(c
                 .setInitialDelay(delayInDiff, TimeUnit.MILLISECONDS).build()
 
             val instanceWorkManager = WorkManager.getInstance(context)
-            instanceWorkManager.enqueueUniquePeriodicWork(scheduleAllAlarms, ExistingPeriodicWorkPolicy.REPLACE, notificationWork)
+            instanceWorkManager.enqueueUniquePeriodicWork(scheduleAllAlarms, ExistingPeriodicWorkPolicy.KEEP, notificationWork)
         }
     }
 
-    private fun setDailyAlarms(dStore: Preferences?) {
-
-         setAlarmTablets(
-            applicationContext,
-            CalHelper.breakfastTime(dStore).timeInMillis-System.currentTimeMillis(),
-            Constants.BREAKFAST,7
-        )
 
 
-         setAlarmTablets(
-            applicationContext,
-            CalHelper.lunchTime(dStore).timeInMillis-System.currentTimeMillis(),
-            Constants.LUNCH,6
-        )
 
 
-         setAlarmTablets(
-            applicationContext,
-            CalHelper.eveningTime(dStore).timeInMillis-System.currentTimeMillis(),
-            Constants.DINNER,5
-        )
-
-
-         setAlarmTablets(
-            applicationContext,
-            CalHelper.dinnerTime(dStore).timeInMillis-System.currentTimeMillis(),
-            Constants.EVENING,4
-        )
-
-    }
-
-
-    private fun setAlarmTablets(context:Context, timeDiff:Long, dayMealConstant:String, notifyId:Int)
-    {
-        SetAlarmsWork.scheduleNotification(timeDiff,notifyId,context,dayMealConstant)
-    }
 
 
 

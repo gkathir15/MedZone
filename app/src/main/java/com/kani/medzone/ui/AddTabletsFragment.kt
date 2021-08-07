@@ -86,7 +86,7 @@ class AddTabletsFragment : Fragment() {
                 R.id.withFood -> {
                     tablet.mealDosage = 3
                 }
-                R.id.evening -> {
+                R.id.afterFood -> {
                     tablet.mealDosage = 2
                 }
             }

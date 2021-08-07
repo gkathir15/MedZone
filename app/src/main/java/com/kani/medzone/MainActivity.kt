@@ -26,14 +26,18 @@ import com.kani.medzone.ui.*
 import com.kani.medzone.ui.adapter.ViewPagerAdapter
 import com.kani.medzone.vm.ActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
     private var pageAdapter: ViewPagerAdapter? = null
     private var sharedPreferences: SharedPreferences? = null
     private var datastore: DataStore<Preferences>?=null
+    private var dstore:Preferences?=null
     private val model by viewModels<ActivityViewModel>()
     val TAG = MainActivity::class.java.canonicalName
     val db = FirebaseFirestore.getInstance()
@@ -41,6 +45,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
       datastore=  (application as AppState).datastore
+        GlobalScope.launch {
+            dstore = datastore?.data?.first()?.toPreferences()
+        }
+
         pageAdapter = ViewPagerAdapter(supportFragmentManager)
         pageAdapter?.also{
             it.addFragment(getString(R.string.title_home), DashboardFragment())
@@ -130,9 +138,23 @@ class MainActivity : AppCompatActivity() {
                     false
                 ) == true && sharedPreferences?.getBoolean(Constants.isAlarmSET, false) == false
             ) {
-//
-    SetAllAlarmWork.scheduleDailyNotification((1000),this)
-                sharedPreferences?.edit()?.putBoolean(Constants.isAlarmSET,true)?.apply()
+                GlobalScope.launch {
+                    dstore = datastore?.data?.first()?.toPreferences()
+
+                    launch (Dispatchers.Main){
+                    dstore?.let { AlarmManagerHelper.setDailyAlarms(it, applicationContext) }
+
+                    val cal = Calendar.getInstance().also {
+                        it.add(Calendar.DATE, 1)
+                        it.set(Calendar.HOUR_OF_DAY, 7)
+                        it.set(Calendar.MINUTE, 5)
+                    }
+                    SetAllAlarmWork.scheduleDailyNotification(
+                        cal.timeInMillis - System.currentTimeMillis(),
+                        this@MainActivity
+                    )
+                    sharedPreferences?.edit()?.putBoolean(Constants.isAlarmSET, true)?.apply()
+                }}
             }
         }
 

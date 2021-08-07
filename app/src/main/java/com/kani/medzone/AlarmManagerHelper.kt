@@ -4,27 +4,28 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import androidx.core.app.AlarmManagerCompat
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import java.util.*
 
 /**Created by Guru kathir.J on 13,May,2021 **/
 class AlarmManagerHelper {
 
     companion object {
-        fun setAlarmTablets(context: Context, time: Calendar, duration: String, reqId: Int) {
-            val alarmMgr = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            val alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
-                intent.putExtra(Constants.DURATION, duration)
-                intent.putExtra(Constants.callFOR, Constants.TABLET_ALARM)
-                PendingIntent.getBroadcast(context, reqId, intent, 0)
-            }
-
-            alarmMgr.setExactAndAllowWhileIdle (
-                AlarmManager.RTC_WAKEUP,
-                time.timeInMillis,
-                alarmIntent
-            )
-        }
+//        fun setAlarmTablets(context: Context, time: Calendar, duration: String, reqId: Int) {
+//            val alarmMgr = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+//            val alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
+//                intent.putExtra(Constants.DURATION, duration)
+//                intent.putExtra(Constants.callFOR, Constants.TABLET_ALARM)
+//                PendingIntent.getBroadcast(context, reqId, intent, 0)
+//            }
+//
+//            alarmMgr.setExactAndAllowWhileIdle (
+//                AlarmManager.RTC_WAKEUP,
+//                time.timeInMillis,
+//                alarmIntent
+//            )
+//        }
 
         fun setAlarmForSync(context: Context) {
             val calendar = Calendar.getInstance()
@@ -59,6 +60,42 @@ class AlarmManagerHelper {
 //                AlarmManager.INTERVAL_DAY,
 //                secondIntent
 //            )
+        }
+
+        fun setDailyAlarms(dStore: Preferences, applicationContext:Context) {
+
+            setAlarmTablets(
+                applicationContext,
+                CalHelper.breakfastTime(dStore).timeInMillis-System.currentTimeMillis(),
+                Constants.BREAKFAST,7,Constants.TABLET_ALARM
+            )
+
+
+            setAlarmTablets(
+                applicationContext,
+                CalHelper.lunchTime(dStore).timeInMillis-System.currentTimeMillis(),
+                Constants.LUNCH,6,Constants.TABLET_ALARM
+            )
+
+
+            setAlarmTablets(
+                applicationContext,
+                CalHelper.eveningTime(dStore).timeInMillis-System.currentTimeMillis(),
+                Constants.DINNER,5,Constants.TABLET_ALARM
+            )
+
+
+            setAlarmTablets(
+                applicationContext,
+                CalHelper.dinnerTime(dStore).timeInMillis-System.currentTimeMillis(),
+                Constants.EVENING,4,Constants.TABLET_ALARM
+            )
+
+        }
+
+         fun setAlarmTablets(context:Context, timeDiff:Long, dayMealConstant:String, notifyId:Int,callFor:String)
+        {
+            SetAlarmsWork.scheduleNotification(timeDiff,notifyId,context,dayMealConstant,callFor)
         }
     }
 

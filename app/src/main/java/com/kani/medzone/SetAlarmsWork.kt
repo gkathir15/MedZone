@@ -4,6 +4,7 @@ import android.app.Notification.DEFAULT_ALL
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_HIGH
+import android.app.PendingIntent
 import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
@@ -28,28 +29,56 @@ import java.util.concurrent.TimeUnit
 class SetAlarmsWork(context: Context, params: WorkerParameters) : Worker(context, params) {
 
     override fun doWork(): Result {
-        val id = inputData.getLong(NOTIFICATION_ID, 0).toInt()
-        sendNotification(id)
+        val id = inputData.getLong("ID", 0).toInt()
+        val callFor = inputData.getString(Constants.callFOR)
+        val duration = inputData.getString(Constants.DURATION)
+        callFor?.let {
+            if (duration != null) {
+                sendNotification(id, it,duration)
+            }
+        }
 
         return success()
     }
 
-    private fun sendNotification(id: Int) {
-        val intent = Intent(applicationContext, MainActivity::class.java)
-        intent.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
-        intent.putExtra(NOTIFICATION_ID, id)
+    private fun sendNotification(id: Int,callFor:String,duRATION:String) {
+
 
         val notificationManager =
             applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        val notificationIntent = Intent(applicationContext, MainActivity::class.java).also {
+            it.putExtra(Constants.callFOR,callFor)
+            it.putExtra(Constants.DURATION,duRATION)
+            it.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+            it.putExtra("ID", id)
+        }
 
-        val bitmap = applicationContext.vectorToBitmap(R.drawable.ic_baseline_medical_services_24)
+
+        val takeAll = PendingIntent.getActivity(
+            applicationContext,
+            2, notificationIntent.putExtra(Constants.NotificationAction,Constants.takeAll), 0
+        )
+        val snooze = PendingIntent.getActivity(
+            applicationContext,
+            3, notificationIntent.putExtra(Constants.NotificationAction,Constants.SNOOZE), 0
+        )
+        val skip = PendingIntent.getActivity(
+            applicationContext,
+            4, notificationIntent.putExtra(Constants.NotificationAction,Constants.SKIP), 0)
+
+
+            val bitmap = applicationContext.vectorToBitmap(R.drawable.ic_baseline_medical_services_24)
         val titleNotification = applicationContext.getString(R.string.app_name)
         val subtitleNotification = applicationContext.getString(R.string.tablet)
-        val pendingIntent = getActivity(applicationContext, 0, intent, 0)
+        val pendingIntent = getActivity(applicationContext, 0, notificationIntent, 0)
         val notification = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL)
             .setLargeIcon(bitmap).setSmallIcon(R.drawable.ic_baseline_medical_services_24)
             .setContentTitle(titleNotification).setContentText(subtitleNotification)
             .setDefaults(DEFAULT_ALL).setContentIntent(pendingIntent).setAutoCancel(true)
+            .addAction(NotificationCompat.Action(R.drawable.ic_baseline_done_all_24,"Take all",takeAll))
+            .addAction(NotificationCompat.Action(R.drawable.ic_baseline_snooze_24,"Snooze",snooze))
+            .addAction(NotificationCompat.Action(R.drawable.ic_baseline_skip_next_24,"Skip",skip))
+            .setAutoCancel(true)
 
         notification.priority = PRIORITY_MAX
 
@@ -75,23 +104,26 @@ class SetAlarmsWork(context: Context, params: WorkerParameters) : Worker(context
     }
 
     companion object {
-        const val NOTIFICATION_ID = "appName_notification_id"
         const val NOTIFICATION_NAME = "appName"
         const val NOTIFICATION_CHANNEL = "appName_channel_01"
-        const val NOTIFICATION_WORK = "appName_notification_work"
 
-         fun scheduleNotification(
-             delayInDiff: Long,
-             notificationId: Int,
-             context: Context,
-             workName: String
-         ) {
-            val data = Data.Builder().putInt(NOTIFICATION_ID,notificationId).build()
+        fun scheduleNotification(
+            delayInDiff: Long,
+            notificationId: Int,
+            context: Context,
+            workName: String,
+            callFor: String
+        ) {
+            val data = Data.Builder()
+                .putInt("ID",notificationId)
+                .putString(Constants.callFOR,callFor)
+                .putString(Constants.DURATION,workName)
+                .build()
             val notificationWork = OneTimeWorkRequest.Builder(SetAlarmsWork::class.java)
                 .setInitialDelay(delayInDiff, TimeUnit.MILLISECONDS).setInputData(data).build()
 
             val instanceWorkManager = WorkManager.getInstance(context)
-            instanceWorkManager.beginUniqueWork(workName, ExistingWorkPolicy.KEEP, notificationWork).enqueue()
+            instanceWorkManager.beginUniqueWork(workName, ExistingWorkPolicy.REPLACE, notificationWork).enqueue()
         }
     }
 
