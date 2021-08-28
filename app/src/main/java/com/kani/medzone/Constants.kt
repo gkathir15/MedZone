@@ -3,6 +3,7 @@ package com.kani.medzone
 /**Created by Guru kathir.J on 17,May,2021 **/
 class Constants {
     companion object {
+        val users: String= "USERS"
         val takeAll="TAKEAll"
         val NotificationAction="NotificationAction"
         const val SKIP: String = "SKIP"

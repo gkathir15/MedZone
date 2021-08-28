@@ -11,6 +11,7 @@ import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.graphics.Color.BLUE
 import android.graphics.Color.RED
 import android.media.AudioAttributes
 import android.media.AudioAttributes.CONTENT_TYPE_SONIFICATION
@@ -24,6 +25,10 @@ import androidx.core.app.NotificationCompat.PRIORITY_MAX
 import androidx.work.*
 import androidx.work.ListenableWorker.Result.success
 import java.util.concurrent.TimeUnit
+import android.media.RingtoneManager
+
+
+
 
 /**Created by Guru kathir.J on 04,August,2021 **/
 class SetAlarmsWork(context: Context, params: WorkerParameters) : Worker(context, params) {
@@ -75,6 +80,7 @@ class SetAlarmsWork(context: Context, params: WorkerParameters) : Worker(context
             .setLargeIcon(bitmap).setSmallIcon(R.drawable.ic_baseline_medical_services_24)
             .setContentTitle(titleNotification).setContentText(subtitleNotification)
             .setDefaults(DEFAULT_ALL).setContentIntent(pendingIntent).setAutoCancel(true)
+            .setSound(getDefaultUri(TYPE_NOTIFICATION))
             .addAction(NotificationCompat.Action(R.drawable.ic_baseline_done_all_24,"Take all",takeAll))
             .addAction(NotificationCompat.Action(R.drawable.ic_baseline_snooze_24,"Snooze",snooze))
             .addAction(NotificationCompat.Action(R.drawable.ic_baseline_skip_next_24,"Skip",skip))
@@ -93,7 +99,7 @@ class SetAlarmsWork(context: Context, params: WorkerParameters) : Worker(context
                 NotificationChannel(NOTIFICATION_CHANNEL, NOTIFICATION_NAME, IMPORTANCE_HIGH)
 
             channel.enableLights(true)
-            channel.lightColor = RED
+            channel.lightColor = BLUE
             channel.enableVibration(true)
             channel.vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
             channel.setSound(ringtoneManager, audioAttributes)

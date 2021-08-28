@@ -1,5 +1,6 @@
 package com.kani.medzone.ui.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
@@ -40,7 +41,7 @@ class ReadingAdapter(private var readingList: ArrayList<Reading>,val context: Co
         return position.toLong()
     }
 
-    override fun onBindViewHolder(holder: ReadingsHolder, position: Int) {
+    override fun onBindViewHolder(holder: ReadingsHolder, @SuppressLint("RecyclerView") position: Int) {
 
         val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
 
@@ -64,7 +65,7 @@ class ReadingAdapter(private var readingList: ArrayList<Reading>,val context: Co
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-                    readingList[position].name = s.toString()
+                    readingList[holder.adapterPosition].name = s.toString()
                 }
             })
         holder.value.addTextChangedListener(object:TextWatcher{
@@ -82,7 +83,7 @@ class ReadingAdapter(private var readingList: ArrayList<Reading>,val context: Co
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-                    readingList[position].read = s.toString()
+                    readingList[holder.adapterPosition].read = s.toString()
                 }
             })
         val unitAdapter: ArrayAdapter<String> = ArrayAdapter<String>(

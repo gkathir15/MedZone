@@ -5,6 +5,8 @@ import androidx.datastore.core.DataStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.kani.medzone.db.AppDatabase
 import com.kani.medzone.db.Report
 import com.kani.medzone.db.TabletEntry
@@ -15,11 +17,12 @@ import java.util.prefs.Preferences
 class ActivityViewModel(val app: Application) : AndroidViewModel(app) {
 
     private  var db:AppDatabase?=null
-    var tabletsList:MutableLiveData<ArrayList<Tablets>> = MutableLiveData(ArrayList<Tablets>())
+    var tabletsList:MutableLiveData<ArrayList<Tablets>> = MutableLiveData(ArrayList())
     var investigationList:MutableLiveData<ArrayList<Report>> = MutableLiveData(ArrayList())
     var tabEntryList:MutableLiveData<ArrayList<TabletEntry>> = MutableLiveData(ArrayList())
     var eventEntryList:MutableLiveData<ArrayList<EventEntry>> = MutableLiveData(ArrayList())
     var datastore:DataStore<androidx.datastore.preferences.core.Preferences>?=null
+    val firestore = Firebase.firestore
 
     fun databaseInstance(): AppDatabase {
         return if (db!=null)
