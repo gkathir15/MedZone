@@ -94,7 +94,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:button="@null"
-                android:checked="true"
+                android:checked="false"
                 android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
                 android:text="@string/morning"
                 android:textAlignment="center" />
@@ -151,7 +151,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:button="@null"
-                android:checked="true"
+                android:checked="false"
                 android:clickable="false"
                 android:drawableTop="?android:attr/listChoiceIndicatorSingle"
                 android:text="@string/before_food"

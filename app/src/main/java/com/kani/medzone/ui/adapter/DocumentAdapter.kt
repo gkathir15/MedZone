@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.DocumentSnapshot
 import com.kani.medzone.Constants
+import com.kani.medzone.ItemClickListener
 import com.kani.medzone.R
 import kotlinx.android.synthetic.main.users_item.view.*
 
 /**Created by Guru kathir.J on 23,August,2021 **/
-class DocumentAdapter(private val docs: List<DocumentSnapshot>) :
+class DocumentAdapter(private val docs: List<DocumentSnapshot>, val lsitener: ItemClickListener) :
     RecyclerView.Adapter<DocumentAdapter.DocsHolder>() {
 
     class DocsHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -18,6 +19,7 @@ class DocumentAdapter(private val docs: List<DocumentSnapshot>) :
         val phNum = v.phNo
         val illness = v.illness
         val patientNo = v.patientNo
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DocsHolder {
@@ -36,6 +38,9 @@ class DocumentAdapter(private val docs: List<DocumentSnapshot>) :
             "Ph no${docs[holder.adapterPosition][Constants.PHONE_NUMBER].toString()}"
         holder.patientNo.text =
             "Patient Id${docs[holder.adapterPosition][Constants.PATIENT_NO].toString()}"
+        holder.itemView.setOnClickListener{
+            lsitener.personSelected(docs[position])
+        }
     }
 
     override fun getItemCount(): Int {

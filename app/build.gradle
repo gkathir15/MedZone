@@ -36,6 +36,7 @@ android {
     }
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -47,6 +48,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'com.google.firebase:firebase-firestore:23.0.3'
+    implementation 'com.google.firebase:firebase-messaging:22.0.0'
     def room_version = "2.3.0"
 
     // Import the Firebase BoM

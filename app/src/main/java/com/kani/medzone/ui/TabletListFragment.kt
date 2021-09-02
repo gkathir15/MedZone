@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.DocumentSnapshot
 import com.kani.medzone.vm.ActivityViewModel
 import com.kani.medzone.ItemClickListener
 import com.kani.medzone.MainActivity
@@ -83,10 +84,15 @@ class TabletListFragment : Fragment(),ItemClickListener {
         
     }
 
-    override fun takeTablet(tab: TabletEntry) {
+    override fun takeTablet(tab: TabletEntry, pos: Int) {
     }
 
-    override fun skipTablet(tab: TabletEntry) {
+    override fun skipTablet(tab: TabletEntry, pos: Int) {
     }
+
+    override fun personSelected(snap: DocumentSnapshot) {
+        TODO("Not yet implemented")
+    }
+
 
 }

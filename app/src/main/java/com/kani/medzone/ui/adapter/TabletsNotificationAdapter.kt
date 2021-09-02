@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.tablet_frm_notification.view.*
 class TabletsNotificationAdapter(private var tabletsList:ArrayList<TabletEntry>,
 private val listener: ItemClickListener):
     RecyclerView.Adapter<Holder>() {
-    class Holder(v: View):RecyclerView.ViewHolder(v) {
+    class Holder(v: View) : RecyclerView.ViewHolder(v) {
         val name = v.name
         val image = v.image
         val instruction = v.instruction
@@ -26,7 +26,7 @@ private val listener: ItemClickListener):
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-      return   Holder(
+        return Holder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.tablet_frm_notification, parent, false)
         )
@@ -36,22 +36,22 @@ private val listener: ItemClickListener):
         holder.name.text = tabletsList[position].tablet.name
         holder.instruction.text = tabletsList[position].tablet.instruction
         holder.foofPref.text = tabletsList[position].tablet.mealDosage.toString()
-        when(tabletsList[position].tablet.mealDosage)
-        {
-            1-> holder.foofPref.text =  "before Food"
-            2-> holder.foofPref.text ="with food"
-            3-> holder.foofPref.text ="after Food"
+        when (tabletsList[position].tablet.mealDosage) {
+            1 -> holder.foofPref.text = "before Food"
+            2 -> holder.foofPref.text = "with food"
+            3 -> holder.foofPref.text = "after Food"
         }
-        Glide.with(holder.itemView.context).load(tabletsList[position].tablet.imageUrl).into(holder.image)
+        Glide.with(holder.itemView.context).load(tabletsList[position].tablet.imageUrl)
+            .into(holder.image)
         holder.take.setOnClickListener {
-            listener.takeTablet(tabletsList[position])
+            listener.takeTablet(tabletsList[position], position)
         }
         holder.skip.setOnClickListener {
-            listener.skipTablet(tabletsList[position])
+            listener.skipTablet(tabletsList[position], position)
         }
     }
 
     override fun getItemCount(): Int {
-    return  tabletsList.size
+        return tabletsList.size
     }
 }

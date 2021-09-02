@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.google.firebase.firestore.DocumentSnapshot
 import com.kani.medzone.vm.ActivityViewModel
 import com.kani.medzone.ItemClickListener
 import com.kani.medzone.MainActivity
@@ -34,11 +35,15 @@ class DashboardFragment : Fragment(),ItemClickListener {
     override fun takeTabletsClicked(btnType: String) {
     }
 
-    override fun takeTablet(tab: TabletEntry) {
-
+    override fun takeTablet(tab: TabletEntry, pos: Int) {
     }
 
-    override fun skipTablet(tab: TabletEntry) {
-
+    override fun skipTablet(tab: TabletEntry, pos: Int) {
     }
+
+    override fun personSelected(snap: DocumentSnapshot) {
+        TODO("Not yet implemented")
+    }
+
+
 }

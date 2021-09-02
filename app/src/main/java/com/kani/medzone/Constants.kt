@@ -3,6 +3,10 @@ package com.kani.medzone
 /**Created by Guru kathir.J on 17,May,2021 **/
 class Constants {
     companion object {
+        var usermap: MutableMap<String, Any>?=null
+        val DATE: String="DATE"
+        val GCMIDS: String="GCMIDS"
+        val ISGCMIDSENT: String = "IS_GCMID_SENT"
         val users: String= "USERS"
         val takeAll="TAKEAll"
         val NotificationAction="NotificationAction"
