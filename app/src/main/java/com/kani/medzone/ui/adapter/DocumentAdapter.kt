@@ -31,13 +31,13 @@ class DocumentAdapter(private val docs: List<DocumentSnapshot>, val lsitener: It
 
     override fun onBindViewHolder(holder: DocsHolder, position: Int) {
         holder.illness.text =
-            "Illness:${docs[holder.adapterPosition][Constants.ILLNESS].toString()}"
+            "Illness: ${docs[holder.adapterPosition][Constants.ILLNESS].toString()}"
 
-        holder.name.text = "Name${docs[holder.adapterPosition][Constants.NAME].toString()}"
+        holder.name.text = "Name: ${docs[holder.adapterPosition][Constants.NAME].toString()}"
         holder.phNum.text =
-            "Ph no${docs[holder.adapterPosition][Constants.PHONE_NUMBER].toString()}"
+            "Ph no: ${docs[holder.adapterPosition][Constants.PHONE_NUMBER].toString()}"
         holder.patientNo.text =
-            "Patient Id${docs[holder.adapterPosition][Constants.PATIENT_NO].toString()}"
+            "Patient Id: ${docs[holder.adapterPosition][Constants.PATIENT_NO].toString()}"
         holder.itemView.setOnClickListener{
             lsitener.personSelected(docs[position])
         }

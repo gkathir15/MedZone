@@ -3,6 +3,7 @@ package com.kani.medzone.ui
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,6 +44,7 @@ class AdminActivity : AppCompatActivity(),ItemClickListener {
         userRecycler.layoutManager = LinearLayoutManager(this)
 
         ref.get().addOnCompleteListener {
+
             val docs = it.result?.documents
             userRecycler.adapter = docs?.let { it1 -> DocumentAdapter(it1,this) }
 
@@ -68,8 +70,12 @@ class AdminActivity : AppCompatActivity(),ItemClickListener {
     }
 
     override fun personSelected(snap: DocumentSnapshot) {
-        Constants.usermap = snap.data
-        startActivity(Intent(this,DetailAdminActivity::class.java))
+        if(snap.data?.containsKey(Constants.TABLETS) == true) {
+            Constants.usermap = snap.data
+            startActivity(Intent(this, DetailAdminActivity::class.java))
+        }else{
+            Toast.makeText(this,"Tablet data not available",Toast.LENGTH_SHORT).show()
+        }
 
     }
 }
