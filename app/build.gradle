@@ -31,7 +31,7 @@ android {
             buildConfigField "boolean", "isAdmin", "false"
         }
         debug{
-            buildConfigField "boolean", "isAdmin", "true"
+            buildConfigField "boolean", "isAdmin", "false"
         }
     }
     compileOptions {
@@ -96,6 +96,7 @@ dependencies {
 
     // Kotlin + coroutines
     implementation "androidx.work:work-runtime-ktx:$work_version"
+    implementation 'com.android.volley:volley:1.2.1'
 
 
     //implementation 'com.github.dariopellegrini:FormBuilder:v0.9.2'

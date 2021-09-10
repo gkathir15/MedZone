@@ -26,6 +26,7 @@ class AdminActivity : AppCompatActivity(),ItemClickListener {
         sharedPref = getSharedPreferences("medzone", MODE_PRIVATE)
         if(!sharedPref?.getBoolean(Constants.ISGCMIDSENT,false)!!)
         {
+            FirebaseMessaging.getInstance().subscribeToTopic(Constants.SKIP)
             FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val token = task.result

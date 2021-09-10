@@ -46,13 +46,13 @@ class TabletSlideActivity : AppCompatActivity(),ItemClickListener {
                          (time.get(Calendar.DATE)==Calendar.getInstance().get(Calendar.DATE)&&
                                  time.get(Calendar.MONTH)==(Calendar.getInstance().get(Calendar.MONTH)+1))&&(
                          (duration.equals(Constants.BREAKFAST,true) && it.tablet.morning == 1) ||
-                                 (duration.equals( Constants.LUNCH,true) && it.tablet.noon == 1) ||
-                                 (duration.equals( Constants.EVENING,true)&& it.tablet.evening == 1) ||
-                                 (duration.equals(Constants.DINNER,true) && it.tablet.night == 1)
+                                 (duration.equals( Constants.LUNCH,true) && it.tablet.noon == 2) ||
+                                 (duration.equals( Constants.EVENING,true)&& it.tablet.evening == 3) ||
+                                 (duration.equals(Constants.DINNER,true) && it.tablet.night == 4)
                          ))
              } as ArrayList<TabletEntry>?
 
-                tabs = tabs?.toSet()?.toList() as ArrayList<TabletEntry>
+               // tabs = tabs?.toSet()?.toList() as ArrayList<TabletEntry>
 
 
             tabletPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -85,7 +85,16 @@ class TabletSlideActivity : AppCompatActivity(),ItemClickListener {
             model.firestore.collection(Constants.users)
                 .document(sharedPreferences?.getString(Constants.PHONE_NUMBER,"")!!).set(tabmap,
                     SetOptions.merge())
+
+        if(skipped.isNotEmpty())
+        {
+            sendNotification()
         }
+        }
+
+    private fun sendNotification() {
+
+    }
 
 
     override fun onStop() {
@@ -109,6 +118,9 @@ class TabletSlideActivity : AppCompatActivity(),ItemClickListener {
             tabs?.removeAt(pos)
             if(tabs?.size==0)
             {
+                writeToFirebase()
+                isWritten = true
+                finish()
                 doneBtn.visibility = View.VISIBLE
                 tabletPager2.visibility = View.GONE
             }

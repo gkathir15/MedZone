@@ -116,12 +116,11 @@
 
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/SaveBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/save"
-        android:id="@+id/SaveBtn"
-        />
+        android:text="@string/save" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -155,17 +154,18 @@
             android:layout_height="wrap_content"
             android:text="@string/english"
             android:layout_weight="1"
+            android:checked="true"
             android:id="@+id/eng"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tamil"
+            android:text="@string/tamil"
             android:layout_weight="1"
             android:id="@+id/tamil"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hindi"
+            android:text="@string/hindi"
             android:layout_weight="1"
             android:id="@+id/hindi"/>
     </RadioGroup>

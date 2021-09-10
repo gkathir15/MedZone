@@ -3,29 +3,29 @@ package com.kani.medzone
 /**Created by Guru kathir.J on 17,May,2021 **/
 class Constants {
     companion object {
-        var usermap: MutableMap<String, Any>?=null
-        val DATE: String="DATE"
-        val GCMIDS: String="GCMIDS"
+        var usermap: MutableMap<String, Any>? = null
+        val DATE: String = "DATE"
+        val GCMIDS: String = "GCMIDS"
         val ISGCMIDSENT: String = "IS_GCMID_SENT"
-        val users: String= "USERS"
-        val takeAll="TAKEAll"
-        val NotificationAction="NotificationAction"
+        val users: String = "USERS"
+        val takeAll = "TAKEAll"
+        val NotificationAction = "NotificationAction"
         const val SKIP: String = "SKIP"
-      const val SNOOZE: String = "SNOOZE"
-      const val TAKE: String = "TAKE"
-      const val SYNC = "SYNC"
-      const val DURATION = "DURATION"
-      const val TABLET_ALARM = "TABLET_ALARM"
-      const val BREAKFAST = "BREAKFAST"
-      const val LUNCH = "LUNCH"
-      const val DINNER = "DINNER"
-      const val EVENING = "EVENING"
+        const val SNOOZE: String = "SNOOZE"
+        const val TAKE: String = "TAKE"
+        const val SYNC = "SYNC"
+        const val DURATION = "DURATION"
+        const val TABLET_ALARM = "TABLET_ALARM"
+        const val BREAKFAST = "BREAKFAST"
+        const val LUNCH = "LUNCH"
+        const val DINNER = "DINNER"
+        const val EVENING = "EVENING"
 
-      const val callFOR = "callFor"
-      const val setNewAlarm = "setNewAlarm"
-      const val resetAlarmPostBoot = "resetAlarmPostBoot"
-      const val isAlarmSET = "ISALARMSET"
-      const val ISLoggedIN: String = "ISLoggedIN"
+        const val callFOR = "callFor"
+        const val setNewAlarm = "setNewAlarm"
+        const val resetAlarmPostBoot = "resetAlarmPostBoot"
+        const val isAlarmSET = "ISALARMSET"
+        const val ISLoggedIN: String = "ISLoggedIN"
         const val TASK_CANCELLED = "Task Cancelled"
         const val ENTER_DOSAGE_SIZE = "Enter dosage size"
         const val ENTER_TABLET_NAME = "Enter Tablet name"
@@ -56,7 +56,7 @@ class Constants {
         const val EVENING_Min = "EVENING_Min"
 
 
-       val type = arrayOf(
+        val type = arrayOf(
             "Complete hemogram",
             "Blood sugar profile",
             "Blood Pressure",
@@ -67,8 +67,7 @@ class Constants {
             "Urine investigations"
         )
 
-        fun getLabelArray(label:String):Array<String>
-        {
+        fun getLabelArray(label: String): Array<String> {
             return when (label) {
                 "Complete hemogram" -> hemogramLabel
                 "Blood sugar profile" -> bloodSugarProfileLabel
@@ -80,8 +79,8 @@ class Constants {
                 else -> renalFnTestsLabel
             }
         }
-        fun getUnitArray(label:String):Array<String>
-        {
+
+        fun getUnitArray(label: String): Array<String> {
             return when (label) {
                 "Complete hemogram" -> hemogramUnits
                 "Blood sugar profile" -> bloodSugarProfileUnits
@@ -95,11 +94,11 @@ class Constants {
         }
 
 
-       val hemogramlabel = arrayOf(
+        val hemogramlabel = arrayOf(
             "FBS", "PPBS", "Random", "HbA1c"
         )
 
-       val hemogramLabel = arrayOf(
+        val hemogramLabel = arrayOf(
             "Hb",
             "RBC count",
             "Platelet",
@@ -114,25 +113,25 @@ class Constants {
             "CRP"
         )
 
-       val bloodSugarProfileLabel = arrayOf(
+        val bloodSugarProfileLabel = arrayOf(
             "FBS",
             "PPBS",
             "Random",
             "HbA1c"
         )
 
-       val bloodPressureLabel = arrayOf(
+        val bloodPressureLabel = arrayOf(
             "Systolic",
             "Diastolic"
         )
 
-       val renalFnTestsLabel = arrayOf(
+        val renalFnTestsLabel = arrayOf(
             "Blood urea",
             "Serum creatinine",
             "Serum uric acid"
         )
 
-       val liverFnTestsLabel = arrayOf(
+        val liverFnTestsLabel = arrayOf(
             "Total bilirubin",
             "Direct",
             "Indirect",
@@ -145,7 +144,7 @@ class Constants {
             "ALP"
         )
 
-       val lipidProfileLabel = arrayOf(
+        val lipidProfileLabel = arrayOf(
             "Total cholesterol",
             "LDL",
             "HDL",
@@ -153,7 +152,7 @@ class Constants {
             "VLDL"
         )
 
-       val thyroidProfileLabel = arrayOf(
+        val thyroidProfileLabel = arrayOf(
             "TSH",
             "Free T3",
             "Free T4",
@@ -161,7 +160,7 @@ class Constants {
             "Total T4"
         )
 
-       val urineInvestigationsLabel = arrayOf(
+        val urineInvestigationsLabel = arrayOf(
             "Urine color",
             "pH",
             "Specific gravity",
@@ -177,7 +176,7 @@ class Constants {
             "Crystals"
         )
 
-       val hemogramUnits = arrayOf(
+        val hemogramUnits = arrayOf(
             "g/dL or g/L",
             "106 /µL or ×1012 /L",
             "103/µL or ×109 /L",
@@ -186,39 +185,56 @@ class Constants {
             "mg/L or µg/mL"
         )
 
-       val bloodSugarProfileUnits = arrayOf(
+        val bloodSugarProfileUnits = arrayOf(
             "mg/dL or mmol/L",
             "%",
             "mmHg"
         )
-       val bloodPressureUnits = arrayOf(
+        val bloodPressureUnits = arrayOf(
             "mmHg"
         )
 
-       val renalFnTestsUnits = arrayOf(
+        val renalFnTestsUnits = arrayOf(
             "mg/dL or mmol/L",
             "mg/dL or µmol/L"
         )
 
-       val liverFnTestsUnits = arrayOf(
+        val liverFnTestsUnits = arrayOf(
             "mg/dL or µmol/L",
             "g/dL or g/L",
             "U/L"
         )
 
-       val lipidProfileUnits = arrayOf(
+        val lipidProfileUnits = arrayOf(
             "mg/dL or mmol/L"
         )
-       val urineUits = arrayOf(
-            "RBCs","WBCs","cells/hpf","hyaline casts/ lpf"
+        val urineUits = arrayOf(
+            "RBCs", "WBCs", "cells/hpf", "hyaline casts/ lpf"
         )
 
-       val thyroidProfileUnits = arrayOf(
+        val thyroidProfileUnits = arrayOf(
             "µIU/mL or mIU/mL",
             "pg/dL or pmol/L",
             "ng/dL or pmol/L",
             "ng/dL or nmol/L",
             "µg/dL or nmol/L"
         )
+
+        fun Int.toSuperScript(): String {
+            return when (this) {
+                0 -> "\u2070"
+                1 -> "\u00B9"
+                2 -> "\u00B2"
+                3 -> "\u00B3"
+                4 -> "\u2074"
+                5 -> "\u2075"
+                6 -> "\u2076"
+                7 -> "\u2077"
+                8 -> "\u2078"
+                9 -> "\u2079"
+                else -> ""
+            }
+
+        }
     }
 }

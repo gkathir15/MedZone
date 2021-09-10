@@ -31,6 +31,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.*
+import android.content.res.Configuration
 
 
 class MainActivity : AppCompatActivity() {
@@ -92,6 +93,22 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        mainSettings.setOnClickListener {
+            pager.visibility = GONE
+            tab_layout.visibility = GONE
+            root.visibility = VISIBLE
+            addFrag(PreferenceFragment())
+        }
+
+
+    }
+
+    fun removePreferenceFrag(frag:Fragment)
+    {
+        pager.visibility = VISIBLE
+        tab_layout.visibility = VISIBLE
+        root.visibility = GONE
+        removeFrag(frag)
     }
 
 
@@ -153,6 +170,8 @@ class MainActivity : AppCompatActivity() {
                         cal.timeInMillis - System.currentTimeMillis(),
                         this@MainActivity
                     )
+                        AlarmManagerHelper.setAlarmForSync(this@MainActivity)
+                        dstore?.let { AlarmManagerHelper.setDailyAlarms(it,this@MainActivity) }
                     sharedPreferences?.edit()?.putBoolean(Constants.isAlarmSET, true)?.apply()
                 }}
             }
@@ -246,6 +265,20 @@ class MainActivity : AppCompatActivity() {
         builder.setContentView(dialogLayout)
         builder.show()
 
+
+    }
+
+    public fun setLang(locale:String)
+    {
+        val locale = Locale(locale)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        baseContext.resources.updateConfiguration(
+            config,
+            baseContext.resources.displayMetrics
+        )
+    //   recreate()
 
     }
 

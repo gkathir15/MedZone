@@ -39,75 +39,14 @@ class SetAlarmsWork(context: Context, params: WorkerParameters) : Worker(context
         val duration = inputData.getString(Constants.DURATION)
         callFor?.let {
             if (duration != null) {
-                sendNotification(id, it,duration)
+                NotificationObj.sendNotification(id, it,duration,applicationContext)
             }
         }
 
         return success()
     }
 
-    private fun sendNotification(id: Int,callFor:String,duRATION:String) {
 
-
-        val notificationManager =
-            applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        val notificationIntent = Intent(applicationContext, MainActivity::class.java).also {
-            it.putExtra(Constants.callFOR,callFor)
-            it.putExtra(Constants.DURATION,duRATION)
-            it.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
-            it.putExtra("ID", id)
-        }
-
-
-        val takeAll = PendingIntent.getActivity(
-            applicationContext,
-            2, notificationIntent.putExtra(Constants.NotificationAction,Constants.takeAll), 0
-        )
-        val snooze = PendingIntent.getActivity(
-            applicationContext,
-            3, notificationIntent.putExtra(Constants.NotificationAction,Constants.SNOOZE), 0
-        )
-        val skip = PendingIntent.getActivity(
-            applicationContext,
-            4, notificationIntent.putExtra(Constants.NotificationAction,Constants.SKIP), 0)
-
-
-            val bitmap = applicationContext.vectorToBitmap(R.drawable.ic_baseline_medical_services_24)
-        val titleNotification = applicationContext.getString(R.string.app_name)
-        val subtitleNotification = applicationContext.getString(R.string.tablet)
-        val pendingIntent = getActivity(applicationContext, 0, notificationIntent, 0)
-        val notification = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL)
-            .setLargeIcon(bitmap).setSmallIcon(R.drawable.ic_baseline_medical_services_24)
-            .setContentTitle(titleNotification).setContentText(subtitleNotification)
-            .setDefaults(DEFAULT_ALL).setContentIntent(pendingIntent).setAutoCancel(true)
-            .setSound(getDefaultUri(TYPE_NOTIFICATION))
-            .addAction(NotificationCompat.Action(R.drawable.ic_baseline_done_all_24,"Take all",takeAll))
-            .addAction(NotificationCompat.Action(R.drawable.ic_baseline_snooze_24,"Snooze",snooze))
-            .addAction(NotificationCompat.Action(R.drawable.ic_baseline_skip_next_24,"Skip",skip))
-            .setAutoCancel(true)
-
-        notification.priority = PRIORITY_MAX
-
-        if (SDK_INT >= O) {
-            notification.setChannelId(NOTIFICATION_CHANNEL)
-
-            val ringtoneManager = getDefaultUri(TYPE_NOTIFICATION)
-            val audioAttributes = AudioAttributes.Builder().setUsage(USAGE_NOTIFICATION_RINGTONE)
-                .setContentType(CONTENT_TYPE_SONIFICATION).build()
-
-            val channel =
-                NotificationChannel(NOTIFICATION_CHANNEL, NOTIFICATION_NAME, IMPORTANCE_HIGH)
-
-            channel.enableLights(true)
-            channel.lightColor = BLUE
-            channel.enableVibration(true)
-            channel.vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
-            channel.setSound(ringtoneManager, audioAttributes)
-            notificationManager.createNotificationChannel(channel)
-        }
-
-        notificationManager.notify(id, notification.build())
-    }
 
     companion object {
         const val NOTIFICATION_NAME = "appName"

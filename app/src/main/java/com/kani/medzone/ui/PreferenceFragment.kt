@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.NumberPicker
+import android.widget.RadioGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
@@ -176,6 +177,12 @@ class PreferenceFragment : Fragment() {
 //            }
 
         SaveBtn.setOnClickListener {
+            (requireActivity() as MainActivity).also {
+            if (it.getPreferences()?.getBoolean(Constants.ISLoggedIN,true) == true)
+            {
+                it.removePreferenceFrag(this)
+            }
+            }
 
             (requireActivity() as MainActivity).also {
                 it.getPreferences()?.edit()?.putBoolean(Constants.ISLoggedIN,true)?.apply()
@@ -193,6 +200,23 @@ class PreferenceFragment : Fragment() {
 //                }
 //            }
         }
+
+        langGroup.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener{
+            override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+
+                if(checkedId == R.id.eng)
+                {
+                    (requireActivity() as MainActivity).setLang("en")
+                }else if(checkedId == R.id.hindi)
+                {(requireActivity() as MainActivity).setLang("hi")
+
+                }
+                else {
+                    (requireActivity() as MainActivity).setLang("ta")
+                }
+            }
+
+        })
 
     }
 

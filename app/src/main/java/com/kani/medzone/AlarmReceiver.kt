@@ -4,25 +4,48 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 
-
-
-class AlarmReceiver: BroadcastReceiver() {
+class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        val serviceIntent = Intent(context, MedService::class.java)
-        intent.extras?.let {serviceIntent.putExtras(it)}
-        context.startService( serviceIntent)
-        Toast.makeText(context.applicationContext, "Tablet notification", Toast.LENGTH_LONG)
-            .show()
-        if (intent.action == "android.intent.action.BOOT_COMPLETED") {
 
-            Toast.makeText(context.applicationContext, "boot completye", Toast.LENGTH_LONG)
-                .show()
-        } else {
-            Toast.makeText(context.applicationContext, "Alarm Manager just ran", Toast.LENGTH_LONG)
-                .show()
-        }
+//        val serviceIntent = Intent(context, MedService::class.java)
+//        intent.extras?.let {serviceIntent.putExtras(it)}
+//        context.startService( serviceIntent)
+
+        if (intent.action == "android.intent.action.BOOT_COMPLETED") {
+            GlobalScope.launch(Dispatchers.IO) {
+                val   dStore =  (context.applicationContext as AppState).datastore.data.first().toPreferences()
+                launch (Dispatchers.Main){
+                    AlarmManagerHelper.setAlarmForSync(context)
+                    AlarmManagerHelper.setDailyAlarms(dStore,context)
+                }
+            }
+        } else
+            if (intent.getStringExtra(Constants.callFOR).equals(Constants.TABLET_ALARM)) {
+                NotificationObj.sendNotification(
+                    intent.getIntExtra("ID", 0), intent.getStringExtra(Constants.callFOR),
+                    intent.getStringExtra(Constants.DURATION), context
+                )
+
+
+            } else if (intent.getStringExtra(Constants.callFOR).equals(Constants.SYNC))
+            {
+                GlobalScope.launch(Dispatchers.IO) {
+                    val   dStore =  (context.applicationContext as AppState).datastore.data.first().toPreferences()
+                    launch (Dispatchers.Main){
+                        AlarmManagerHelper.setAlarmForSync(context)
+                        AlarmManagerHelper.setDailyAlarms(dStore,context)
+                    }
+                }
+            }
+
+
+
     }
 
 }

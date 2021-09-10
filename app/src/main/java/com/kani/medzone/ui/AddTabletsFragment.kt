@@ -84,10 +84,10 @@ class AddTabletsFragment : Fragment() {
                     tablet.mealDosage = 1
                 }
                 R.id.withFood -> {
-                    tablet.mealDosage = 3
+                    tablet.mealDosage = 2
                 }
                 R.id.afterFood -> {
-                    tablet.mealDosage = 2
+                    tablet.mealDosage = 3
                 }
             }
         }
@@ -141,6 +141,12 @@ class AddTabletsFragment : Fragment() {
                 tablet.night = 1
             else
                 tablet.night = 0
+        }
+        evening.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked)
+                tablet.evening = 1
+            else
+                tablet.evening = 0
         }
 
 
@@ -232,7 +238,7 @@ class AddTabletsFragment : Fragment() {
                             "${tablet.tabletid}_${date.timeInMillis}",
                             date.timeInMillis,
                             0,
-                            tablet
+                            tablet,1
                         )
                     )
 
@@ -253,7 +259,7 @@ class AddTabletsFragment : Fragment() {
                             "${tablet.tabletid}_${date.timeInMillis}",
                             date.timeInMillis,
                             0,
-                            tablet
+                            tablet,2
                         )
                     )
 
@@ -274,7 +280,7 @@ class AddTabletsFragment : Fragment() {
                             "${tablet.tabletid}_${date.timeInMillis}",
                             date.timeInMillis,
                             0,
-                            tablet
+                            tablet,3
                         )
                     )
 
@@ -295,7 +301,7 @@ class AddTabletsFragment : Fragment() {
                             "${tablet.tabletid}_${date.timeInMillis}",
                             date.timeInMillis,
                             0,
-                            tablet
+                            tablet,4
                         )
                     )
 

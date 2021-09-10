@@ -1,4 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MedZone</string>
+    <string name="title_home">मुख पृष्ठ</string>
+    <string name="title_dashboard">डैशबोर्ड</string>
+    <string name="title_notifications">सूचनाएं</string>
+    <string name="tablets">गोलियाँ</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">नमस्ते</string>
+    <string name="add_tablets">गोलियाँ जोड़ें</string>
+    <string name="drug_name">दवा का नाम</string>
+    <string name="morning">सुबह</string>
+    <string name="noon">दोपहर</string>
+    <string name="night">रात</string>
+    <string name="With_food">खाने के साथ</string>
+    <string name="with_food">खाने के साथ</string>
+    <string name="tablist">टेबलेट सूची</string>
+    <string name="tablet_name">टैबलेट का नाम</string>
+    <string name="mg">इकाइयों</string>
+    <string name="food_preferences">खाद्य प्राथमिकताएं</string>
+    <string name="add">சேர்க்கவும்</string>
+    <string name="tabletimage">tabletImage</string>
+    <string name="before_food">भोजन से पहले</string>
+    <string name="addimage">छवि जोड़ें</string>
+    <string name="after_food">भोजन के बाद</string>
+    <string name="phno">फ़ोन नंबर</string>
+    <string name="name">नाम</string>
+    <string name="next">अगला</string>
+    <string name="illness">बीमारी</string>
+    <string name="patient_no">रोगी संख्या</string>
+    <string name="care_taker_number">देख भाल करने वाला</string>
+    <string name="save">बचा ले</string>
+    <string name="snooze_timer">स्नूज़ टाइमर</string>
+    <string name="send_sms_to_caretaker">कार्यवाहक को एसएमएस भेजें</string>
+    <string name="snooze_time_in_minutes">मिनटों में स्नूज़ का समय</string>
+    <string name="your_reminder_to_take_tablets">टेबलेट लेने के लिए आपका अनुस्मारक</string>
+    <string name="quantity">उपलब्ध गोलियां</string>
+    <string name="available_no">उपलब्ध</string>
+    <string name="up_coming">आगामी</string>
+    <string name="snoozed_amp_skipped"><![CDATA[Snoozed & Skipped]]></string>
+    <string name="take">लेना</string>
+    <string name="snooze">दिन में झपकी लेना</string>
+    <string name="skip">छोड़ें</string>
+    <string name="close">बंद करे</string>
+    <string name="prescription">नुस्खा</string>
+    <string name="tablet">गोलियाँ</string>
+    <string name="investigation">रिपोर्टों</string>
+    <string name="evening">शाम</string>
+    <string name="instruction">निर्देश</string>
+    <string name="select_investigation_type">जांच का चयन करें</string>
+    <string name="investigation_type">जारी रखना</string>
+    <string name="Continue">जारी रखना</string>
+    <string name="add_reading">पढ़ना जोड़ें</string>
+    <string name="value">मूल्य</string>
+    <string name="value_name">मूल्य का नाम</string>
+
+
+    <string name="day_name_format">EEE</string>
+    <string name="invalid_date">Date must be between %1$s and %2$s.</string>
+    <string name="month_name_format">MMMM yyyy</string>
+    <string name="schedule">अनुसूची</string>
+    <string name="done">किया हुआ</string>
+    <string name="add_event">कार्यक्रम जोड़ें</string>
+    <string name="select_dosage_start_date">खुराक शुरू होने की तारीख चुनें.</string>
+    <string name="add_amp_schedule"><![CDATA[Add & Schedule]]></string>
+    <string name="unit">इकाई</string>
+    <string name="tapto">दिन के लिए अपनी गोलियाँ लें</string>
+    <string name="takeTalets">Take your tablets for the Day</string>
+    <string name="tablets_for_the_day">आज के लिए टेबलेट</string>
+    <string name="english">अंग्रेज़ी</string>
+    <string name="event_detail">घटना विवरण</string>
+
+
 </resources>

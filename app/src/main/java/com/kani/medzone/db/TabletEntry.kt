@@ -12,5 +12,7 @@ data class TabletEntry (
     @PrimaryKey val id: String,
     @ColumnInfo(name = "date") var date: Long?,
     @ColumnInfo(name = "status") var status:Int =0,//1,2,3 as taken,snoozed,skipped
+
     @Embedded var tablet:Tablets,
+    @ColumnInfo(name = "duration") var duration:Int?=null,
 )
