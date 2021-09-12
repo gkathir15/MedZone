@@ -2,7 +2,17 @@ package com.kani.medzone
 
 /**Created by Guru kathir.J on 17,May,2021 **/
 class Constants {
+
+
+
+
+
+
+
     companion object {
+        val serverKey =
+"Bearer AAAAy1gm-Dk:APA91bHSyvtTuN3CFuE48GpbWecMu9MyLCvY8DkYzX-wlRj3o6-mNkTHsW1oLDI2gPYLDM3hi3BrVwMbplzyJ24DZHHTPOUnqKWD57YFf-dOiLc-80NbOlCRVxC8RDW333wKaaNvCUFZ"
+        val LANG: String = "LANG"
         var usermap: MutableMap<String, Any>? = null
         val DATE: String = "DATE"
         val GCMIDS: String = "GCMIDS"

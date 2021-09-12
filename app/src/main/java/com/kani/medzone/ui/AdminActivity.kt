@@ -24,20 +24,20 @@ class AdminActivity : AppCompatActivity(),ItemClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin)
         sharedPref = getSharedPreferences("medzone", MODE_PRIVATE)
-        if(!sharedPref?.getBoolean(Constants.ISGCMIDSENT,false)!!)
-        {
+//        if(!sharedPref?.getBoolean(Constants.ISGCMIDSENT,false)!!)
+//        {
             FirebaseMessaging.getInstance().subscribeToTopic(Constants.SKIP)
-            FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val token = task.result
-                    val toeknmap = hashMapOf<String,String>()
-                    token?.let {
-                    toeknmap[Constants.GCMIDS] = it
-
-                         model.firestore.collection(Constants.GCMIDS).add(toeknmap) }
-                }
-            }
-        }
+//            FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+//                if (task.isSuccessful) {
+//                    val token = task.result
+//                    val toeknmap = hashMapOf<String,String>()
+//                    token?.let {
+//                    toeknmap[Constants.GCMIDS] = it
+//
+//                         model.firestore.collection(Constants.GCMIDS).add(toeknmap) }
+//                }
+//            }
+      //  }
 
 
         val ref = model.firestore.collection(Constants.users)

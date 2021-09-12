@@ -32,6 +32,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.*
 import android.content.res.Configuration
+import androidx.core.os.bundleOf
 
 
 class MainActivity : AppCompatActivity() {
@@ -67,6 +68,8 @@ class MainActivity : AppCompatActivity() {
 
         sharedPreferences = this.getSharedPreferences("medzone", MODE_PRIVATE)
 
+        sharedPreferences?.getString(Constants.LANG,"en")?.let { setLang(it) }
+
         showTabsView()
 
 
@@ -97,7 +100,9 @@ class MainActivity : AppCompatActivity() {
             pager.visibility = GONE
             tab_layout.visibility = GONE
             root.visibility = VISIBLE
-            addFrag(PreferenceFragment())
+            addFrag(PreferenceFragment().also {
+                it.arguments = bundleOf(Pair("isFirst", true))
+            })
         }
 
 
@@ -268,9 +273,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    public fun setLang(locale:String)
+    public fun setLang(pLocale:String)
     {
-        val locale = Locale(locale)
+        val locale = Locale(pLocale)
         Locale.setDefault(locale)
         val config = Configuration()
         config.locale = locale
@@ -278,6 +283,7 @@ class MainActivity : AppCompatActivity() {
             config,
             baseContext.resources.displayMetrics
         )
+        sharedPreferences?.edit()?.putString(Constants.LANG,pLocale)?.apply()
     //   recreate()
 
     }

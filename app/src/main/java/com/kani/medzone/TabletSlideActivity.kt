@@ -3,11 +3,19 @@ package com.kani.medzone
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.google.api.Http
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.SetOptions
+import com.google.gson.JsonObject
+import com.kani.medzone.NotificationObj.Companion.sendNotification
 import com.kani.medzone.db.TabletEntry
 import com.kani.medzone.ui.adapter.TabletsNotificationAdapter
 import com.kani.medzone.vm.ActivityViewModel
@@ -15,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_tablet_slide.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import java.text.DateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -31,6 +40,9 @@ class TabletSlideActivity : AppCompatActivity(),ItemClickListener {
     var  sharedPreferences:SharedPreferences?=null
     var tabletsNotificationAdapter:TabletsNotificationAdapter?=null
     var duration:String?=null
+    private val requestQueue: RequestQueue by lazy {
+        Volley.newRequestQueue(this.applicationContext)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tablet_slide)
@@ -65,6 +77,7 @@ class TabletSlideActivity : AppCompatActivity(),ItemClickListener {
             isWritten = true
             finish()
         }
+        writeToFirebase()//TODO remove later
     }
 
     private fun writeToFirebase() {
@@ -86,15 +99,49 @@ class TabletSlideActivity : AppCompatActivity(),ItemClickListener {
                 .document(sharedPreferences?.getString(Constants.PHONE_NUMBER,"")!!).set(tabmap,
                     SetOptions.merge())
 
-        if(skipped.isNotEmpty())
-        {
-            sendNotification()
-        }
-        }
+//        if(skipped.isNotEmpty())
+//        {
+            val topic = "/topics/${Constants.SKIP}" //topic has to match what the receiver subscribed to
 
-    private fun sendNotification() {
+            val notification = JSONObject()
+            val notifcationBody = JSONObject()
 
+            try {
+                notifcationBody.put("title", "Tablets Skipped")
+                notifcationBody.put(Constants.PHONE_NUMBER, sharedPreferences?.getString(Constants.PHONE_NUMBER,"0"))
+                notifcationBody.put("message", "${sharedPreferences?.getString(Constants.NAME," ")} has skipped the $duration tablets")   //Enter your notification message
+                notification.put("to", topic)
+                notification.put("data", notifcationBody)
+
+        }catch (e:Exception){
+
+        }
+            sendNotification(notification)
+//        }
     }
+
+    private fun sendNotification(notification:JSONObject) {
+
+        val jsonObjectRequest = object : JsonObjectRequest(
+            Method.POST,"https://fcm.googleapis.com/fcm/send", notification,
+            Response.Listener<JSONObject> { response ->
+                Log.i("TAG", "onResponse: $response")
+            },
+            Response.ErrorListener {
+                Log.i("TAG", "onErrorResponse: Didn't work")
+            }) {
+
+            override fun getHeaders(): Map<String, String> {
+                val params = HashMap<String, String>()
+                params["Authorization"] = Constants.serverKey
+                params["Content-Type"] =  "application/json"
+                return params
+            }
+        }
+        requestQueue.add(jsonObjectRequest)
+    }
+
+
 
 
     override fun onStop() {

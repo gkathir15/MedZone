@@ -1,5 +1,6 @@
 package com.kani.medzone.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import com.kani.medzone.vm.ActivityViewModel
 import com.kani.medzone.ItemClickListener
 import com.kani.medzone.MainActivity
 import com.kani.medzone.R
+import com.kani.medzone.TabletSlideActivity
 import com.kani.medzone.db.TabletEntry
 import com.kani.medzone.db.Tablets
 import com.kani.medzone.ui.adapter.TabletsListAdapter
@@ -52,6 +54,8 @@ class TabletListFragment : Fragment(),ItemClickListener {
         addTablet.setOnClickListener {
             childFragmentManager.beginTransaction().add(R.id.root, AddTabletsFragment()).commitNow()
             addTablet.visibility = GONE
+
+
         }
         tabletAdapter = TabletsListAdapter(ArrayList<Tablets>(0),this)
 

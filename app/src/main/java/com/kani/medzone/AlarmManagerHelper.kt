@@ -37,7 +37,7 @@ class AlarmManagerHelper {
             val alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
                 intent.putExtra(Constants.callFOR, Constants.SYNC)
                 PendingIntent.getBroadcast(context,
-                    3, intent, 0)
+                    3, intent, FLAG_ONE_SHOT)
             }
             alarmMgr.setRepeating(
                 AlarmManager.RTC_WAKEUP,
