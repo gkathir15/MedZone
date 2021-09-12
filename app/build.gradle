@@ -31,7 +31,7 @@ android {
             buildConfigField "boolean", "isAdmin", "false"
         }
         debug{
-            buildConfigField "boolean", "isAdmin", "true"
+            buildConfigField "boolean", "isAdmin", "false"
         }
     }
     compileOptions {

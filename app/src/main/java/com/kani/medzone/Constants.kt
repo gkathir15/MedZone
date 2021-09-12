@@ -1,5 +1,7 @@
 package com.kani.medzone
 
+import java.lang.StringBuilder
+
 /**Created by Guru kathir.J on 17,May,2021 **/
 class Constants {
 
@@ -188,8 +190,8 @@ class Constants {
 
         val hemogramUnits = arrayOf(
             "g/dL or g/L",
-            "106 /µL or ×1012 /L",
-            "103/µL or ×109 /L",
+            "106 /µL or ×${"1012".toSuperScript()} /L",
+            "103/µL or ×${"109".toSuperScript()} /L",
             "%",
             "mm/hr",
             "mg/L or µg/mL"
@@ -230,20 +232,26 @@ class Constants {
             "µg/dL or nmol/L"
         )
 
-        fun Int.toSuperScript(): String {
-            return when (this) {
-                0 -> "\u2070"
-                1 -> "\u00B9"
-                2 -> "\u00B2"
-                3 -> "\u00B3"
-                4 -> "\u2074"
-                5 -> "\u2075"
-                6 -> "\u2076"
-                7 -> "\u2077"
-                8 -> "\u2078"
-                9 -> "\u2079"
-                else -> ""
+        fun String.toSuperScript(): String {
+
+            val charArr = this.toCharArray()
+            val buff = StringBuilder(" ")
+            for(c in charArr) {
+                when (c) {
+                    '0' -> buff.append("\u2070")
+                    '1' -> buff.append("\u00B9")
+                    '2' -> buff.append("\u00B2")
+                    '3' -> buff.append("\u00B3")
+                    '4' -> buff.append("\u2074")
+                    '5' -> buff.append("\u2075")
+                    '6' -> buff.append("\u2076")
+                    '7' -> buff.append("\u2077")
+                    '8' -> buff.append("\u2078")
+                    '9' -> buff.append("\u2079")
+                    else -> buff.append("")
+                }
             }
+            return  buff.toString()
 
         }
     }

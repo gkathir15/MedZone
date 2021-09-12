@@ -51,15 +51,7 @@ class MainActivity : AppCompatActivity() {
             dstore = datastore?.data?.first()?.toPreferences()
         }
 
-        pageAdapter = ViewPagerAdapter(supportFragmentManager)
-        pageAdapter?.also{
-            it.addFragment(getString(R.string.title_home), DashboardFragment())
-            it.addFragment(getString(R.string.tablet), TabletListFragment())
-            it.addFragment(getString(R.string.investigation), InvestigationFragment())
-            it.addFragment(getString(R.string.calendar), CalendarFragment())
-        }
-        pager.adapter = pageAdapter
-        tab_layout.setupWithViewPager(pager)
+
 
         model.datastore = datastore
 
@@ -112,7 +104,7 @@ class MainActivity : AppCompatActivity() {
     {
         pager.visibility = VISIBLE
         tab_layout.visibility = VISIBLE
-        root.visibility = GONE
+       // root.visibility = GONE
         removeFrag(frag)
     }
 
@@ -150,9 +142,18 @@ class MainActivity : AppCompatActivity() {
             addFrag(SignUpFragment())
 
         } else {
+            pageAdapter = ViewPagerAdapter(supportFragmentManager)
+            pageAdapter?.also{
+                it.addFragment(getString(R.string.title_home), DashboardFragment())
+                it.addFragment(getString(R.string.tablet), TabletListFragment())
+                it.addFragment(getString(R.string.investigation), InvestigationFragment())
+                it.addFragment(getString(R.string.calendar), CalendarFragment())
+            }
+            pager.adapter = pageAdapter
+            tab_layout.setupWithViewPager(pager)
             pager.visibility = VISIBLE
             tab_layout.visibility = VISIBLE
-            root.visibility = GONE
+          // root.visibility = GONE
 
 
             if (sharedPreferences?.getBoolean(

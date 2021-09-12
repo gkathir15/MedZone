@@ -31,25 +31,7 @@
 
 
     </androidx.appcompat.widget.Toolbar>
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/pager"
-        android:layout_below="@id/toolbar"
-        android:layout_width="match_parent"
-         android:visibility="gone"
 
-        android:layout_height="match_parent">
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            app:tabTextColor="@color/md_blue_400"
-            app:tabSelectedTextColor="@color/md_blue_A700"
-            app:tabIndicatorColor="@color/md_blue_A700"
-            android:layout_height="wrap_content" />
-
-
-    </androidx.viewpager.widget.ViewPager>
 
 
     <FrameLayout
@@ -57,7 +39,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:visibility="visible" />
+        android:visibility="visible" >
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pager"
+
+            android:layout_width="match_parent"
+            android:visibility="gone"
+
+            android:layout_height="match_parent">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                app:tabTextColor="@color/md_blue_400"
+                app:tabSelectedTextColor="@color/md_blue_A700"
+                app:tabIndicatorColor="@color/md_blue_A700"
+                android:layout_height="wrap_content" />
+
+
+        </androidx.viewpager.widget.ViewPager>
+    </FrameLayout>
 
 
 
