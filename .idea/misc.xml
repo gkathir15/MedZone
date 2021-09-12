@@ -10,7 +10,9 @@
         <entry key="..\:/automation_test_flutter/MedZone/app/src/main/res/layout/activity_tablet_slide.xml" value="0.20260416666666667" />
         <entry key="..\:/automation_test_flutter/MedZone/app/src/main/res/layout/admin_detail_layout.xml" value="0.40802213001383125" />
         <entry key="..\:/automation_test_flutter/MedZone/app/src/main/res/layout/fragment_add_tablets.xml" value="0.32653985507246375" />
+        <entry key="..\:/automation_test_flutter/MedZone/app/src/main/res/layout/fragment_calendar.xml" value="0.2318840579710145" />
         <entry key="..\:/automation_test_flutter/MedZone/app/src/main/res/layout/fragment_dashboard.xml" value="0.2318840579710145" />
+        <entry key="..\:/automation_test_flutter/MedZone/app/src/main/res/layout/fragment_event_entry.xml" value="0.2318840579710145" />
         <entry key="..\:/automation_test_flutter/MedZone/app/src/main/res/layout/fragment_preference.xml" value="0.17350557244174267" />
         <entry key="..\:/automation_test_flutter/MedZone/app/src/main/res/layout/fragment_signup.xml" value="0.17350557244174267" />
         <entry key="..\:/automation_test_flutter/MedZone/app/src/main/res/layout/tablet_frm_notification.xml" value="0.21195652173913043" />

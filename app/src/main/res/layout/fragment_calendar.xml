@@ -12,18 +12,21 @@
         android:id="@+id/calendar"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/calendarDataRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/calendarDataRecycler"
-        android:layout_below="@id/calendar"/>
+        android:layout_below="@id/calendar" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/addEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/addEvent"
-        android:text="@string/add_event"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         android:drawableStart="@drawable/ic_baseline_add_24"
-        android:layout_margin="30dp"/>
+        android:text="@string/add_event" />
 </RelativeLayout>
