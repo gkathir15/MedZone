@@ -45,11 +45,11 @@ class DashboardFragment : Fragment(),ItemClickListener {
                             time.get(Calendar.MONTH)==(Calendar.getInstance().get(Calendar.MONTH)+1)))
         } as ArrayList<TabletEntry>?
         upcomingRecycler.also {
-                it.adapter =   TabletsNotificationAdapter(tabs?.filter { it.status ==0 } as ArrayList<TabletEntry>, this)
+                it.adapter =   TabletsNotificationAdapter(tabs?.filter { it.status ==0 }?.distinctBy { it.tablet.tabletid } as ArrayList<TabletEntry>, this)
             it.layoutManager = LinearLayoutManager(requireContext(),RecyclerView.HORIZONTAL,false)
         }
         snoozedRecycler.also {
-            it.adapter =   TabletsNotificationAdapter(tabs?.filter { it.status!=1&&it.status!=0 } as ArrayList<TabletEntry>, this)
+            it.adapter =   TabletsNotificationAdapter(tabs?.filter { it.status!=1&&it.status!=0 } ?.distinctBy { it.tablet.tabletid } as ArrayList<TabletEntry>, this)
             it.layoutManager = LinearLayoutManager(requireContext(),RecyclerView.HORIZONTAL,false)
         }
     }

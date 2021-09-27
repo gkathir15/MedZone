@@ -147,6 +147,7 @@ class MainActivity : AppCompatActivity() {
                 it.addFragment(getString(R.string.tablet), TabletListFragment())
                 it.addFragment(getString(R.string.investigation), InvestigationFragment())
                 it.addFragment(getString(R.string.calendar), CalendarFragment())
+             //   it.addFragment(getString(R.string.history), History())
             }
             pager.adapter = pageAdapter
             tab_layout.setupWithViewPager(pager)

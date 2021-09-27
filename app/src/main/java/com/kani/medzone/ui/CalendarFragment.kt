@@ -70,7 +70,7 @@ class CalendarFragment : Fragment() {
                 {
                     i.detail?.let { list.add(it) }
                 }
-                 homeViewModel.tabEntryList.value?.forEach {
+                 homeViewModel.tabEntryList.value?.distinctBy { it.tablet.tabletid }?.forEach {
                      it.tablet.name?.let { it1 -> list.add(it1) }
                  }
 
