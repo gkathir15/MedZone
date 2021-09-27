@@ -11,6 +11,7 @@ import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.media.AudioAttributesCompat.USAGE_NOTIFICATION_COMMUNICATION_INSTANT
 
 /**Created by Guru kathir.J on 10,September,2021 **/
 class NotificationObj {
@@ -43,18 +44,19 @@ class NotificationObj {
 
             val bitmap = applicationContext.vectorToBitmap(R.drawable.ic_baseline_medical_services_24)
             val titleNotification = applicationContext.getString(R.string.app_name)
-            val subtitleNotification = duRATION
+
+
             val pendingIntent =
                 PendingIntent.getActivity(applicationContext, 0, notificationIntent, 0)
             val notification = NotificationCompat.Builder(applicationContext,
                 SetAlarmsWork.NOTIFICATION_CHANNEL
             )
                 .setLargeIcon(bitmap).setSmallIcon(R.drawable.ic_baseline_medical_services_24)
-                .setContentTitle(titleNotification).setContentText(subtitleNotification)
+                .setContentTitle(titleNotification).setContentText(duRATION)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setSound(RingtoneManager.getDefaultUri(AudioAttributes.USAGE_NOTIFICATION_COMMUNICATION_INSTANT))
                 .addAction(NotificationCompat.Action(R.drawable.ic_baseline_done_all_24,"Take all",takeAll))
                 .addAction(NotificationCompat.Action(R.drawable.ic_baseline_snooze_24,"Snooze",snooze))
                 .addAction(NotificationCompat.Action(R.drawable.ic_baseline_skip_next_24,"Skip",skip))
@@ -67,8 +69,7 @@ class NotificationObj {
 
                 val ringtoneManager =
                     RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-                val audioAttributes = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build()
+                val audioAttributes = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION_COMMUNICATION_INSTANT).build()
 
                 val channel =
                     NotificationChannel(SetAlarmsWork.NOTIFICATION_CHANNEL, SetAlarmsWork.NOTIFICATION_NAME, NotificationManager.IMPORTANCE_HIGH)

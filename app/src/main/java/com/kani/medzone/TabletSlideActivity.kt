@@ -49,19 +49,19 @@ class TabletSlideActivity : AppCompatActivity(),ItemClickListener {
         sharedPreferences =  getSharedPreferences("medzone", MODE_PRIVATE)
         duration = intent.getStringExtra(Constants.DURATION)
         GlobalScope.launch {
-            model.fetchTabletEntry()
+            model.fetchTabletEntry().runCatching {  }
             launch(Dispatchers.Main){
              tabs = model.tabEntryList.value?.filter {
                  val time = Calendar.getInstance()
                  time.timeInMillis = it.date!!
-                 (it.status == 0 &&
+                 (
                          (time.get(Calendar.DATE)==Calendar.getInstance().get(Calendar.DATE)&&
                                  time.get(Calendar.MONTH)==(Calendar.getInstance().get(Calendar.MONTH)+1))&&(
-                         (duration.equals(Constants.BREAKFAST,true) && it.tablet.morning == 1) ||
-                                 (duration.equals( Constants.LUNCH,true) && it.tablet.noon == 2) ||
-                                 (duration.equals( Constants.EVENING,true)&& it.tablet.evening == 3) ||
-                                 (duration.equals(Constants.DINNER,true) && it.tablet.night == 4)
-                         ))
+                         (duration.equals(Constants.BREAKFAST,true) && it.duration == 1) ||
+                                 (duration.equals( Constants.LUNCH,true) && it.duration == 2) ||
+                                 (duration.equals( Constants.EVENING,true)&& it.duration == 3) ||
+                                 (duration.equals(Constants.DINNER,true) && it.duration == 4)
+                         )&&it.status == 0)
              } as ArrayList<TabletEntry>?
 
                // tabs = tabs?.toSet()?.toList() as ArrayList<TabletEntry>
@@ -77,7 +77,7 @@ class TabletSlideActivity : AppCompatActivity(),ItemClickListener {
             isWritten = true
             finish()
         }
-        writeToFirebase()//TODO remove later
+     //   writeToFirebase()//TODO remove later
     }
 
     private fun writeToFirebase() {

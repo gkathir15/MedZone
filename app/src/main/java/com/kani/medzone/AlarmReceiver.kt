@@ -27,10 +27,12 @@ class AlarmReceiver : BroadcastReceiver() {
             }
         } else
             if (intent.getStringExtra(Constants.callFOR).equals(Constants.TABLET_ALARM)) {
-                NotificationObj.sendNotification(
-                    intent.getIntExtra("ID", 0), intent.getStringExtra(Constants.callFOR),
-                    intent.getStringExtra(Constants.DURATION), context
-                )
+                intent.getStringExtra(Constants.callFOR)?.let {
+                    NotificationObj.sendNotification(
+                        intent.getIntExtra("ID", 0), it,
+                        intent.getStringExtra(Constants.DURATION)!!, context
+                    )
+                }
 
 
             } else if (intent.getStringExtra(Constants.callFOR).equals(Constants.SYNC))

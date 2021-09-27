@@ -37,7 +37,7 @@ import androidx.core.os.bundleOf
 
 class MainActivity : AppCompatActivity() {
     private var pageAdapter: ViewPagerAdapter? = null
-    private var sharedPreferences: SharedPreferences? = null
+    var sharedPreferences: SharedPreferences? = null
     private var datastore: DataStore<Preferences>?=null
     private var dstore:Preferences?=null
     private val model by viewModels<ActivityViewModel>()
@@ -92,9 +92,8 @@ class MainActivity : AppCompatActivity() {
             pager.visibility = GONE
             tab_layout.visibility = GONE
             root.visibility = VISIBLE
-            addFrag(PreferenceFragment().also {
-                it.arguments = bundleOf(Pair("isFirst", true))
-            })
+            addFrag(PreferenceFragment()
+            )
         }
 
 
@@ -172,10 +171,6 @@ class MainActivity : AppCompatActivity() {
                         it.set(Calendar.HOUR_OF_DAY, 7)
                         it.set(Calendar.MINUTE, 5)
                     }
-                    SetAllAlarmWork.scheduleDailyNotification(
-                        cal.timeInMillis - System.currentTimeMillis(),
-                        this@MainActivity
-                    )
                         AlarmManagerHelper.setAlarmForSync(this@MainActivity)
                         dstore?.let { AlarmManagerHelper.setDailyAlarms(it,this@MainActivity) }
                     sharedPreferences?.edit()?.putBoolean(Constants.isAlarmSET, true)?.apply()

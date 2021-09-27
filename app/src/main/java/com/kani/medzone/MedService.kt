@@ -36,7 +36,7 @@ class MedService : Service() {
         startForeground(1, startCountDownNotification(this,callFor).build())
 
 
-        Log.e("Medservice",callFor)
+       // Log.e("Medservice",callFor)
 
         if (callFor == Constants.setNewAlarm ||
             callFor==Constants.resetAlarmPostBoot||callFor==Constants.SYNC) {

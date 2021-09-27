@@ -1,5 +1,6 @@
 package com.kani.medzone
 
+import android.app.NotificationChannel
 import android.content.Intent
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -61,6 +62,14 @@ class FCMMessengingService: FirebaseMessagingService() {
             .setContentIntent(pendingIntent)
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val channel =
+
+                NotificationChannel(SetAlarmsWork.NOTIFICATION_CHANNEL, SetAlarmsWork.NOTIFICATION_NAME, NotificationManager.IMPORTANCE_HIGH)
+
+        notificationManager.createNotificationChannel(channel)
+        notificationBuilder.setChannelId(channel.id)
+        }
         notificationManager.notify(0, notificationBuilder.build())
     }
 
