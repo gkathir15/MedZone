@@ -1,20 +1,16 @@
 package com.kani.medzone.ui
 
 import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
 import android.app.Dialog
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.kani.medzone.vm.ActivityViewModel
@@ -24,10 +20,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import kotlinx.android.synthetic.main.fragment_calendar.*
-import android.widget.TimePicker
 
-import android.app.TimePickerDialog
-import android.app.TimePickerDialog.OnTimeSetListener
 import com.kani.medzone.vm.EventEntry
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -39,6 +32,8 @@ class CalendarFragment : Fragment() {
 
     private val homeViewModel by activityViewModels<ActivityViewModel>()
     private var list = ArrayList<String>()
+    private var eventDateList = ArrayList<CalendarDay>()
+    private var tabletDateList = ArrayList<CalendarDay>()
     private  var stringadapter:StringAdapter?=null
     private  var eventList = ArrayList<EventEntry>()
 
@@ -69,9 +64,13 @@ class CalendarFragment : Fragment() {
                 for(i in eventList)
                 {
                     i.detail?.let { list.add(it) }
+                    val date1 = Date(i.time)
+                    eventDateList.add(CalendarDay.from(date1.year,date1.month,date1.date))
                 }
                  homeViewModel.tabEntryList.value?.distinctBy { it.tablet.tabletid }?.forEach {
                      it.tablet.name?.let { it1 -> list.add(it1) }
+                     val date1 = Date(it.date!!)
+                     tabletDateList.add(CalendarDay.from(date1.year,date1.month,date1.date))
                  }
 
                 stringadapter?.notifyDataSetChanged()
@@ -94,10 +93,15 @@ class CalendarFragment : Fragment() {
                  for(i in eventList)
                  {
                      i.detail?.let { list.add(it) }
+
                  }
                  homeViewModel.tabEntryList.value?.forEach {
-                     it.tablet.name?.let { it1 -> list.add(it1) }
+                     it.tablet.name?.let { it1 -> list.add(it1)
+                     }
                  }
+
+                 calendar.addDecorators(EventDecorator(R.color.calendar_highlighted_day_bg,eventDateList),TabletDecorator(R.color.calendar_selected_day_bg,tabletDateList)
+                 )
 
                  stringadapter?.notifyDataSetChanged()
              })
@@ -109,7 +113,7 @@ class CalendarFragment : Fragment() {
 
     }
     fun showAddEventDialog()
-    {       val event=EventEntry(0,null,null,true)
+    {       val event=EventEntry(0,0,null,true)
         val builder = Dialog(requireContext())
         builder.setCanceledOnTouchOutside(true)
         builder.setCanceledOnTouchOutside(true)

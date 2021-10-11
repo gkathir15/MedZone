@@ -37,13 +37,18 @@ class DashboardFragment : Fragment(),ItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val tabs = model.tabEntryList.value?.filter {
+        var tabs = model.tabEntryList.value?.filter {
             val time = Calendar.getInstance()
             time.timeInMillis = it.date!!
             (
                     (time.get(Calendar.DATE)== Calendar.getInstance().get(Calendar.DATE)&&
                             time.get(Calendar.MONTH)==(Calendar.getInstance().get(Calendar.MONTH)+1)))
         } as ArrayList<TabletEntry>?
+        model.tabEntryList.observe(viewLifecycleOwner,{
+            tabs = it
+            upcomingRecycler.adapter?.notifyDataSetChanged()
+            snoozedRecycler.adapter?.notifyDataSetChanged()
+        })
         upcomingRecycler.also {
                 it.adapter =   TabletsNotificationAdapter(tabs?.filter { it.status ==0 }?.distinctBy { it.tablet.tabletid } as ArrayList<TabletEntry>, this)
             it.layoutManager = LinearLayoutManager(requireContext(),RecyclerView.HORIZONTAL,false)
@@ -68,7 +73,6 @@ class DashboardFragment : Fragment(),ItemClickListener {
     }
 
     override fun personSelected(snap: DocumentSnapshot) {
-        TODO("Not yet implemented")
     }
 
 

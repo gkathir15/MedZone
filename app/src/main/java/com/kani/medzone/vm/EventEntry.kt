@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class EventEntry(
     @PrimaryKey(autoGenerate = true)val id:Int,
-    @ColumnInfo(name = "time")var time:Long?,
+    @ColumnInfo(name = "time")var time:Long,
     @ColumnInfo(name = "detail")var detail:String?,
     @ColumnInfo(name = "isNotify")var isNotify:Boolean?
 )

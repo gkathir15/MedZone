@@ -53,6 +53,7 @@
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:visibility="gone"
+                app:tabTextAppearance="@style/MineCustomTabText"
                 app:tabTextColor="@color/md_blue_400"
                 app:tabSelectedTextColor="@color/md_blue_A700"
                 app:tabIndicatorColor="@color/md_blue_A700"
