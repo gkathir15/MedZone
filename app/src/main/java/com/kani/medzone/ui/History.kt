@@ -14,6 +14,7 @@ import com.kani.medzone.ItemClickListener
 import com.kani.medzone.MainActivity
 import com.kani.medzone.R
 import com.kani.medzone.db.TabletEntry
+import com.kani.medzone.db.Tablets
 import com.kani.medzone.ui.adapter.AdminDetailAdapter
 import com.kani.medzone.ui.adapter.DocumentAdapter
 import com.kani.medzone.vm.ActivityViewModel
@@ -78,6 +79,10 @@ class History : Fragment() , ItemClickListener {
     }
 
     override fun skipTablet(tab: TabletEntry, pos: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun deleteTab(tab: Tablets, pos: Int) {
         TODO("Not yet implemented")
     }
 

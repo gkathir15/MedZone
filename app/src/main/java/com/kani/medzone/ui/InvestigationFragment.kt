@@ -18,6 +18,8 @@ import com.kani.medzone.db.Report
 import com.kani.medzone.ui.adapter.ReportsAdapter
 import com.kani.medzone.vm.ActivityViewModel
 import kotlinx.android.synthetic.main.fragment_investigation.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -89,7 +91,7 @@ class InvestigationFragment : Fragment() {
         childFragmentManager.beginTransaction().remove(addInvestigationFrag).commit()
         investigationList.visibility= View.VISIBLE
         addInvestigation.visibility = View.VISIBLE
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             homeViewModel.fetchInvestigation()
         }
     }

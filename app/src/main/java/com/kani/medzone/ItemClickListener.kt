@@ -2,6 +2,7 @@ package com.kani.medzone
 
 import com.google.firebase.firestore.DocumentSnapshot
 import com.kani.medzone.db.TabletEntry
+import com.kani.medzone.db.Tablets
 
 /**Created by Guru kathir.J on 22,May,2021 **/
 abstract interface ItemClickListener {
@@ -12,6 +13,7 @@ abstract interface ItemClickListener {
 
     fun takeTablet(tab:TabletEntry,pos:Int)
     fun skipTablet(tab:TabletEntry,pos:Int)
+    fun deleteTab(tab: Tablets, pos:Int)
 
     fun personSelected(snap:DocumentSnapshot)
 }

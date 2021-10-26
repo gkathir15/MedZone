@@ -22,6 +22,8 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import kotlinx.android.synthetic.main.fragment_calendar.*
 
 import com.kani.medzone.vm.EventEntry
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
@@ -65,12 +67,12 @@ class CalendarFragment : Fragment() {
                 {
                     i.detail?.let { list.add(it) }
                     val date1 = Date(i.time)
-                    eventDateList.add(CalendarDay.from(date1.year,date1.month,date1.date))
+                    eventDateList.add(CalendarDay.from(date1.year,date1.month+1,date1.date))
                 }
                  homeViewModel.tabEntryList.value?.distinctBy { it.tablet.tabletid }?.forEach {
                      it.tablet.name?.let { it1 -> list.add(it1) }
                      val date1 = Date(it.date!!)
-                     tabletDateList.add(CalendarDay.from(date1.year,date1.month,date1.date))
+                     tabletDateList.add(CalendarDay.from(date1.year,date1.month+1,date1.date))
                  }
 
                 stringadapter?.notifyDataSetChanged()
@@ -89,7 +91,7 @@ class CalendarFragment : Fragment() {
 
              homeViewModel.eventEntryList.observe(viewLifecycleOwner,{
                  eventList = it
-
+list.clear()
                  for(i in eventList)
                  {
                      i.detail?.let { list.add(it) }
@@ -100,8 +102,11 @@ class CalendarFragment : Fragment() {
                      }
                  }
 
-                 calendar.addDecorators(EventDecorator(R.color.calendar_highlighted_day_bg,eventDateList),TabletDecorator(R.color.calendar_selected_day_bg,tabletDateList)
+                 calendar.addDecorators(
+                     EventDecorator(R.color.calendar_highlighted_day_bg,eventDateList),
+                     TabletDecorator(R.color.calendar_selected_day_bg,tabletDateList)
                  )
+
 
                  stringadapter?.notifyDataSetChanged()
              })
@@ -125,8 +130,11 @@ class CalendarFragment : Fragment() {
 
         doneBtn.setOnClickListener {
             event.detail = eventEt.text.toString()
-            GlobalScope.launch {
-                homeViewModel.databaseInstance().eventEntryDao().insert(event)
+            CoroutineScope(Dispatchers.IO).launch {
+                homeViewModel.databaseInstance().eventEntryDao().also {
+                    it.insert(event)
+                    it.getAll()
+                }
             }
             builder.dismiss()
         }

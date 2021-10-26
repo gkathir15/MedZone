@@ -15,6 +15,7 @@ import com.kani.medzone.ItemClickListener
 import com.kani.medzone.MainActivity
 import com.kani.medzone.R
 import com.kani.medzone.db.TabletEntry
+import com.kani.medzone.db.Tablets
 import com.kani.medzone.ui.adapter.TabletsNotificationAdapter
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import java.util.*
@@ -70,6 +71,10 @@ class DashboardFragment : Fragment(),ItemClickListener {
     }
 
     override fun skipTablet(tab: TabletEntry, pos: Int) {
+    }
+
+    override fun deleteTab(tab: Tablets, pos: Int) {
+        TODO("Not yet implemented")
     }
 
     override fun personSelected(snap: DocumentSnapshot) {

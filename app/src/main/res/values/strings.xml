@@ -84,6 +84,8 @@
     <string name="hindi">Hindi</string>
     <string name="select_date">Select Date</string>
     <string name="summary">Summary</string>
+    <string name="cancel">cancel</string>
+    <string name="ok">ok</string>
 
 
 </resources>

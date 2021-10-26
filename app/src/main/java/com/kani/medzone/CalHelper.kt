@@ -7,6 +7,7 @@ import android.graphics.Canvas
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.intPreferencesKey
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**Created by Guru kathir.J on 22,May,2021 **/
@@ -71,21 +72,28 @@ class CalHelper {
 
     fun Int.hoursToAM_PM(mins: Int):String
     {
-        val value = StringBuilder()
-        if(this<12)
-        {
-            value.append(this)
-            value.append(":")
-            value.append(mins)
-            value.append( " AM")
-        }else{
-            value.append(this-12)
-            value.append(":")
-            value.append(mins)
-            value.append( " PM")
-        }
+        val dateFormat = SimpleDateFormat("hh.mm aa")
+        val formattedDate: String = dateFormat.format(Date().also {
+            it.hours = this
+            it.minutes = mins
+        }).toString()
+        println(formattedDate)
 
-        return value.toString()
+//        val value = StringBuilder()
+//        if(this<12)
+//        {
+//            value.append(this)
+//            value.append(":")
+//            value.append(mins)
+//            value.append( " AM")
+//        }else{
+//            value.append(this-12)
+//            value.append(":")
+//            value.append(mins)
+//            value.append( " PM")
+//        }
+
+        return formattedDate
     }
 
 fun Context.vectorToBitmap(drawableId: Int): Bitmap? {

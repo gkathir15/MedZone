@@ -32,6 +32,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.*
 import android.content.res.Configuration
+import kotlinx.coroutines.CoroutineScope
 
 
 class MainActivity : AppCompatActivity() {
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
       datastore=  (application as AppState).datastore
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             dstore = datastore?.data?.first()?.toPreferences()
         }
 
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 false
             ) == true
         ) {
-            GlobalScope.launch {
+            CoroutineScope(Dispatchers.IO).launch {
                 model.let {
                     it.fetchTabletsList()
                     it.fetchInvestigation()
@@ -160,7 +161,7 @@ class MainActivity : AppCompatActivity() {
                     false
                 ) == true && sharedPreferences?.getBoolean(Constants.isAlarmSET, false) == false
             ) {
-                GlobalScope.launch {
+                CoroutineScope(Dispatchers.IO).launch {
                     dstore = datastore?.data?.first()?.toPreferences()
 
                     launch (Dispatchers.Main){

@@ -8,6 +8,7 @@ import com.kani.medzone.Constants
 import com.kani.medzone.ItemClickListener
 import com.kani.medzone.databinding.ActivityDetailAdminBinding
 import com.kani.medzone.db.TabletEntry
+import com.kani.medzone.db.Tablets
 import com.kani.medzone.ui.adapter.AdminDetailAdapter
 
 class DetailAdminActivity : AppCompatActivity(), ItemClickListener {
@@ -56,6 +57,10 @@ class DetailAdminActivity : AppCompatActivity(), ItemClickListener {
     }
 
     override fun skipTablet(tab: TabletEntry, pos: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun deleteTab(tab: Tablets, pos: Int) {
         TODO("Not yet implemented")
     }
 

@@ -15,6 +15,7 @@ import com.kani.medzone.MainActivity
 import com.kani.medzone.R
 import com.kani.medzone.hoursToAM_PM
 import kotlinx.android.synthetic.main.fragment_preference.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
@@ -38,7 +39,7 @@ class PreferenceFragment : Fragment() {
 
 
         if (arguments?.getBoolean("isFirst") == true) {
-            GlobalScope.launch(Dispatchers.IO) {
+            CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
                 (requireActivity() as MainActivity).getDataStore()?.edit {
                     it[intPreferencesKey(Constants.BREAKFAST_Hour)] = 9
                     it[intPreferencesKey(Constants.BREAKFAST_min)] = 30
@@ -58,7 +59,7 @@ class PreferenceFragment : Fragment() {
 
         }
 
-        GlobalScope.launch(Dispatchers.Main) {
+        CoroutineScope(Dispatchers.IO).launch(Dispatchers.Main) {
             (requireActivity() as MainActivity).getDataStore()?.data?.first()?.also {
                 breakfastTime.text = ("BreakFast ${
                     it.get(intPreferencesKey(Constants.BREAKFAST_Hour)) ?: 9.hoursToAM_PM(
@@ -111,7 +112,7 @@ class PreferenceFragment : Fragment() {
                 requireContext(),
                 { view, hourOfDay, minute ->
                     breakfastTime.text = ("BreakFast alarm time ${hourOfDay.hoursToAM_PM(minute)}")
-                    GlobalScope.launch {
+                    CoroutineScope(Dispatchers.IO).launch {
                         (requireActivity() as MainActivity).getDataStore()?.edit {
                             it[intPreferencesKey(Constants.BREAKFAST_Hour)] = hourOfDay
                             it[intPreferencesKey(Constants.BREAKFAST_min)] = minute
@@ -131,7 +132,7 @@ class PreferenceFragment : Fragment() {
                 requireContext(),
                 { _, hourOfDay, minute ->
                     lunchTime.text = ("Lunch ${hourOfDay.hoursToAM_PM(minute)}")
-                    GlobalScope.launch {
+                    CoroutineScope(Dispatchers.IO).launch {
 
                         (requireActivity() as MainActivity).getDataStore()?.edit {
                             it[intPreferencesKey(Constants.LUNCH_Hour)] = hourOfDay
@@ -151,7 +152,7 @@ class PreferenceFragment : Fragment() {
                 requireContext(),
                 { view, hourOfDay, minute ->
                     dinerTime.text = ("Dinner ${hourOfDay.hoursToAM_PM(minute)}")
-                    GlobalScope.launch {
+                    CoroutineScope(Dispatchers.IO).launch {
                         (requireActivity() as MainActivity).getDataStore()?.edit {
                             it[intPreferencesKey(Constants.DINNER_Hour)] = hourOfDay
                             it[intPreferencesKey(Constants.DINNER_min)] = minute
@@ -171,7 +172,7 @@ class PreferenceFragment : Fragment() {
                 requireContext(),
                 { view, hourOfDay, minute ->
                     eveningTime.text = ("Evening ${hourOfDay.hoursToAM_PM(minute)}")
-                    GlobalScope.launch {
+                    CoroutineScope(Dispatchers.IO).launch {
                         (requireActivity() as MainActivity).getDataStore()?.edit {
                             it[intPreferencesKey(Constants.EVENING_Hour)] = hourOfDay
                             it[intPreferencesKey(Constants.EVENING_Min)] = minute
@@ -263,7 +264,7 @@ class PreferenceFragment : Fragment() {
         numberPicker.wrapSelectorWheel = false
         val alertDialog: AlertDialog = d.create()
         numberPicker.setOnValueChangedListener { _, i, i1 ->
-            GlobalScope.launch {
+            CoroutineScope(Dispatchers.IO).launch {
                 (requireActivity() as MainActivity).getDataStore()?.edit {
                     it[intPreferencesKey(Constants.SNOOZETIME)] = i1
                 }

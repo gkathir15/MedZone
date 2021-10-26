@@ -17,6 +17,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.gson.JsonObject
 import com.kani.medzone.NotificationObj.Companion.sendNotification
 import com.kani.medzone.db.TabletEntry
+import com.kani.medzone.db.Tablets
 import com.kani.medzone.ui.adapter.TabletsNotificationAdapter
 import com.kani.medzone.vm.ActivityViewModel
 import kotlinx.android.synthetic.main.activity_tablet_slide.*
@@ -213,6 +214,10 @@ class TabletSlideActivity : AppCompatActivity(),ItemClickListener {
         GlobalScope.launch {
             model.editTabletEntry(tab)
         }
+    }
+
+    override fun deleteTab(tab: Tablets, pos: Int) {
+        TODO("Not yet implemented")
     }
 
     override fun personSelected(snap: DocumentSnapshot) {

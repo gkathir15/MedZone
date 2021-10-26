@@ -1,5 +1,6 @@
 package com.kani.medzone.ui.adapter
 
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,7 @@ class TabletsListAdapter(private var tabletsList:ArrayList<Tablets>,
         val withfood = v.findViewById<RadioButton>(R.id.withfood)
         val afterFood = v.findViewById<RadioButton>(R.id.afterFood)
         val beforeFood = v.findViewById<RadioButton>(R.id.beforefood)
+        val delete = v.findViewById<ImageView>(R.id.delete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TabletViewHolder {
@@ -49,6 +51,9 @@ class TabletsListAdapter(private var tabletsList:ArrayList<Tablets>,
             Glide.with(holder.itemView.context).load(tabletsList[position].imageUrl).into(holder.tabImageView)
         holder.tabImageView.setOnClickListener {
             listener.expandImageClicked(tabletsList[position].imageUrl)
+        }
+        holder.delete.setOnClickListener {
+            listener.deleteTab(tabletsList[position],position)
         }
             holder.tv_drugName.text = tabletsList[position].name
             holder.mg.text = ("${tabletsList[position].mgDosage} Mg")
