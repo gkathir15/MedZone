@@ -105,7 +105,7 @@ class TabletListFragment : Fragment(), ItemClickListener {
                         CoroutineScope(IO).launch {
                             homeViewModel.databaseInstance().tabletsDao().delete(tab)
                             homeViewModel.databaseInstance().tabEntryDao().getAll().filter { it.tablet.tabletid == tab.tabletid }
-                                ?.forEach {
+                                .forEach {
                                     homeViewModel.databaseInstance().tabEntryDao().delete(it)
                                 }
                             homeViewModel.fetchTabletsList()

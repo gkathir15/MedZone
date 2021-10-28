@@ -48,6 +48,22 @@ class CalendarFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_calendar, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        for(i in eventList)
+        {
+            i.detail?.let { list.add(it) }
+            val date1 = Date(i.time)
+            eventDateList.add(CalendarDay.from(date1.year,date1.month+1,date1.date))
+        }
+        homeViewModel.tabEntryList.value?.distinctBy { it.tablet.tabletid }?.forEach {
+            it.tablet.name?.let { it1 -> list.add(it1) }
+            val date1 = Date(it.date!!)
+            tabletDateList.add(CalendarDay.from(date1.year,date1.month+1,date1.date))
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
